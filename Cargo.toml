@@ -1,0 +1,39 @@
+
+# ##########################################################
+# Package
+
+[package]
+
+authors = [
+	"Matt Wilson <matthew@synesis.com.au>",
+]
+description = "Command-Line Argument Sorting and Parsing (for Rust)"
+edition = "2021"
+homepage = "https://github.com/synesissoftware/Diagnosticism.Rust"
+license = "BSD-3-Clause"
+name = "diagnosticism"
+readme = "README.md"
+version = "0.0.0"
+
+
+# ##########################################################
+# Targets
+
+
+# ##########################################################
+# Features
+
+[features]
+
+
+# ##########################################################
+# Dependencies
+
+[dependencies]
+
+
+[dev-dependencies]
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+

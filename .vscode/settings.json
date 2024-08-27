@@ -1,0 +1,32 @@
+{
+	"[json]": {
+		"editor.tabSize": 2,
+	},
+	"[python]": {
+		"editor.rulers": [ 61, 76 ],
+		"editor.tabSize": 2,
+	},
+	"[ruby]": {
+		"editor.rulers": [ 61, 76 ],
+		"editor.tabSize": 2,
+	},
+	"[rust]": {
+		"editor.insertSpaces": false,
+		"editor.rulers": [ 61, 76 ],
+		"editor.tabSize": 4,
+	},
+	"[toml]": {
+		"editor.insertSpaces": false,
+		"editor.tabSize": 2,
+	},
+	"cmake.configureOnOpen": false,
+	"editor.detectIndentation": false,
+	"editor.insertSpaces": false,
+	"editor.tabSize": 2,
+	"editor.renderWhitespace": "all",
+	"files.trimTrailingWhitespace": true,
+	"git.mergeEditor": false,
+	"rust-analyzer.cargo.noDefaultFeatures": true,
+	"rust-analyzer.completion.autoimport.enable": false,
+	"rust-analyzer.showUnlinkedFileNotification": false,
+}
