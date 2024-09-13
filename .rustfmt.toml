@@ -33,7 +33,7 @@ format_macro_matchers=true
 format_strings=false
 group_imports="Preserve"
 hard_tabs=false
-hide_parse_errors=false
+# hide_parse_errors=false
 ignore=[
 
 ]
@@ -60,6 +60,7 @@ reorder_modules=true
 # report_fixme="Always"
 # report_todo="Never"
 # required_version="????"
+show_parse_errors=true
 # single_line_if_else_max_width=0 # deprecated
 skip_children=false
 space_after_colon=true

@@ -19,6 +19,14 @@ version = "0.0.0"
 # ##########################################################
 # Targets
 
+[lib]
+name = "diagnosticism"
+path = "src/lib.rs"
+
+[[bin]]
+name = "ellipsis"
+path = "examples/ellipsis.rs"
+
 
 # ##########################################################
 # Features
@@ -33,6 +41,8 @@ version = "0.0.0"
 
 
 [dev-dependencies]
+
+criterion = "*"
 
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
