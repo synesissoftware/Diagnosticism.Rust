@@ -1,4 +1,4 @@
-# Diagnostisicm.Rust <!-- omit in toc -->
+# Diagnosticism.Rust <!-- omit in toc -->
 
 Diagnosticism, for Rust
 
@@ -15,11 +15,11 @@ T.B.C.
 - [Components](#components)
 - [Examples](#examples)
 - [Project Information](#project-information)
-  - [Where to get help](#where-to-get-help)
-  - [Contribution guidelines](#contribution-guidelines)
-  - [Dependencies](#dependencies)
-  - [Related projects](#related-projects)
-  - [License](#license)
+	- [Where to get help](#where-to-get-help)
+	- [Contribution guidelines](#contribution-guidelines)
+	- [Dependencies](#dependencies)
+	- [Related projects](#related-projects)
+	- [License](#license)
 
 
 ## Installation
@@ -43,12 +43,12 @@ T.B.C.
 
 ### Where to get help
 
-[GitHub Page](https://github.com/synesissoftware/Diagnostisicm.Rust "GitHub Page")
+[GitHub Page](https://github.com/synesissoftware/Diagnosticism.Rust "GitHub Page")
 
 
 ### Contribution guidelines
 
-Defect reports, feature requests, and pull requests are welcome on https://github.com/synesissoftware/Diagnostisicm.Rust.
+Defect reports, feature requests, and pull requests are welcome on https://github.com/synesissoftware/Diagnosticism.Rust.
 
 
 ### Dependencies
@@ -63,7 +63,7 @@ T.B.C.
 
 ### License
 
-**Diagnostisicm.Rust** is released under the 3-clause BSD license. See [LICENSE](./LICENSE) for details.
+**Diagnosticism.Rust** is released under the 3-clause BSD license. See [LICENSE](./LICENSE) for details.
 
 
 <!-- ########################### end of file ########################### -->
