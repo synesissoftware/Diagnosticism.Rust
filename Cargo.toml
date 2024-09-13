@@ -23,7 +23,11 @@ version = "0.0.0"
 name = "diagnosticism"
 path = "src/lib.rs"
 
-[[bin]]
+[[example]]
+name = "debug-squeezer"
+path = "examples/debug_squeezer.rs"
+
+[[example]]
 name = "ellipsis"
 path = "examples/ellipsis.rs"
 
@@ -42,7 +46,7 @@ path = "examples/ellipsis.rs"
 
 [dev-dependencies]
 
-criterion = "*"
+criterion = { version = "*" }
 
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
