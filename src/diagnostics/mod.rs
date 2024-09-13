@@ -12,6 +12,7 @@ macro_rules! declare_and_publish {
 
 declare_and_publish!(debug_squeezer, DebugSqueezer);
 declare_and_publish!(ellipsis, Ellipsis);
+declare_and_publish!(password, Password);
 
 
 // ///////////////////////////// end of file //////////////////////////// //

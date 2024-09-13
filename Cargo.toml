@@ -13,7 +13,7 @@ homepage = "https://github.com/synesissoftware/Diagnosticism.Rust"
 license = "BSD-3-Clause"
 name = "diagnosticism"
 readme = "README.md"
-version = "0.0.0"
+version = "0.0.1"
 
 
 # ##########################################################
@@ -30,6 +30,10 @@ path = "examples/debug_squeezer.rs"
 [[example]]
 name = "ellipsis"
 path = "examples/ellipsis.rs"
+
+[[example]]
+name = "password"
+path = "examples/password.rs"
 
 
 # ##########################################################
