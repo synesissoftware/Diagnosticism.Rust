@@ -1,1 +1,6 @@
-mod diagnostisicm {}
+// lib.rs
+
+pub mod diagnostics;
+
+
+// ///////////////////////////// end of file //////////////////////////// //
