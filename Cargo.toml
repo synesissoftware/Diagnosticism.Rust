@@ -7,9 +7,9 @@
 authors = [
 	"Matt Wilson <matthew@synesis.com.au>",
 ]
-description = "Command-Line Argument Sorting and Parsing (for Rust)"
+description = "Diagnosticism, for Rust"
 edition = "2021"
-homepage = "https://github.com/synesissoftware/Diagnosticism.Rust"
+repository = "https://github.com/synesissoftware/Diagnosticism.Rust"
 license = "BSD-3-Clause"
 name = "diagnosticism"
 readme = "README.md"

@@ -1,7 +1,7 @@
 
 # rustfmt.toml for Diagnosticism.Rust
 #
-# configured for cargo-fmt 1.83.0-nightly
+# configured for cargo-fmt 1.84.0-nightly
 
 # array_width=60 # deprecated
 # attr_fn_like_width=70 # deprecated
