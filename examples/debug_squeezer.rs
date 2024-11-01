@@ -99,7 +99,7 @@ struct WithSqueezer {
 }
 
 impl WithSqueezer {
-    pub fn new(squeeze_width : usize) -> Self {
+    fn new(squeeze_width : usize) -> Self {
         let (btm, hm) = make_maps();
 
         Self {
