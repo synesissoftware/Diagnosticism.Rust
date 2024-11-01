@@ -1,4 +1,4 @@
-// examples/debug_squeezer.rs
+// examples/debug_squeezer.rs : example program illustrating use of `DebugSqueezer`
 
 #![allow(dead_code)]
 
