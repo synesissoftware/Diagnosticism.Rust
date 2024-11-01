@@ -7,7 +7,7 @@
 authors = [
 	"Matt Wilson <matthew@synesis.com.au>",
 ]
-description = "Command-Line Argument Sorting and Parsing (for Rust)"
+description = "Miscellaneous discrete and simple diagnostics facilities (for Rust)"
 edition = "2021"
 homepage = "https://github.com/synesissoftware/Diagnosticism.Rust"
 license = "BSD-3-Clause"
@@ -40,6 +40,18 @@ path = "examples/password.rs"
 # Features
 
 [features]
+
+# General features:
+#
+# - "_NEVER_TO_BE_ENABLED" - this is a placeholder feature and must NEVER be specified;
+# - "null-feature" - a feature that has no effect (and, thus, is useful for simplifying driver scripts);
+
+_NEVER_TO_BE_ENABLED = []
+null-feature = []
+
+
+# Crate-specific features:
+#
 
 
 # ##########################################################
