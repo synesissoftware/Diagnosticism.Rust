@@ -2,6 +2,8 @@
 
 Diagnosticism, for Rust
 
+[![Crates.io](https://img.shields.io/crates/v/regex.svg)](https://crates.io/crates/Diagnosticism.Rust)
+
 
 ## Introduction
 
