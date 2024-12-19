@@ -26,32 +26,29 @@ struct LargeInternal {
 
 #[derive(Debug)]
 struct Thing1 {
-    name : String,
+    name :      String,
     internals : Option<LargeInternal>,
 }
 
 struct Thing2 {
-    name : String,
+    name :      String,
     internals : Option<LargeInternal>,
 }
 
 impl std::fmt::Debug for Thing2 {
     fn fmt(
         &self,
-        f: &mut std::fmt::Formatter<'_>,
+        f : &mut std::fmt::Formatter<'_>,
     ) -> std::fmt::Result {
-
         if f.alternate() {
-            f
-                .debug_struct("Thing2")
+            f.debug_struct("Thing2")
                 .field("name", &self.name)
                 .field("internals", &self.internals)
                 .finish()
         } else {
             let ellipsis = Ellipsis::default();
 
-            f
-                .debug_struct("Thing2")
+            f.debug_struct("Thing2")
                 .field("name", &self.name)
                 .field("internals", &ellipsis)
                 .finish()
@@ -63,7 +60,7 @@ impl std::fmt::Debug for Thing2 {
 fn main() {
     let internals_clone = {
         let thing1 = Thing1 {
-            name : "i-am-a-public-thing".into(),
+            name :      "i-am-a-public-thing".into(),
             internals : Some(LargeInternal {
                 f1 : -123,
                 f2 : f32::MIN,
@@ -101,7 +98,7 @@ fn main() {
 
     {
         let thing2 = Thing2 {
-            name : "i-am-a-public-thing".into(),
+            name :      "i-am-a-public-thing".into(),
             internals : Some(internals_clone),
         };
 

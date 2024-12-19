@@ -4,9 +4,7 @@
 
 // Illustrates the use of [`DebugSqueezer`].
 
-use diagnosticism::diagnostics::{
-    DebugSqueezer,
-};
+use diagnosticism::diagnostics::DebugSqueezer;
 
 use std::{
     collections::{
@@ -124,14 +122,8 @@ impl std_fmt::Debug for WithSqueezer {
         f : &mut std_fmt::Formatter<'_>,
     ) -> std_fmt::Result {
         f.debug_struct("WithSqueezer")
-            .field(
-                "btm",
-                &DebugSqueezer::new(&self.btm, self.squeeze_width),
-            )
-            .field(
-                "hm",
-                &DebugSqueezer::new(&self.hm, self.squeeze_width),
-            )
+            .field("btm", &DebugSqueezer::new(&self.btm, self.squeeze_width))
+            .field("hm", &DebugSqueezer::new(&self.hm, self.squeeze_width))
             .finish()
     }
 }
