@@ -13,7 +13,8 @@ homepage = "https://github.com/synesissoftware/Diagnosticism.Rust"
 license = "BSD-3-Clause"
 name = "diagnosticism"
 readme = "README.md"
-version = "0.0.1"
+repository = "https://github.com/synesissoftware/Diagnosticism.Rust"
+version = "0.0.2"
 
 
 # ##########################################################
@@ -23,9 +24,20 @@ version = "0.0.1"
 name = "diagnosticism"
 path = "src/lib.rs"
 
+[[bench]]
+name = "doomgram"
+harness = false
+
 [[example]]
 name = "debug-squeezer"
 path = "examples/debug_squeezer.rs"
+
+[[example]]
+name = "doomgram"
+path = "examples/doomgram.rs"
+required-features = [
+	"test-doomgram",
+]
 
 [[example]]
 name = "ellipsis"
@@ -53,12 +65,17 @@ null-feature = []
 # Crate-specific features:
 #
 
+test-doomgram = [
+	"dep:rand",
+]
+
 
 # ##########################################################
 # Dependencies
 
 [dependencies]
 
+rand = { version = "0.8", optional = true }
 
 [dev-dependencies]
 
