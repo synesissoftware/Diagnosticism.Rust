@@ -30,12 +30,10 @@ macro_rules! function_fully_qualified_name {
 
         let name : &'static str = type_name_of(f);
 
-        let name : &'static str = unsafe {
-            let p = name.as_ptr();
-
-            let u = std::slice::from_raw_parts(p, name.len() - 3);
-
-            std::mem::transmute(u)
+        let name = if name.ends_with("::f") {
+            &name[..name.len() - 3]
+        } else {
+            name
         };
 
         name
@@ -53,12 +51,10 @@ macro_rules! function_name_only {
 
         let name : &'static str = type_name_of(f);
 
-        let name : &'static str = unsafe {
-            let p = name.as_ptr();
-
-            let u = std::slice::from_raw_parts(p, name.len() - 3);
-
-            std::mem::transmute(u)
+        let name = if name.ends_with("::f") {
+            &name[..name.len() - 3]
+        } else {
+            name
         };
 
         match &name[..name.len()].rfind(':') {
