@@ -14,7 +14,7 @@ license = "BSD-3-Clause"
 name = "diagnosticism"
 readme = "README.md"
 repository = "https://github.com/synesissoftware/Diagnosticism.Rust"
-version = "0.0.2"
+version = "0.1.0"
 
 
 # ##########################################################
@@ -42,6 +42,10 @@ required-features = [
 [[example]]
 name = "ellipsis"
 path = "examples/ellipsis.rs"
+
+[[example]]
+name = "flf"
+path = "examples/flf.rs"
 
 [[example]]
 name = "password"
