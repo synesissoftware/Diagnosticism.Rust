@@ -84,7 +84,7 @@ macro_rules! function_name_only {
 #[macro_export]
 macro_rules! filelinefunction {
     () => {{
-        format!("{}:{}", fileline!(), function_name_only!())
+        format!("{}:{}", $crate::fileline!(), $crate::function_name_only!())
     }}
 }
 
@@ -92,7 +92,7 @@ macro_rules! filelinefunction {
 #[macro_export]
 macro_rules! filelinefunction_fully_qualified_name {
     () => {{
-        format!("{}:{}", fileline!(), function_fully_qualified_name!())
+        format!("{}:{}", $crate::fileline!(), $crate::function_fully_qualified_name!())
     }}
 }
 
