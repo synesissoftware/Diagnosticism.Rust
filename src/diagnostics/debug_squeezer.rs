@@ -3,14 +3,52 @@
 use std::fmt as std_fmt;
 
 
-/// Structure to assist with restricting the length of `Debug` forms of
+/// Structure to assist with restricting the length of [Debug] forms of
 /// fields within a given width.
+///
+/// When dealing with complex data structures, the [Debug] form can be
+/// somewhat overwhelming, and unhelpful to debugging/tracing efforts. In
+/// such cases, [DebugSqueezer] can be used to limit the length of the
+/// output, as in the following example.
+///
+/// # Examples
+///
+/// ```
+/// struct WithSqueezer {
+///   btm : BTreeMap<i32, NestedMap>,
+///   hm :  HashMap<i32, NestedMap>,
+/// }
+///
+/// impl std_fmt::Debug for WithSqueezer {
+/// fn fmt(
+///     &self,
+///     f : &mut std_fmt::Formatter<'_>,
+/// ) -> std_fmt::Result {
+///     f.debug_struct("WithSqueezer")
+///         .field("btm", &DebugSqueezer::new(&self.btm, 20))
+///         .field("hm", &DebugSqueezer::new(&self.hm, 20))
+///         .finish()
+/// }
+///
+/// fn main() {
+///   let wsq = WithSqueezer { /* . . . some complex amount of contents ... */ }
+///
+///   println!("wsq={wsq:?}");
+/// }
+/// ```
+///
+/// This produces output such as:
+/// ```
+/// WithSqueezer { btm: {0: {1: {2: 3,  ...}, hm: {11: {12: {13:  ...} }
+/// ```
+///
 pub struct DebugSqueezer<'a> {
     debugee : &'a dyn std_fmt::Debug,
     squeeze_width : usize,
 }
 
 // API functions
+
 impl<'a> DebugSqueezer<'a> {
     pub fn new(
         debugee : &'a dyn std_fmt::Debug,
@@ -24,10 +62,12 @@ impl<'a> DebugSqueezer<'a> {
 }
 
 // Mutating methods
+
 impl<'a> DebugSqueezer<'_> {
 }
 
 // Nonmutating methods
+
 impl<'a> DebugSqueezer<'_> {
 }
 

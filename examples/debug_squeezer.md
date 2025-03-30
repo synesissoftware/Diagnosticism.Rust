@@ -1,3 +1,13 @@
+# Diagnosticism.Rust Example - **debug_squeezer**
+
+## Summary
+
+An example using **Diagnosticism.Rust**'s `DebugSqueezer` type to simplify the `Debug` form of a user-defined type.
+
+
+## Source
+
+```Rust
 // examples/debug_squeezer.rs : example program illustrating use of `DebugSqueezer`
 
 #![allow(dead_code)]
@@ -198,3 +208,33 @@ fn main() {
         println!("`Debug` form of `WithSqueezer` ({squeeze_width}) is '{w_sqz:?}'");
     }
 }
+```
+
+
+## Running and output
+
+When executed, as in:
+
+```bash
+$ cargo run --example debug-squeezer
+```
+
+it gives the output:
+
+```
+`Debug` form of `WithoutSqueezer` is 'WithoutSqueezer { btm: {0: {1: {4: 5, 2: 3}, 6: {7: 8, 9: 10}}}, hm: {11: {12: {13: 14, 15: 16}, 17: {18: 19, 20: 21}}} }'
+`Debug` form of `WithSqueezer` (50) is 'WithSqueezer { btm: {0: {1: {4: 5, 2: 3}, 6: {7: 8, 9: 10}}}, hm: {11: {12: {15: 16, 13: 14}, 17: {18: 19, 20: 21}}} }'
+`Debug` form of `WithSqueezer` (20) is 'WithSqueezer { btm: {0: {1: {2: 3,  ...}, hm: {11: {12: {13:  ...} }'
+`Debug` form of `WithSqueezer` (10) is 'WithSqueezer { btm: {0: { ...}, hm: {11:  ...} }'
+`Debug` form of `WithSqueezer` (8) is 'WithSqueezer { btm: {0: ...}, hm: {11 ...} }'
+`Debug` form of `WithSqueezer` (7) is 'WithSqueezer { btm: {0 ...}, hm: {1 ...} }'
+`Debug` form of `WithSqueezer` (6) is 'WithSqueezer { btm: { ...}, hm: { ...} }'
+`Debug` form of `WithSqueezer` (5) is 'WithSqueezer { btm: {0:..., hm: {11... }'
+`Debug` form of `WithSqueezer` (4) is 'WithSqueezer { btm: {0:..., hm: {11... }'
+`Debug` form of `WithSqueezer` (3) is 'WithSqueezer { btm: ..., hm: ... }'
+`Debug` form of `WithSqueezer` (2) is 'WithSqueezer { btm: ..., hm: ... }'
+```
+
+
+<!-- ########################### end of file ########################### -->
+

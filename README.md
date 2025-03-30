@@ -78,10 +78,10 @@ No public macros are defined at this time.
 
 The following structures are defined:
 
-* `DebugSqueezer` - used to assist with restricting the length of `Debug` forms of fields within a given width;
-* `DoomGram` - a **D**ecimal **O**rder-**O**f-**M**agnitude histo**G**ram structure that records efficiently duration values in the orders of magnitude 1ns+, 10ns+, 100ns+, 1µs+, ..., 10s+, 100s+ and provides a mechanism for displaying this histogram in a simple single 12-character display, which is useful for logging cumulative execution costs of components in long-running performance-sensitive applications;
-* `Ellipsis` - provides strings such as `"********"` to be used for fields that are sensitive and whose `Debug` forms are not to be expressed;
-* `Password` - Simple type that provides the string `"..."` to be used for fields whose `Debug` forms are not to be expressed;
+* `DebugSqueezer` - used to assist with restricting the length of `Debug` forms of fields within a given width. See the example [**examples/debug_squeezer.rs**](./examples/debug_squeezer.rs);
+* `DoomGram` - a **D**ecimal **O**rder-**O**f-**M**agnitude histo**G**ram structure that records efficiently duration values in the orders of magnitude 1ns+, 10ns+, 100ns+, 1µs+, ..., 10s+, 100s+ and provides a mechanism for displaying this histogram in a simple single 12-character display, which is useful for logging cumulative execution costs of components in long-running performance-sensitive applications. See the example [**examples/doomgram.rs**](./examples/doomgram.rs);
+* `Ellipsis` - provides strings such as `"********"` to be used for fields that are sensitive and whose `Debug` forms are not to be expressed. See the example [**examples/ellipsis.rs**](./examples/ellipsis.rs);
+* `Password` - Simple type that provides the string `"..."` to be used for fields whose `Debug` forms are not to be expressed. See the example [**examples/password.rs**](./examples/password.rs);
 
 
 ### Traits
@@ -90,6 +90,9 @@ No public traits are defined at this time.
 
 
 ## Examples
+
+Examples are provided in the ```examples``` directory, along with a markdown description for each. A detailed list TOC of them is provided in [EXAMPLES.md](./EXAMPLES.md).
+
 
 ### Example - `DoomGram`
 
