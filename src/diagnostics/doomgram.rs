@@ -114,10 +114,12 @@ pub struct DoomGram {
 }
 
 // API functions
+
 impl DoomGram {
 }
 
 // Mutating methods
+
 impl DoomGram {
     /// Clears the instance, resetting all values to the equivalent of a
     /// newly constructed instance.
@@ -211,6 +213,7 @@ impl DoomGram {
 }
 
 // Non-mutating methods
+
 impl DoomGram {
     /// Number of events counted
     pub fn event_count(&self) -> usize {
@@ -335,6 +338,7 @@ impl DoomGram {
 }
 
 // Implementation
+
 impl DoomGram {
     fn push_event_time_ns_(
         &mut self,
