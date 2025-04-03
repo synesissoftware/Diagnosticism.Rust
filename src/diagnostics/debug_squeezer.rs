@@ -14,34 +14,52 @@ use std::fmt as std_fmt;
 /// # Examples
 ///
 /// ```
+/// // NOTE: this example way more complex than it needs because 1.88+ requires the documentation code to compile (and I don't yet know how to suppress that)
+/// use diagnosticism::diagnostics::DebugSqueezer;
+/// use std::collections::{ BTreeMap, HashMap };
+///
+/// #[derive(Debug)]
+/// struct NestedMap;
+///
 /// struct WithSqueezer {
 ///   btm : BTreeMap<i32, NestedMap>,
 ///   hm :  HashMap<i32, NestedMap>,
 /// }
 ///
-/// impl std_fmt::Debug for WithSqueezer {
-/// fn fmt(
+/// impl std::fmt::Debug for WithSqueezer {
+///   fn fmt(
 ///     &self,
-///     f : &mut std_fmt::Formatter<'_>,
-/// ) -> std_fmt::Result {
+///     f : &mut std::fmt::Formatter<'_>,
+///   ) -> std::fmt::Result {
 ///     f.debug_struct("WithSqueezer")
-///         .field("btm", &DebugSqueezer::new(&self.btm, 20))
-///         .field("hm", &DebugSqueezer::new(&self.hm, 20))
-///         .finish()
+///       .field("btm", &DebugSqueezer::new(&self.btm, 20))
+///       .field("hm", &DebugSqueezer::new(&self.hm, 20))
+///       .finish()
+///   }
+/// }
+///
+/// impl WithSqueezer {
+///   fn new_with_deep_and_broad_contents() -> Self {
+///     // in reality, this would produce deep and broad context (see above NOTE)
+///     Self {
+///       btm : Default::default(),
+///       hm : Default::default(),
+///     }
+///   }
 /// }
 ///
 /// fn main() {
-///   let wsq = WithSqueezer { /* . . . some complex amount of contents ... */ }
+///   let wsq = WithSqueezer::new_with_deep_and_broad_contents();
 ///
 ///   println!("wsq={wsq:?}");
 /// }
 /// ```
 ///
 /// This produces output such as:
-/// ```
-/// WithSqueezer { btm: {0: {1: {2: 3,  ...}, hm: {11: {12: {13:  ...} }
-/// ```
 ///
+/// ``
+/// WithSqueezer { btm: {0: {1: {2: 3,  ...}, hm: {11: {12: {13:  ...} }
+/// ``
 pub struct DebugSqueezer<'a> {
     debugee : &'a dyn std_fmt::Debug,
     squeeze_width : usize,
