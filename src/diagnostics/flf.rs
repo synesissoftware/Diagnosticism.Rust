@@ -93,9 +93,32 @@ macro_rules! filelinefunction_fully_qualified_name {
 }
 
 
+/// T.B.C.
+#[macro_export]
+macro_rules! type_name_only {
+    ($type_name:tt) => {{
+        let name : &'static str = std::any::type_name::<$type_name>();
+
+        match &name[..name.len()].rfind(':') {
+            Some(pos) => &name[pos + 1..name.len()],
+            None => &name[..name.len()],
+        }
+    }};
+}
+
+
+
 #[cfg(test)]
 mod tests {
     #![allow(non_snake_case)]
+
+    struct SomeCustomType {}
+
+    impl SomeCustomType {
+        fn indirect_name() -> &'static str {
+            type_name_only!(Self)
+        }
+    }
 
 
     #[test]
@@ -112,5 +135,41 @@ mod tests {
         let actual = filelinefunction!();
 
         assert_eq!(expected, actual);
+    }
+
+    #[test]
+    fn TEST_type_name_only_WITH_SomeCustomType() {
+
+        {
+            let expected = "SomeCustomType";
+            let actual = type_name_only!(SomeCustomType);
+
+            assert_eq!(expected, actual);
+        }
+
+        {
+            let expected = "SomeCustomType";
+            let actual = SomeCustomType::indirect_name();
+
+            assert_eq!(expected, actual);
+        }
+    }
+
+    #[test]
+    fn TEST_type_name_only_WITH_STANDARD_TYPES() {
+
+        {
+            let expected = "String";
+            let actual = type_name_only!(String);
+
+            assert_eq!(expected, actual);
+        }
+
+        {
+            let expected = "i32";
+            let actual = type_name_only!(i32);
+
+            assert_eq!(expected, actual);
+        }
     }
 }
