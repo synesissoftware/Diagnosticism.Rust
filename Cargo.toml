@@ -79,7 +79,7 @@ test-doomgram = [
 
 [dependencies]
 
-rand = { version = "0.8", optional = true }
+rand = { version = "0.9", optional = true }
 
 [dev-dependencies]
 
