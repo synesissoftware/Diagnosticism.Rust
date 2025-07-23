@@ -2,7 +2,10 @@
 
 use std::{
     str as std_str,
-    time::Duration,
+    time::{
+        Duration,
+        Instant,
+    },
 };
 
 
@@ -450,11 +453,47 @@ impl DoomGram {
 // NONE DEFINED AT THIS TIME
 
 
+pub fn doom_scope<F, R>(
+    dg  : &mut DoomGram,
+    work : F
+) -> (
+    R, // work_result
+    u64, // measured_elapsed_time_in_ns
+)
+where
+    F : FnOnce() -> R
+{
+    let before = Instant::now();
+
+    let work_result = work();
+
+    let after = Instant::now();
+
+    let measured_elapsed_time_in_ns = (after - before).as_nanos() as u64;
+
+    dg.push_event_time_ns(measured_elapsed_time_in_ns);
+
+    (
+        work_result,
+        measured_elapsed_time_in_ns,
+    )
+}
+
+
 #[cfg(test)]
 mod tests {
     #![allow(non_snake_case)]
 
-    use super::DoomGram;
+    use super::{
+        DoomGram,
+        doom_scope,
+    };
+
+    use std::{
+        thread as std_thread,
+        time::Duration,
+    };
+
 
     #[test]
     fn TEST_DoomGram_Default() {
@@ -887,6 +926,34 @@ mod tests {
             let r = dg.push_event_time_us(1);
 
             assert!(!r);
+        }
+    }
+
+
+    #[test]
+    fn TEST_doom_scope_1() {
+        {
+            let mut dg = DoomGram::default();
+
+            let (_, t) = doom_scope(&mut dg, || {});
+
+            assert_eq!(dg.event_time_total_raw(), t);
+        }
+
+        {
+            let mut dg = DoomGram::default();
+
+            let (r, t) = doom_scope(&mut dg, || {
+
+                std_thread::sleep(Duration::from_micros(1));
+
+                return 123;
+            });
+
+            assert_eq!(123, r);
+            assert_eq!(dg.event_time_total_raw(), t);
+
+            assert!(t >= 1_000);
         }
     }
 }
