@@ -16,15 +16,16 @@
 macro_rules! fileline {
     () => {
         concat!(file!(), ":", line!())
-    }
+    };
 }
 
 /// T.B.C.
 #[macro_export]
 macro_rules! function_fully_qualified_name {
     () => {{
-        fn f() {}
-        fn type_name_of<T>(_: T) -> &'static str {
+        fn f() {
+        }
+        fn type_name_of<T>(_ : T) -> &'static str {
             std::any::type_name::<T>()
         }
 
@@ -44,8 +45,9 @@ macro_rules! function_fully_qualified_name {
 #[macro_export]
 macro_rules! function_name_only {
     () => {{
-        fn f() {}
-        fn type_name_of<T>(_: T) -> &'static str {
+        fn f() {
+        }
+        fn type_name_of<T>(_ : T) -> &'static str {
             std::any::type_name::<T>()
         }
 
@@ -81,7 +83,7 @@ macro_rules! function_name_only {
 macro_rules! filelinefunction {
     () => {{
         format!("{}:{}", $crate::fileline!(), $crate::function_name_only!())
-    }}
+    }};
 }
 
 /// T.B.C.
@@ -89,7 +91,7 @@ macro_rules! filelinefunction {
 macro_rules! filelinefunction_fully_qualified_name {
     () => {{
         format!("{}:{}", $crate::fileline!(), $crate::function_fully_qualified_name!())
-    }}
+    }};
 }
 
 
@@ -139,7 +141,6 @@ mod tests {
 
     #[test]
     fn TEST_type_name_only_WITH_SomeCustomType() {
-
         {
             let expected = "SomeCustomType";
             let actual = type_name_only!(SomeCustomType);
@@ -157,7 +158,6 @@ mod tests {
 
     #[test]
     fn TEST_type_name_only_WITH_STANDARD_TYPES() {
-
         {
             let expected = "String";
             let actual = type_name_only!(String);

@@ -1,7 +1,9 @@
 // src/diagnostics/doomgram.rs : `DoomGram`
 
-use std::time::Duration;
-use std::str as std_str;
+use std::{
+    str as std_str,
+    time::Duration,
+};
 
 
 // TODO: move into a grams-utils place

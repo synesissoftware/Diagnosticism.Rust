@@ -23,7 +23,6 @@ mod implementation {
 
 
 pub fn BENCHMARK_DoomGram_Default(c : &mut Criterion) {
-
     c.bench_function("`DoomGram::default()`", |b| {
         b.iter(|| {
             let dg = black_box(DoomGram::default());

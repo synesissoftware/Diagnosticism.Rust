@@ -31,7 +31,6 @@ fn fl_ln_fun_fqn() {
 }
 
 fn main() {
-
     eprintln!("");
     eprintln!("calling `fl()`:");
 
