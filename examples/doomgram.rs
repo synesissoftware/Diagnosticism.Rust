@@ -1,6 +1,9 @@
 // examples/doomgram.rs : example program illustrating use of `DoomGram`
 
-use diagnosticism::diagnostics::DoomGram;
+use diagnosticism::diagnostics::{
+    doom_scope,
+    DoomGram,
+};
 
 use rand::{
     rngs::StdRng,
@@ -33,19 +36,15 @@ fn main() {
                 }
             }
 
-            let before = Instant::now();
+            doom_scope(&mut dg, || {
+                if 0 != i % 2000 {
+                    thread::sleep(Duration::from_nanos(v as u64));
+                } else {
+                    // no wait, so should be very low ns
 
-            if 0 != i % 2000 {
-                thread::sleep(Duration::from_nanos(v as u64));
-            } else {
-                // no wait, so should be very low ns
-
-                thread::sleep(Duration::from_secs(0));
-            }
-
-            let after = Instant::now();
-
-            dg.push_event_duration(after - before);
+                    thread::sleep(Duration::from_secs(0));
+                }
+            });
         }
 
         // output results on second run through

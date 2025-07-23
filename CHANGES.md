@@ -1,6 +1,11 @@
 # Diagnosticism.Rust - CHANGES <!-- omit in toc -->
 
 
+## 0.2.0 - 24th July 2025
+
+* added `doom_scope<>()`;
+
+
 ## 0.1.0 - 29th March 2025
 
 * added file+line+function macros (initial implementations);
