@@ -3,7 +3,7 @@
 #![allow(dead_code)]
 
 
-use diagnosticism::diagnostics::Ellipsis;
+use diagnosticism::Ellipsis;
 
 use std::collections::{
     BTreeMap,

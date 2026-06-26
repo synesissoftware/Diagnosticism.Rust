@@ -13,7 +13,7 @@ An example using **Diagnosticism.Rust**'s `Ellipsis` type to shorten the `Debug`
 #![allow(dead_code)]
 
 
-use diagnosticism::diagnostics::Ellipsis;
+use diagnosticism::Ellipsis;
 
 use std::collections::{
     BTreeMap,

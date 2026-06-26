@@ -1,6 +1,6 @@
 // examples/doomgram.rs : example program illustrating use of `DoomGram`
 
-use diagnosticism::diagnostics::{
+use diagnosticism::{
     doom_scope,
     DoomGram,
 };

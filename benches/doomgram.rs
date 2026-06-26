@@ -4,7 +4,7 @@
 
 use std::hint::black_box;
 
-use diagnosticism::diagnostics::DoomGram;
+use diagnosticism::DoomGram;
 
 use criterion::{
     criterion_group,

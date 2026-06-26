@@ -14,7 +14,7 @@ An example using **Diagnosticism.Rust**'s `DebugSqueezer` type to simplify the `
 
 // Illustrates the use of [`DebugSqueezer`].
 
-use diagnosticism::diagnostics::DebugSqueezer;
+use diagnosticism::DebugSqueezer;
 
 use std::{
     collections::{

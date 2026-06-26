@@ -69,9 +69,9 @@ The following optional features are defined in **Cargo.toml**:
 
 ### Functions
 
-The following function is defined (in the [`diagnostics`](https://docs.rs/diagnosticism/latest/diagnosticism/diagnostics/index.html) module):
+The following function is re-exported at the crate root (and defined in the [`diagnostics`](https://docs.rs/diagnosticism/latest/diagnosticism/diagnostics/index.html) module):
 
-* `doom_scope()` - executes a closure, records its elapsed time in a [`DoomGram`](https://docs.rs/diagnosticism/latest/diagnosticism/diagnostics/struct.DoomGram.html), and returns the closure's result together with the measured elapsed time (in nanoseconds). See the example [**examples/doomgram.md**](./examples/doomgram.md);
+* `doom_scope()` - executes a closure, records its elapsed time in a [`DoomGram`](https://docs.rs/diagnosticism/latest/diagnosticism/struct.DoomGram.html), and returns the closure's result together with the measured elapsed time (in nanoseconds). See the example [**examples/doomgram.md**](./examples/doomgram.md);
 
 
 ### Macros
@@ -88,7 +88,7 @@ The following macros are defined at the crate root (e.g. `use diagnosticism::fil
 
 ### Structures
 
-The following structures are defined (in the [`diagnostics`](https://docs.rs/diagnosticism/latest/diagnosticism/diagnostics/index.html) module):
+The following structures are re-exported at the crate root (and defined in the [`diagnostics`](https://docs.rs/diagnosticism/latest/diagnosticism/diagnostics/index.html) module):
 
 * `DebugSqueezer` - used to assist with restricting the length of `Debug` forms of fields within a given width. See the example [**examples/debug_squeezer.md**](./examples/debug_squeezer.md);
 * `DoomGram` - a **D**ecimal **O**rder-**O**f-**M**agnitude histo**G**ram structure that records efficiently duration values in the orders of magnitude 1ns+, 10ns+, 100ns+, 1µs+, ..., 10s+, 100s+ and provides a mechanism for displaying this histogram in a simple single 12-character display, which is useful for logging cumulative execution costs of components in long-running performance-sensitive applications. See the example [**examples/doomgram.md**](./examples/doomgram.md);
@@ -121,7 +121,7 @@ The example program **doomgram** (in **examples** directory, built with feature 
 ```Rust
 // examples/doomgram.rs : example program illustrating use of `DoomGram`
 
-use diagnosticism::diagnostics::DoomGram;
+use diagnosticism::DoomGram;
 
 use rand::{
     rngs::StdRng,

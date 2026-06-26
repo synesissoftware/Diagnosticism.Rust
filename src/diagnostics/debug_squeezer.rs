@@ -15,7 +15,7 @@ use std::fmt as std_fmt;
 ///
 /// ```
 /// // NOTE: this example way more complex than it needs because 1.88+ requires the documentation code to compile (and I don't yet know how to suppress that)
-/// use diagnosticism::diagnostics::DebugSqueezer;
+/// use diagnosticism::DebugSqueezer;
 /// use std::collections::{ BTreeMap, HashMap };
 ///
 /// #[derive(Debug)]

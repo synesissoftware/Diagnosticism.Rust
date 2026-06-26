@@ -10,7 +10,7 @@ An example using **Diagnosticism.Rust**'s `DoomGram` type to represent the perfo
 ```Rust
 // examples/doomgram.rs : example program illustrating use of `DoomGram`
 
-use diagnosticism::diagnostics::DoomGram;
+use diagnosticism::DoomGram;
 
 use rand::{
     rngs::StdRng,

@@ -5,7 +5,7 @@
 //! (currently) aimed around supplementing [`Debug`](std::fmt::Debug),
 //! together with lightweight timing and source-location helpers.
 //!
-//! For example, [`Ellipsis`](diagnostics::Ellipsis) can be used in a custom
+//! For example, [`Ellipsis`] can be used in a custom
 //! [`Debug`](std::fmt::Debug) implementation to elide fields in terse
 //! (`"{:?}"`) output while still including them in alternate (`"{:#?}"`)
 //! form.
@@ -20,18 +20,21 @@
 //!
 //! # Components
 //!
-//! ## Types and functions ([`diagnostics`])
+//! ## Types and functions
 //!
-//! * [`DebugSqueezer`](diagnostics::DebugSqueezer) — restrict the length of
+//! The following are re-exported at the crate root (and also available in
+//! [`diagnostics`]):
+//!
+//! * [`DebugSqueezer`] — restrict the length of
 //!   [`Debug`](std::fmt::Debug) output for individual fields;
-//! * [`DoomGram`](diagnostics::DoomGram) — decimal order-of-magnitude
-//!   histogram with a compact 12-character strip for logging;
-//! * [`Ellipsis`](diagnostics::Ellipsis) — emit `"..."` for redacted
+//! * [`DoomGram`] — decimal order-of-magnitude histogram with a compact
+//!   12-character strip for logging;
+//! * [`Ellipsis`] — emit `"..."` for redacted
 //!   [`Debug`](std::fmt::Debug) fields;
-//! * [`Password`](diagnostics::Password) — emit a run of `*` characters for
-//!   sensitive [`Debug`](std::fmt::Debug) fields;
-//! * [`doom_scope`](diagnostics::doom_scope) — time a closure and record
-//!   the elapsed duration in a [`DoomGram`](diagnostics::DoomGram);
+//! * [`Password`] — emit a run of `*` characters for sensitive
+//!   [`Debug`](std::fmt::Debug) fields;
+//! * [`doom_scope`] — time a closure and record the elapsed duration in a
+//!   [`DoomGram`];
 //!
 //! ## Macros (crate root)
 //!
@@ -48,20 +51,19 @@
 //!
 //! ## Redacting [`Debug`](std::fmt::Debug) fields
 //!
-//! Both [`Ellipsis`](diagnostics::Ellipsis) and
-//! [`Password`](diagnostics::Password) are field placeholders in custom
+//! Both [`Ellipsis`] and [`Password`] are field placeholders in custom
 //! [`Debug`](std::fmt::Debug) implementations; neither reads the underlying
 //! value.
 //!
-//! * [`Ellipsis`](diagnostics::Ellipsis) — `"..."` for verbose,
-//!   non-sensitive elision; often used with `{:#?}` alternate output;
-//! * [`Password`](diagnostics::Password) — a masked `*` run for sensitive
-//!   values; use [`Password::new`](diagnostics::Password::new) for width;
+//! * [`Ellipsis`] — `"..."` for verbose, non-sensitive elision; often used
+//!   with `{:#?}` alternate output;
+//! * [`Password`] — a masked `*` run for sensitive values; use
+//!   [`Password::new`] for width;
 //!
 //! # Examples
 //!
 //! ```
-//! use diagnosticism::diagnostics::Ellipsis;
+//! use diagnosticism::Ellipsis;
 //!
 //! println!("redacted: {:?}", Ellipsis::default());
 //! ```
@@ -73,6 +75,14 @@
 // lib.rs
 
 pub mod diagnostics;
+
+pub use diagnostics::{
+    doom_scope,
+    DebugSqueezer,
+    DoomGram,
+    Ellipsis,
+    Password,
+};
 
 
 // ///////////////////////////// end of file //////////////////////////// //
