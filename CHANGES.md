@@ -4,6 +4,7 @@
 ## 0.2.1 - 24th July 2025
 
 * fixing Clippy issues (all simple);
+* minor improvements to `DoomGram` public method(s);
 
 
 ## 0.2.0 - 24th July 2025

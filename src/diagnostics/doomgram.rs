@@ -140,9 +140,8 @@ impl DoomGram {
     pub fn push_event_duration(
         &mut self,
         duration : Duration,
-    )
-    {
-        self.push_event_time_ns(duration.as_nanos() as u64);
+    ) -> bool {
+        self.push_event_time_ns(duration.as_nanos() as u64)
     }
 
     /// Pushes an event with the given number of nanoseconds.
