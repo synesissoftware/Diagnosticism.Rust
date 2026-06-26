@@ -287,7 +287,6 @@ Defect reports, feature requests, and pull requests are welcome on https://githu
 Crates upon which **Diagnosticism.Rust** has development dependencies:
 
 * [**criterion**](https://github.com/bheisler/criterion.rs);
-* [**test_help-rs**](https://github.com/synesissoftware/test_help-rs);
 
 
 ### Related projects
