@@ -1,7 +1,7 @@
 # Diagnosticism.Rust - CHANGES <!-- omit in toc -->
 
 
-## 0.2.1 - 24th July 2025
+## 0.2.1 - 27th June 2026
 
 * fixing Clippy issues (all simple);
 * minor improvements to `DoomGram` public method(s);
@@ -9,6 +9,7 @@
 * comment consistency;
 * add documentation markup;
 * Cargo.toml crate attributes;
+* removed dead code in DebugSqueezer truncation branch;
 
 
 ## 0.2.0 - 24th July 2025

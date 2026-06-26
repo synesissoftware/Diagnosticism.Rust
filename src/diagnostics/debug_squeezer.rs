@@ -122,22 +122,16 @@ impl<'a> std_fmt::Debug for DebugSqueezer<'_> {
 
         if s.len() > self.squeeze_width {
 
-            let (width, trailing) = if s.len() <= self.squeeze_width {
-                (self.squeeze_width, "")
+            let (width, trailing) = if self.squeeze_width < 4 {
+                (0, "...")
+            } else if self.squeeze_width < 6 {
+                (3, "...")
+            } else if s.starts_with("{ ") {
+                (self.squeeze_width - 6, " ... }")
+            } else if s.starts_with("{") {
+                (self.squeeze_width - 5, " ...}")
             } else {
-                if self.squeeze_width < 4 {
-                    (0, "...")
-                } else if self.squeeze_width < 6 {
-                    (3, "...")
-                } else {
-                    if s.starts_with("{ ") {
-                        (self.squeeze_width - 6, " ... }")
-                    } else if s.starts_with("{") {
-                        (self.squeeze_width - 5, " ...}")
-                    } else {
-                        (self.squeeze_width - 4, " ...")
-                    }
-                }
+                (self.squeeze_width - 4, " ...")
             };
 
             s.truncate(width);
