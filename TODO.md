@@ -8,7 +8,7 @@
 
 ## Functional improvements
 
-* [x] simple file/line/function macros:
+* [x] ~~~simple file/line/function macros~~~:
   * [x] `fileline!()`;
   * [x] `function!()`;
   * [x] `filelinefunction!()`;
@@ -17,7 +17,7 @@
 
 ## Performance improvements
 
-* \<none>
+* [ ] `DebugSqueezer`: avoid formatting the entire [`Debug`](https://doc.rust-lang.org/std/fmt/trait.Debug.html) string before truncation (current implementation uses `format!()` then `truncate()`; investigate streaming/early-limit approaches that preserve readable elision suffixes without allocating for oversized output);
 
 
 <!-- ########################### end of file ########################### -->
