@@ -2,7 +2,13 @@
 
 Diagnosticism, for Rust
 
-[![Crates.io](https://img.shields.io/crates/v/diagnosticism.svg)](https://crates.io/crates/Diagnosticism.Rust)
+![Language](https://img.shields.io/badge/Rust-000000?style=flat&logo=rust&logoColor=white)
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![Crates.io](https://img.shields.io/crates/v/diagnosticism.svg)](https://crates.io/crates/diagnosticism)
+[![GitHub release](https://img.shields.io/github/v/release/synesissoftware/Diagnosticism.Rust.svg)](https://github.com/synesissoftware/Diagnosticism.Rust/releases/latest)
+![MSRV](https://img.shields.io/badge/MSRV-1.74-lightgrey)
+[![CI](https://github.com/synesissoftware/Diagnosticism.Rust/actions/workflows/ci.yml/badge.svg)](https://github.com/synesissoftware/Diagnosticism.Rust/actions/workflows/ci.yml)
+[![docs.rs](https://docs.rs/diagnosticism/badge.svg)](https://docs.rs/diagnosticism)
 
 
 ## Introduction
