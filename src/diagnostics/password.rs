@@ -8,9 +8,16 @@ const NUM_SPLATS_DEFAULT : usize = 8;
 const SPLATS_LITERAL : &str = "****************************************************************************************************";
 
 
-/// Simple type that provides strings such as `"********"` to be used for
-/// fields that are sensitive and whose `Debug` forms are not to be
-/// expressed.
+/// Placeholder for [`Debug`](std::fmt::Debug) output that prints a masked
+/// run of `*` characters.
+///
+/// Use [`Password`] for fields that must not appear in logs (passwords,
+/// tokens, API keys). The default width is eight characters; call
+/// [`Password::new`] to override the length.
+///
+/// For non-sensitive fields that are merely verbose, prefer
+/// [`Ellipsis`](crate::diagnostics::Ellipsis), which prints `"..."` and is
+/// often paired with `{:#?}` alternate output.
 #[derive(Default)]
 pub struct Password {
     num_splats : Option<usize>,

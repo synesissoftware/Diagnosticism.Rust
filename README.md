@@ -80,8 +80,16 @@ The following structures are defined:
 
 * `DebugSqueezer` - used to assist with restricting the length of `Debug` forms of fields within a given width. See the example [**examples/debug_squeezer.md**](./examples/debug_squeezer.md);
 * `DoomGram` - a **D**ecimal **O**rder-**O**f-**M**agnitude histo**G**ram structure that records efficiently duration values in the orders of magnitude 1ns+, 10ns+, 100ns+, 1µs+, ..., 10s+, 100s+ and provides a mechanism for displaying this histogram in a simple single 12-character display, which is useful for logging cumulative execution costs of components in long-running performance-sensitive applications. See the example [**examples/doomgram.md**](./examples/doomgram.md);
-* `Ellipsis` - provides strings such as `"********"` to be used for fields that are sensitive and whose `Debug` forms are not to be expressed. See the example [**examples/ellipsis.md**](./examples/ellipsis.md);
-* `Password` - Simple type that provides the string `"..."` to be used for fields whose `Debug` forms are not to be expressed. See the example [**examples/password.md**](./examples/password.md);
+* `Ellipsis` - provides the string `"..."` to be used for fields whose `Debug` forms are not to be expressed in terse (non-`#alternate()`) output. See the example [**examples/ellipsis.md**](./examples/ellipsis.md);
+* `Password` - provides strings such as `"********"` to be used for fields that are sensitive and whose `Debug` forms are not to be expressed. See the example [**examples/password.md**](./examples/password.md);
+
+
+#### Redacting `Debug` output (`Ellipsis` and `Password`)
+
+Both types are placeholders passed to `.field(...)` in a custom `Debug` implementation; neither inspects or transforms the real field value.
+
+* **`Ellipsis`** — prints `"..."`; use for verbose or low-value fields that should be omitted from terse `Debug` output, often together with `{:#?}` so full detail remains available in alternate form;
+* **`Password`** — prints a run of `*` characters (eight by default, configurable via `Password::new()`); use for sensitive data such as passwords, tokens, and API keys;
 
 
 ### Traits

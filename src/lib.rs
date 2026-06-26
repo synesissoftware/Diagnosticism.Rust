@@ -46,6 +46,18 @@
 //! * [`function_name_only!`] — unqualified name of the enclosing function;
 //! * [`type_name_only!`] — unqualified name of a given type;
 //!
+//! ## Redacting [`Debug`](std::fmt::Debug) fields
+//!
+//! Both [`Ellipsis`](diagnostics::Ellipsis) and
+//! [`Password`](diagnostics::Password) are field placeholders in custom
+//! [`Debug`](std::fmt::Debug) implementations; neither reads the underlying
+//! value.
+//!
+//! * [`Ellipsis`](diagnostics::Ellipsis) — `"..."` for verbose,
+//!   non-sensitive elision; often used with `{:#?}` alternate output;
+//! * [`Password`](diagnostics::Password) — a masked `*` run for sensitive
+//!   values; use [`Password::new`](diagnostics::Password::new) for width;
+//!
 //! # Examples
 //!
 //! ```

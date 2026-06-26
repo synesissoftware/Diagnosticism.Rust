@@ -3,8 +3,16 @@
 use std::fmt as std_fmt;
 
 
-/// Simple type that provides the string `"..."` to be used for fields whose
-/// `Debug` forms are not to be expressed.
+/// Placeholder for [`Debug`](std::fmt::Debug) output that prints `"..."`.
+///
+/// Use [`Ellipsis`] to omit verbose or low-value field detail from logs
+/// while keeping the field name visible. It suits custom
+/// [`Debug`](std::fmt::Debug) implementations that show full detail only in
+/// alternate form (`{:#?}`).
+///
+/// For sensitive values (credentials, tokens, secrets), prefer
+/// [`Password`](crate::diagnostics::Password), which prints a masked run of
+/// `*` characters instead.
 #[derive(Default)]
 pub struct Ellipsis {}
 
