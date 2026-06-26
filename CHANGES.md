@@ -8,6 +8,7 @@
 * cargo fmt;
 * comment consistency;
 * add documentation markup;
+* Cargo.toml crate attributes;
 
 
 ## 0.2.0 - 24th July 2025
