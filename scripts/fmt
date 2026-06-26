@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#! /usr/bin/env bash
 set -euo pipefail
 
 RUSTFMT="$(rustup which --toolchain nightly rustfmt 2>/dev/null || true)"

@@ -91,7 +91,8 @@ pub(crate) mod gram_utils {
 ///
 /// # Note:
 /// This is a Rust port of the equivalent `stlsoft::doomgram` class from the
-/// **STLSoft** libraries (https://github.com/synesissoftware/STLSoft-1.11).
+/// **STLSoft** libraries:
+/// <https://github.com/synesissoftware/STLSoft-1.11>.
 #[derive(Debug)]
 #[derive(Default)]
 pub struct DoomGram {
@@ -464,6 +465,9 @@ impl DoomGram {
 // NONE DEFINED AT THIS TIME
 
 
+/// Executes a closure, records its elapsed time in a [`DoomGram`], and
+/// returns the closure's result together with the measured elapsed time (in
+/// nanoseconds).
 pub fn doom_scope<F, R>(
     dg : &mut DoomGram,
     work : F,
@@ -571,7 +575,7 @@ mod tests {
     }
 
     #[test]
-    fn TEST_doomgram_ZERO_TIME_EVENTS() {
+    fn TEST_DoomGram_ZERO_TIME_EVENTS() {
 
         let mut dg = DoomGram::default();
 
@@ -607,7 +611,7 @@ mod tests {
     }
 
     #[test]
-    fn TEST_doomgram_UNIFORM_SPREAD_TIMINGS_1() {
+    fn TEST_DoomGram_UNIFORM_SPREAD_TIMINGS_1() {
 
         let mut dg = DoomGram::default();
 
@@ -651,7 +655,7 @@ mod tests {
     }
 
     #[test]
-    fn TEST_doomgram_UNIFORM_SPREAD_TIMINGS_2() {
+    fn TEST_DoomGram_UNIFORM_SPREAD_TIMINGS_2() {
 
         let mut dg = DoomGram::default();
 
@@ -695,7 +699,7 @@ mod tests {
     }
 
     #[test]
-    fn TEST_doomgram_UNIFORM_SPREAD_TIMINGS_3() {
+    fn TEST_DoomGram_UNIFORM_SPREAD_TIMINGS_3() {
 
         let mut dg = DoomGram::default();
 
@@ -739,7 +743,7 @@ mod tests {
     }
 
     #[test]
-    fn TEST_doomgram_UNIFORM_SPREAD_TIMINGS_4() {
+    fn TEST_DoomGram_UNIFORM_SPREAD_TIMINGS_4() {
 
         let mut dg = DoomGram::default();
 
@@ -780,7 +784,7 @@ mod tests {
     }
 
     #[test]
-    fn TEST_doomgram_SEVERAL_DISTINCT_TIMINGS() {
+    fn TEST_DoomGram_SEVERAL_DISTINCT_TIMINGS() {
 
         let mut dg = DoomGram::default();
 
@@ -820,7 +824,7 @@ mod tests {
     }
 
     #[test]
-    fn TEST_doomgram_SEVERAL_INTERSECTING_TIMINGS() {
+    fn TEST_DoomGram_SEVERAL_INTERSECTING_TIMINGS() {
 
         let mut dg = DoomGram::default();
 
@@ -862,7 +866,7 @@ mod tests {
     }
 
     #[test]
-    fn TEST_doomgram_OVERFLOW_BY_SECONDS() {
+    fn TEST_DoomGram_OVERFLOW_BY_SECONDS() {
 
         let mut dg = DoomGram::default();
 
@@ -898,7 +902,7 @@ mod tests {
     }
 
     #[test]
-    fn TEST_doomgram_OVERFLOW_BY_MICROSECONDS() {
+    fn TEST_DoomGram_OVERFLOW_BY_MICROSECONDS() {
 
         let mut dg = DoomGram::default();
 
