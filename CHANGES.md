@@ -3,6 +3,7 @@
 
 ## 0.2.1 - 27th June 2026
 
+* added CI tasks;
 * fixing Clippy issues (all simple);
 * minor improvements to `DoomGram` public method(s);
 * cargo fmt;
