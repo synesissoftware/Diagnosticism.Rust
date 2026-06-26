@@ -1,6 +1,11 @@
 # Diagnosticism.Rust - CHANGES <!-- omit in toc -->
 
 
+## 0.2.1 - 24th July 2025
+
+* fixing Clippy issues (all simple);
+
+
 ## 0.2.0 - 24th July 2025
 
 * added `doom_scope<>()`;

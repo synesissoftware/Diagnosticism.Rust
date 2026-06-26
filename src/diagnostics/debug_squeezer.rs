@@ -81,16 +81,19 @@ impl<'a> DebugSqueezer<'a> {
 
 // Mutating methods
 
+#[allow(clippy::extra_unused_lifetimes)]
 impl<'a> DebugSqueezer<'_> {
 }
 
 // Nonmutating methods
 
+#[allow(clippy::extra_unused_lifetimes)]
 impl<'a> DebugSqueezer<'_> {
 }
 
 // Trait implementations
 
+#[allow(clippy::extra_unused_lifetimes)]
 impl<'a> std_fmt::Debug for DebugSqueezer<'_> {
     fn fmt(
         &self,
