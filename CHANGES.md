@@ -1,6 +1,21 @@
 # Diagnosticism.Rust - CHANGES <!-- omit in toc -->
 
 
+## 0.2.1 - 27th June 2026
+
+* added CI tasks;
+* fixing Clippy issues (all simple);
+* minor improvements to `DoomGram` public method(s);
+* cargo fmt;
+* comment consistency;
+* add documentation markup;
+* Cargo.toml crate attributes;
+* removed dead code in `DebugSqueezer` truncation branch;
+* removed README.md invalid claim to be dependent on **test_help-rs**;
+* improved documentation of `Ellipsis` and `Password`;
+* updated **README.md** with all current constructs;
+
+
 ## 0.2.0 - 24th July 2025
 
 * added `doom_scope<>()`;

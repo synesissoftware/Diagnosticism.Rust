@@ -2,7 +2,13 @@
 
 Diagnosticism, for Rust
 
-[![Crates.io](https://img.shields.io/crates/v/diagnosticism.svg)](https://crates.io/crates/Diagnosticism.Rust)
+![Language](https://img.shields.io/badge/Rust-000000?style=flat&logo=rust&logoColor=white)
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![Crates.io](https://img.shields.io/crates/v/diagnosticism.svg)](https://crates.io/crates/diagnosticism)
+[![GitHub release](https://img.shields.io/github/v/release/synesissoftware/Diagnosticism.Rust.svg)](https://github.com/synesissoftware/Diagnosticism.Rust/releases/latest)
+![MSRV](https://img.shields.io/badge/MSRV-1.74-lightgrey)
+[![CI](https://github.com/synesissoftware/Diagnosticism.Rust/actions/workflows/ci.yml/badge.svg)](https://github.com/synesissoftware/Diagnosticism.Rust/actions/workflows/ci.yml)
+[![docs.rs](https://docs.rs/diagnosticism/badge.svg)](https://docs.rs/diagnosticism)
 
 
 ## Introduction
@@ -61,27 +67,47 @@ No public enumerations are defined at this time.
 
 ### Features
 
-No public crate-specific features are defined at this time.
+The following optional features are defined in **Cargo.toml**:
+
+* `null-feature` - a feature that has no effect (and, thus, is useful for simplifying driver scripts);
+* `test-doomgram` - enables the optional `rand` dependency; required to build and run the **doomgram** example program.
 
 
 ### Functions
 
-No public functions are defined at this time.
+The following function is re-exported at the crate root (and defined in the [`diagnostics`](https://docs.rs/diagnosticism/latest/diagnosticism/diagnostics/index.html) module):
+
+* `doom_scope()` - executes a closure, records its elapsed time in a [`DoomGram`](https://docs.rs/diagnosticism/latest/diagnosticism/struct.DoomGram.html), and returns the closure's result together with the measured elapsed time (in nanoseconds). See the example [**examples/doomgram.md**](./examples/doomgram.md);
 
 
 ### Macros
 
-No public macros are defined at this time.
+The following macros are defined at the crate root (e.g. `use diagnosticism::fileline;`):
+
+* `fileline!()` - expands to the file name and line number at the call site (as a compile-time string literal);
+* `filelinefunction!()` - expands to the file name, line number, and unqualified function name at the call site;
+* `filelinefunction_fully_qualified_name!()` - expands to the file name, line number, and fully-qualified function name at the call site;
+* `function_fully_qualified_name!()` - expands to the fully-qualified name of the enclosing function;
+* `function_name_only!()` - expands to the unqualified name of the enclosing function;
+* `type_name_only!()` - expands to the unqualified name of a given type.
 
 
 ### Structures
 
-The following structures are defined:
+The following structures are re-exported at the crate root (and defined in the [`diagnostics`](https://docs.rs/diagnosticism/latest/diagnosticism/diagnostics/index.html) module):
 
 * `DebugSqueezer` - used to assist with restricting the length of `Debug` forms of fields within a given width. See the example [**examples/debug_squeezer.md**](./examples/debug_squeezer.md);
 * `DoomGram` - a **D**ecimal **O**rder-**O**f-**M**agnitude histo**G**ram structure that records efficiently duration values in the orders of magnitude 1ns+, 10ns+, 100ns+, 1µs+, ..., 10s+, 100s+ and provides a mechanism for displaying this histogram in a simple single 12-character display, which is useful for logging cumulative execution costs of components in long-running performance-sensitive applications. See the example [**examples/doomgram.md**](./examples/doomgram.md);
-* `Ellipsis` - provides strings such as `"********"` to be used for fields that are sensitive and whose `Debug` forms are not to be expressed. See the example [**examples/ellipsis.md**](./examples/ellipsis.md);
-* `Password` - Simple type that provides the string `"..."` to be used for fields whose `Debug` forms are not to be expressed. See the example [**examples/password.md**](./examples/password.md);
+* `Ellipsis` - provides the string `"..."` to be used for fields whose `Debug` forms are not to be expressed in terse (non-`#alternate()`) output. See the example [**examples/ellipsis.md**](./examples/ellipsis.md);
+* `Password` - provides strings such as `"********"` to be used for fields that are sensitive and whose `Debug` forms are not to be expressed. See the example [**examples/password.md**](./examples/password.md);
+
+
+#### Redacting `Debug` output (`Ellipsis` and `Password`)
+
+Both types are placeholders passed to `.field(...)` in a custom `Debug` implementation; neither inspects or transforms the real field value.
+
+* **`Ellipsis`** — prints `"..."`; use for verbose or low-value fields that should be omitted from terse `Debug` output, often together with `{:#?}` so full detail remains available in alternate form;
+* **`Password`** — prints a run of `*` characters (eight by default, configurable via `Password::new()`); use for sensitive data such as passwords, tokens, and API keys;
 
 
 ### Traits
@@ -101,7 +127,7 @@ The example program **doomgram** (in **examples** directory, built with feature 
 ```Rust
 // examples/doomgram.rs : example program illustrating use of `DoomGram`
 
-use diagnosticism::diagnostics::DoomGram;
+use diagnosticism::DoomGram;
 
 use rand::{
     rngs::StdRng,
@@ -287,7 +313,6 @@ Defect reports, feature requests, and pull requests are welcome on https://githu
 Crates upon which **Diagnosticism.Rust** has development dependencies:
 
 * [**criterion**](https://github.com/bheisler/criterion.rs);
-* [**test_help-rs**](https://github.com/synesissoftware/test_help-rs);
 
 
 ### Related projects

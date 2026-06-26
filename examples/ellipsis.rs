@@ -3,14 +3,13 @@
 #![allow(dead_code)]
 
 
-use diagnosticism::diagnostics::Ellipsis;
+use diagnosticism::Ellipsis;
 
 use std::collections::{
     BTreeMap,
     BTreeSet,
     HashMap,
 };
-
 
 
 /// Large structure that provides the internals of `Thing`
@@ -59,6 +58,7 @@ impl std::fmt::Debug for Thing2 {
 
 fn main() {
     let internals_clone = {
+        #[rustfmt::skip]
         let thing1 = Thing1 {
             name :      "i-am-a-public-thing".into(),
             internals : Some(LargeInternal {
@@ -87,10 +87,10 @@ fn main() {
             }),
         };
 
-        eprintln!("");
+        eprintln!();
         eprintln!("Terse `Debug` form of `thing1`: {thing1:?}");
 
-        eprintln!("");
+        eprintln!();
         eprintln!("Verbose `Debug` form of `thing1`: {thing1:#?}");
 
         thing1.internals.unwrap().clone()
@@ -102,10 +102,10 @@ fn main() {
             internals : Some(internals_clone),
         };
 
-        eprintln!("");
+        eprintln!();
         eprintln!("Terse `Debug` form of `thing2`: {thing2:?}");
 
-        eprintln!("");
+        eprintln!();
         eprintln!("Verbose `Debug` form of `thing2`: {thing2:#?}");
     }
 }

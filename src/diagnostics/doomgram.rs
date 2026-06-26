@@ -91,7 +91,8 @@ pub(crate) mod gram_utils {
 ///
 /// # Note:
 /// This is a Rust port of the equivalent `stlsoft::doomgram` class from the
-/// **STLSoft** libraries (https://github.com/synesissoftware/STLSoft-1.11).
+/// **STLSoft** libraries:
+/// <https://github.com/synesissoftware/STLSoft-1.11>.
 #[derive(Debug)]
 #[derive(Default)]
 pub struct DoomGram {
@@ -128,8 +129,7 @@ impl DoomGram {
 impl DoomGram {
     /// Clears the instance, resetting all values to the equivalent of a
     /// newly constructed instance.
-    pub fn clear(&mut self)
-    {
+    pub fn clear(&mut self) {
         *self = Default::default();
     }
 
@@ -140,9 +140,8 @@ impl DoomGram {
     pub fn push_event_duration(
         &mut self,
         duration : Duration,
-    )
-    {
-        self.push_event_time_ns(duration.as_nanos() as u64);
+    ) -> bool {
+        self.push_event_time_ns(duration.as_nanos() as u64)
     }
 
     /// Pushes an event with the given number of nanoseconds.
@@ -161,6 +160,7 @@ impl DoomGram {
             false
         }
     }
+
     /// Pushes an event with the given number of microseconds.
     pub fn push_event_time_us(
         &mut self,
@@ -179,6 +179,7 @@ impl DoomGram {
             false
         }
     }
+
     /// Pushes an event with the given number of milliseconds.
     pub fn push_event_time_ms(
         &mut self,
@@ -197,6 +198,7 @@ impl DoomGram {
             false
         }
     }
+
     /// Pushes an event with the given number of seconds.
     pub fn push_event_time_s(
         &mut self,
@@ -232,6 +234,7 @@ impl DoomGram {
             Some(self.event_time_total)
         }
     }
+
     /// Obtains the total event time (in nanoseconds), regardless of whether
     /// overflow has occurred.
     pub fn event_time_total_raw(&self) -> u64 {
@@ -246,6 +249,7 @@ impl DoomGram {
     pub fn min_event_time(&self) -> Option<u64> {
         self.min_event_time
     }
+
     pub fn max_event_time(&self) -> Option<u64> {
         self.max_event_time
     }
@@ -254,10 +258,12 @@ impl DoomGram {
     pub fn num_events_in_1ns(&self) -> u64 {
         self.num_events_in_1ns
     }
+
     /// Number of events counted in the interval [10ns, 100ns).
     pub fn num_events_in_10ns(&self) -> u64 {
         self.num_events_in_10ns
     }
+
     /// Number of events counted in the interval [100ns, 1µs).
     pub fn num_events_in_100ns(&self) -> u64 {
         self.num_events_in_100ns
@@ -267,10 +273,12 @@ impl DoomGram {
     pub fn num_events_in_1us(&self) -> u64 {
         self.num_events_in_1us
     }
+
     /// Number of events counted in the interval [10µs, 100µs).
     pub fn num_events_in_10us(&self) -> u64 {
         self.num_events_in_10us
     }
+
     /// Number of events counted in the interval [100µs, 1ms).
     pub fn num_events_in_100us(&self) -> u64 {
         self.num_events_in_100us
@@ -280,10 +288,12 @@ impl DoomGram {
     pub fn num_events_in_1ms(&self) -> u64 {
         self.num_events_in_1ms
     }
+
     /// Number of events counted in the interval [10ms, 100ms).
     pub fn num_events_in_10ms(&self) -> u64 {
         self.num_events_in_10ms
     }
+
     /// Number of events counted in the interval [100ms, 1s).
     pub fn num_events_in_100ms(&self) -> u64 {
         self.num_events_in_100ms
@@ -293,15 +303,39 @@ impl DoomGram {
     pub fn num_events_in_1s(&self) -> u64 {
         self.num_events_in_1s
     }
+
     /// Number of events counted in the interval [10s, 100s).
     pub fn num_events_in_10s(&self) -> u64 {
         self.num_events_in_10s
     }
+
     /// Number of events counted in the interval [100s, ∞).
     pub fn num_events_ge_100s(&self) -> u64 {
         self.num_events_ge_100s
     }
 
+    /// Returns a fixed 12-character ASCII strip for the histogram.
+    ///
+    /// Each position encodes the order-of-magnitude of the event count in
+    /// one time bucket, from 1ns at the left through ≥100s at the right.
+    /// Positions match [`Self::num_events_in_1ns`],
+    /// [`Self::num_events_in_10ns`], …, [`Self::num_events_ge_100s`].
+    ///
+    /// Character encoding:
+    ///
+    /// * `_` — zero events in the bucket;
+    /// * `a`–`z` — event count with decimal order-of-magnitude 1–26;
+    /// * `*` — order of magnitude exceeds `z` (more than 26 digits);
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use diagnosticism::DoomGram;
+    ///
+    /// let mut dg = DoomGram::default();
+    /// assert!(dg.push_event_time_ms(13));
+    /// assert_eq!("_______a____", dg.to_strip());
+    /// ```
     pub fn to_strip(&self) -> String {
 
         // TODO: this may need to be optimised, as costing around 20µs (2µs
@@ -336,6 +370,9 @@ impl DoomGram {
         strip[10] = gram_doom_to_char(calc_doom(self.num_events_in_10s()), ch_0, ch_overflow, range);
         strip[11] = gram_doom_to_char(calc_doom(self.num_events_ge_100s()), ch_0, ch_overflow, range);
 
+        // SAFETY: `strip` holds only `_`, `*`, or `a`–`z`. Each byte is
+        // written by `gram_doom_to_char()` as `ch_0`, `ch_overflow`, or an
+        // element of `range` (lowercase ASCII); all are valid UTF-8.
         let s = unsafe { std_str::from_utf8_unchecked(&strip) };
 
         s.into()
@@ -402,7 +439,7 @@ impl DoomGram {
 
     fn try_add_ns_to_total_and_update_minmax_and_count_(
         &mut self,
-        time_in_ns : u64
+        time_in_ns : u64,
     ) -> bool {
 
         if self.has_overflowed {
@@ -422,7 +459,7 @@ impl DoomGram {
                     },
                     None => {
                         self.min_event_time = Some(time_in_ns);
-                    }
+                    },
                 };
 
                 match self.max_event_time {
@@ -433,7 +470,7 @@ impl DoomGram {
                     },
                     None => {
                         self.max_event_time = Some(time_in_ns);
-                    }
+                    },
                 };
 
                 true
@@ -453,15 +490,18 @@ impl DoomGram {
 // NONE DEFINED AT THIS TIME
 
 
+/// Executes a closure, records its elapsed time in a [`DoomGram`], and
+/// returns the closure's result together with the measured elapsed time (in
+/// nanoseconds).
 pub fn doom_scope<F, R>(
-    dg  : &mut DoomGram,
-    work : F
+    dg : &mut DoomGram,
+    work : F,
 ) -> (
-    R, // work_result
+    R,   // work_result
     u64, // measured_elapsed_time_in_ns
 )
 where
-    F : FnOnce() -> R
+    F : FnOnce() -> R,
 {
     let before = Instant::now();
 
@@ -560,7 +600,7 @@ mod tests {
     }
 
     #[test]
-    fn TEST_doomgram_ZERO_TIME_EVENTS() {
+    fn TEST_DoomGram_ZERO_TIME_EVENTS() {
 
         let mut dg = DoomGram::default();
 
@@ -596,7 +636,7 @@ mod tests {
     }
 
     #[test]
-    fn TEST_doomgram_UNIFORM_SPREAD_TIMINGS_1() {
+    fn TEST_DoomGram_UNIFORM_SPREAD_TIMINGS_1() {
 
         let mut dg = DoomGram::default();
 
@@ -640,7 +680,7 @@ mod tests {
     }
 
     #[test]
-    fn TEST_doomgram_UNIFORM_SPREAD_TIMINGS_2() {
+    fn TEST_DoomGram_UNIFORM_SPREAD_TIMINGS_2() {
 
         let mut dg = DoomGram::default();
 
@@ -684,7 +724,7 @@ mod tests {
     }
 
     #[test]
-    fn TEST_doomgram_UNIFORM_SPREAD_TIMINGS_3() {
+    fn TEST_DoomGram_UNIFORM_SPREAD_TIMINGS_3() {
 
         let mut dg = DoomGram::default();
 
@@ -728,7 +768,7 @@ mod tests {
     }
 
     #[test]
-    fn TEST_doomgram_UNIFORM_SPREAD_TIMINGS_4() {
+    fn TEST_DoomGram_UNIFORM_SPREAD_TIMINGS_4() {
 
         let mut dg = DoomGram::default();
 
@@ -769,7 +809,7 @@ mod tests {
     }
 
     #[test]
-    fn TEST_doomgram_SEVERAL_DISTINCT_TIMINGS() {
+    fn TEST_DoomGram_SEVERAL_DISTINCT_TIMINGS() {
 
         let mut dg = DoomGram::default();
 
@@ -809,7 +849,7 @@ mod tests {
     }
 
     #[test]
-    fn TEST_doomgram_SEVERAL_INTERSECTING_TIMINGS() {
+    fn TEST_DoomGram_SEVERAL_INTERSECTING_TIMINGS() {
 
         let mut dg = DoomGram::default();
 
@@ -851,7 +891,7 @@ mod tests {
     }
 
     #[test]
-    fn TEST_doomgram_OVERFLOW_BY_SECONDS() {
+    fn TEST_DoomGram_OVERFLOW_BY_SECONDS() {
 
         let mut dg = DoomGram::default();
 
@@ -887,7 +927,7 @@ mod tests {
     }
 
     #[test]
-    fn TEST_doomgram_OVERFLOW_BY_MICROSECONDS() {
+    fn TEST_DoomGram_OVERFLOW_BY_MICROSECONDS() {
 
         let mut dg = DoomGram::default();
 
@@ -947,7 +987,7 @@ mod tests {
 
                 std_thread::sleep(Duration::from_micros(1));
 
-                return 123;
+                123
             });
 
             assert_eq!(123, r);

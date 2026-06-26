@@ -1,6 +1,6 @@
 // examples/doomgram.rs : example program illustrating use of `DoomGram`
 
-use diagnosticism::diagnostics::{
+use diagnosticism::{
     doom_scope,
     DoomGram,
 };
@@ -54,7 +54,7 @@ fn main() {
             let after = Instant::now();
 
             eprintln!("`#to_strip()` : {strip} (in {:?})", after - before);
-            eprintln!("");
+            eprintln!();
             eprintln!("dg={dg:#?}");
         }
 

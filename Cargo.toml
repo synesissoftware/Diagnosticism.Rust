@@ -7,14 +7,26 @@
 authors = [
 	"Matt Wilson <matthew@synesis.com.au>",
 ]
+categories = [
+	"development-tools::debugging",
+	"development-tools::profiling",
+]
 description = "Miscellaneous discrete and simple diagnostics facilities (for Rust)"
 edition = "2021"
 homepage = "https://github.com/synesissoftware/Diagnosticism.Rust"
+keywords = [
+	"debug",
+	"diagnostics",
+	"fmt",
+	"logging",
+	"profiling",
+]
 license = "BSD-3-Clause"
 name = "diagnosticism"
 readme = "README.md"
 repository = "https://github.com/synesissoftware/Diagnosticism.Rust"
-version = "0.2.0"
+rust-version = "1.74"
+version = "0.2.1"
 
 
 # ##########################################################
@@ -79,11 +91,11 @@ test-doomgram = [
 
 [dependencies]
 
-rand = { version = "0.9", optional = true }
+rand = { version = "0.10", optional = true }
 
 [dev-dependencies]
 
-criterion = { version = "0.5" }
+criterion = { version = "0.8" }
 
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

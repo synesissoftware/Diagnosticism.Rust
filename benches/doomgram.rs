@@ -2,21 +2,24 @@
 
 #![allow(non_snake_case)]
 
-use diagnosticism::diagnostics::DoomGram;
+use std::hint::black_box;
+
+use diagnosticism::DoomGram;
 
 use criterion::{
-    black_box,
     criterion_group,
     criterion_main,
     Criterion,
 };
 
 
+#[rustfmt::skip]
 mod constants {
 
 }
 
 
+#[rustfmt::skip]
 mod implementation {
 
 }
