@@ -13,11 +13,13 @@ use criterion::{
 };
 
 
+#[rustfmt::skip]
 mod constants {
 
 }
 
 
+#[rustfmt::skip]
 mod implementation {
 
 }

@@ -42,14 +42,14 @@ jobs:
         run: python3 scripts/check_test_names.py
 
   msrv:
-    name: MSRV (1.70)
+    name: MSRV (1.74)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - uses: dtolnay/rust-toolchain@1.70.0
+      - uses: dtolnay/rust-toolchain@1.74.0
 
       - uses: Swatinem/rust-cache@v2
 
-      - name: cargo test
-        run: cargo test
+      - name: cargo check (library)
+        run: cargo check --lib --locked

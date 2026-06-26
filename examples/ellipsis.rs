@@ -58,6 +58,7 @@ impl std::fmt::Debug for Thing2 {
 
 fn main() {
     let internals_clone = {
+        #[rustfmt::skip]
         let thing1 = Thing1 {
             name :      "i-am-a-public-thing".into(),
             internals : Some(LargeInternal {
