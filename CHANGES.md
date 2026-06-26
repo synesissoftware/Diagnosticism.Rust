@@ -12,6 +12,7 @@
 * removed dead code in `DebugSqueezer` truncation branch;
 * removed README.md invalid claim to be dependent on **test_help-rs**;
 * improved documentation of `Ellipsis` and `Password`;
+* updated **README.md** with all current constructs;
 
 
 ## 0.2.0 - 24th July 2025

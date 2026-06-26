@@ -61,22 +61,34 @@ No public enumerations are defined at this time.
 
 ### Features
 
-No public crate-specific features are defined at this time.
+The following optional features are defined in **Cargo.toml**:
+
+* `null-feature` - a feature that has no effect (and, thus, is useful for simplifying driver scripts);
+* `test-doomgram` - enables the optional `rand` dependency; required to build and run the **doomgram** example program.
 
 
 ### Functions
 
-No public functions are defined at this time.
+The following function is defined (in the [`diagnostics`](https://docs.rs/diagnosticism/latest/diagnosticism/diagnostics/index.html) module):
+
+* `doom_scope()` - executes a closure, records its elapsed time in a [`DoomGram`](https://docs.rs/diagnosticism/latest/diagnosticism/diagnostics/struct.DoomGram.html), and returns the closure's result together with the measured elapsed time (in nanoseconds). See the example [**examples/doomgram.md**](./examples/doomgram.md);
 
 
 ### Macros
 
-No public macros are defined at this time.
+The following macros are defined at the crate root (e.g. `use diagnosticism::fileline;`):
+
+* `fileline!()` - expands to the file name and line number at the call site (as a compile-time string literal);
+* `filelinefunction!()` - expands to the file name, line number, and unqualified function name at the call site;
+* `filelinefunction_fully_qualified_name!()` - expands to the file name, line number, and fully-qualified function name at the call site;
+* `function_fully_qualified_name!()` - expands to the fully-qualified name of the enclosing function;
+* `function_name_only!()` - expands to the unqualified name of the enclosing function;
+* `type_name_only!()` - expands to the unqualified name of a given type.
 
 
 ### Structures
 
-The following structures are defined:
+The following structures are defined (in the [`diagnostics`](https://docs.rs/diagnosticism/latest/diagnosticism/diagnostics/index.html) module):
 
 * `DebugSqueezer` - used to assist with restricting the length of `Debug` forms of fields within a given width. See the example [**examples/debug_squeezer.md**](./examples/debug_squeezer.md);
 * `DoomGram` - a **D**ecimal **O**rder-**O**f-**M**agnitude histo**G**ram structure that records efficiently duration values in the orders of magnitude 1ns+, 10ns+, 100ns+, 1µs+, ..., 10s+, 100s+ and provides a mechanism for displaying this histogram in a simple single 12-character display, which is useful for logging cumulative execution costs of components in long-running performance-sensitive applications. See the example [**examples/doomgram.md**](./examples/doomgram.md);
