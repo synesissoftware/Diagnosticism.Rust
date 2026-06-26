@@ -54,7 +54,7 @@ fn main() {
             let after = Instant::now();
 
             eprintln!("`#to_strip()` : {strip} (in {:?})", after - before);
-            eprintln!("");
+            eprintln!();
             eprintln!("dg={dg:#?}");
         }
 

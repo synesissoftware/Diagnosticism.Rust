@@ -45,13 +45,10 @@ macro_rules! function_fully_qualified_name {
 
         let name : &'static str = type_name_of(f);
 
-        let name = if name.ends_with("::f") {
-            &name[..name.len() - 3]
-        } else {
-            name
-        };
-
-        name
+        match name.strip_suffix("::f") {
+            Some(stripped) => stripped,
+            None => name,
+        }
     }};
 }
 
@@ -80,10 +77,9 @@ macro_rules! function_name_only {
 
         let name : &'static str = type_name_of(f);
 
-        let name = if name.ends_with("::f") {
-            &name[..name.len() - 3]
-        } else {
-            name
+        let name = match name.strip_suffix("::f") {
+            Some(stripped) => stripped,
+            None => name,
         };
 
         match &name[..name.len()].rfind(':') {

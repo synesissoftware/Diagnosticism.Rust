@@ -86,10 +86,10 @@ fn main() {
             }),
         };
 
-        eprintln!("");
+        eprintln!();
         eprintln!("Terse `Debug` form of `thing1`: {thing1:?}");
 
-        eprintln!("");
+        eprintln!();
         eprintln!("Verbose `Debug` form of `thing1`: {thing1:#?}");
 
         thing1.internals.unwrap().clone()
@@ -101,10 +101,10 @@ fn main() {
             internals : Some(internals_clone),
         };
 
-        eprintln!("");
+        eprintln!();
         eprintln!("Terse `Debug` form of `thing2`: {thing2:?}");
 
-        eprintln!("");
+        eprintln!();
         eprintln!("Verbose `Debug` form of `thing2`: {thing2:#?}");
     }
 }

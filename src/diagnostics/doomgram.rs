@@ -962,7 +962,7 @@ mod tests {
 
                 std_thread::sleep(Duration::from_micros(1));
 
-                return 123;
+                123
             });
 
             assert_eq!(123, r);

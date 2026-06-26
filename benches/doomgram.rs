@@ -2,10 +2,11 @@
 
 #![allow(non_snake_case)]
 
+use std::hint::black_box;
+
 use diagnosticism::diagnostics::DoomGram;
 
 use criterion::{
-    black_box,
     criterion_group,
     criterion_main,
     Criterion,
