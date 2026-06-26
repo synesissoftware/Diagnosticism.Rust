@@ -7,6 +7,7 @@
 * minor improvements to `DoomGram` public method(s);
 * cargo fmt;
 * comment consistency;
+* add documentation markup;
 
 
 ## 0.2.0 - 24th July 2025
