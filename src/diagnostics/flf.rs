@@ -109,7 +109,6 @@ macro_rules! type_name_only {
 }
 
 
-
 #[cfg(test)]
 mod tests {
     #![allow(non_snake_case)]

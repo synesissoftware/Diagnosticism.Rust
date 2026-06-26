@@ -12,7 +12,6 @@ use std::collections::{
 };
 
 
-
 /// Large structure that provides the internals of `Thing`
 #[derive(Clone)]
 #[derive(Debug)]

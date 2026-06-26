@@ -9,30 +9,28 @@ use std::fmt as std_fmt;
 pub struct Ellipsis {}
 
 impl std_fmt::Debug for Ellipsis {
-	fn fmt(
-		&self,
-		f : &mut std_fmt::Formatter<'_>,
-	) -> std_fmt::Result {
-
-		write!(f, "...")
-	}
+    fn fmt(
+        &self,
+        f : &mut std_fmt::Formatter<'_>,
+    ) -> std_fmt::Result {
+        write!(f, "...")
+    }
 }
 
 
 #[cfg(test)]
 mod tests {
-	#![allow(non_snake_case)]
+    #![allow(non_snake_case)]
 
-	use super::Ellipsis;
+    use super::Ellipsis;
 
 
-	#[test]
-	fn TEST_Ellipsis_Debug() {
+    #[test]
+    fn TEST_Ellipsis_Debug() {
+        let ellipsis = Ellipsis::default();
 
-		let ellipsis = Ellipsis::default();
-
-		assert_eq!("...", format!("{ellipsis:?}"));
-	}
+        assert_eq!("...", format!("{ellipsis:?}"));
+    }
 }
 
 

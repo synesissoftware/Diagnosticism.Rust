@@ -5,6 +5,7 @@
 
 * fixing Clippy issues (all simple);
 * minor improvements to `DoomGram` public method(s);
+* cargo fmt;
 
 
 ## 0.2.0 - 24th July 2025

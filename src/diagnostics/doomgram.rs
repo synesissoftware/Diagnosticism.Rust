@@ -128,8 +128,7 @@ impl DoomGram {
 impl DoomGram {
     /// Clears the instance, resetting all values to the equivalent of a
     /// newly constructed instance.
-    pub fn clear(&mut self)
-    {
+    pub fn clear(&mut self) {
         *self = Default::default();
     }
 
@@ -160,6 +159,7 @@ impl DoomGram {
             false
         }
     }
+
     /// Pushes an event with the given number of microseconds.
     pub fn push_event_time_us(
         &mut self,
@@ -178,6 +178,7 @@ impl DoomGram {
             false
         }
     }
+
     /// Pushes an event with the given number of milliseconds.
     pub fn push_event_time_ms(
         &mut self,
@@ -196,6 +197,7 @@ impl DoomGram {
             false
         }
     }
+
     /// Pushes an event with the given number of seconds.
     pub fn push_event_time_s(
         &mut self,
@@ -231,6 +233,7 @@ impl DoomGram {
             Some(self.event_time_total)
         }
     }
+
     /// Obtains the total event time (in nanoseconds), regardless of whether
     /// overflow has occurred.
     pub fn event_time_total_raw(&self) -> u64 {
@@ -245,6 +248,7 @@ impl DoomGram {
     pub fn min_event_time(&self) -> Option<u64> {
         self.min_event_time
     }
+
     pub fn max_event_time(&self) -> Option<u64> {
         self.max_event_time
     }
@@ -253,10 +257,12 @@ impl DoomGram {
     pub fn num_events_in_1ns(&self) -> u64 {
         self.num_events_in_1ns
     }
+
     /// Number of events counted in the interval [10ns, 100ns).
     pub fn num_events_in_10ns(&self) -> u64 {
         self.num_events_in_10ns
     }
+
     /// Number of events counted in the interval [100ns, 1µs).
     pub fn num_events_in_100ns(&self) -> u64 {
         self.num_events_in_100ns
@@ -266,10 +272,12 @@ impl DoomGram {
     pub fn num_events_in_1us(&self) -> u64 {
         self.num_events_in_1us
     }
+
     /// Number of events counted in the interval [10µs, 100µs).
     pub fn num_events_in_10us(&self) -> u64 {
         self.num_events_in_10us
     }
+
     /// Number of events counted in the interval [100µs, 1ms).
     pub fn num_events_in_100us(&self) -> u64 {
         self.num_events_in_100us
@@ -279,10 +287,12 @@ impl DoomGram {
     pub fn num_events_in_1ms(&self) -> u64 {
         self.num_events_in_1ms
     }
+
     /// Number of events counted in the interval [10ms, 100ms).
     pub fn num_events_in_10ms(&self) -> u64 {
         self.num_events_in_10ms
     }
+
     /// Number of events counted in the interval [100ms, 1s).
     pub fn num_events_in_100ms(&self) -> u64 {
         self.num_events_in_100ms
@@ -292,10 +302,12 @@ impl DoomGram {
     pub fn num_events_in_1s(&self) -> u64 {
         self.num_events_in_1s
     }
+
     /// Number of events counted in the interval [10s, 100s).
     pub fn num_events_in_10s(&self) -> u64 {
         self.num_events_in_10s
     }
+
     /// Number of events counted in the interval [100s, ∞).
     pub fn num_events_ge_100s(&self) -> u64 {
         self.num_events_ge_100s
@@ -401,7 +413,7 @@ impl DoomGram {
 
     fn try_add_ns_to_total_and_update_minmax_and_count_(
         &mut self,
-        time_in_ns : u64
+        time_in_ns : u64,
     ) -> bool {
 
         if self.has_overflowed {
@@ -421,7 +433,7 @@ impl DoomGram {
                     },
                     None => {
                         self.min_event_time = Some(time_in_ns);
-                    }
+                    },
                 };
 
                 match self.max_event_time {
@@ -432,7 +444,7 @@ impl DoomGram {
                     },
                     None => {
                         self.max_event_time = Some(time_in_ns);
-                    }
+                    },
                 };
 
                 true
@@ -453,14 +465,14 @@ impl DoomGram {
 
 
 pub fn doom_scope<F, R>(
-    dg  : &mut DoomGram,
-    work : F
+    dg : &mut DoomGram,
+    work : F,
 ) -> (
-    R, // work_result
+    R,   // work_result
     u64, // measured_elapsed_time_in_ns
 )
 where
-    F : FnOnce() -> R
+    F : FnOnce() -> R,
 {
     let before = Instant::now();
 
