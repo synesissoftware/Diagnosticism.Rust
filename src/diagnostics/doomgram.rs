@@ -314,6 +314,28 @@ impl DoomGram {
         self.num_events_ge_100s
     }
 
+    /// Returns a fixed 12-character ASCII strip for the histogram.
+    ///
+    /// Each position encodes the order-of-magnitude of the event count in
+    /// one time bucket, from 1ns at the left through ≥100s at the right.
+    /// Positions match [`Self::num_events_in_1ns`],
+    /// [`Self::num_events_in_10ns`], …, [`Self::num_events_ge_100s`].
+    ///
+    /// Character encoding:
+    ///
+    /// * `_` — zero events in the bucket;
+    /// * `a`–`z` — event count with decimal order-of-magnitude 1–26;
+    /// * `*` — order of magnitude exceeds `z` (more than 26 digits);
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use diagnosticism::DoomGram;
+    ///
+    /// let mut dg = DoomGram::default();
+    /// assert!(dg.push_event_time_ms(13));
+    /// assert_eq!("_______a____", dg.to_strip());
+    /// ```
     pub fn to_strip(&self) -> String {
 
         // TODO: this may need to be optimised, as costing around 20µs (2µs
@@ -348,6 +370,9 @@ impl DoomGram {
         strip[10] = gram_doom_to_char(calc_doom(self.num_events_in_10s()), ch_0, ch_overflow, range);
         strip[11] = gram_doom_to_char(calc_doom(self.num_events_ge_100s()), ch_0, ch_overflow, range);
 
+        // SAFETY: `strip` holds only `_`, `*`, or `a`–`z`. Each byte is
+        // written by `gram_doom_to_char()` as `ch_0`, `ch_overflow`, or an
+        // element of `range` (lowercase ASCII); all are valid UTF-8.
         let s = unsafe { std_str::from_utf8_unchecked(&strip) };
 
         s.into()
