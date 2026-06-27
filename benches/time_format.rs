@@ -14,8 +14,9 @@ use criterion::{
 };
 
 
-/// Representative nanosecond counts spanning each output band and formatting
-/// path (integer-only, fractional, large whole, zero, negative, explicit `+`).
+/// Representative nanosecond counts spanning each output band and
+/// formatting path (integer-only, fractional, large whole, zero, negative,
+/// explicit `+`).
 const REPRESENTATIVE_VALUES : [(i64, &str); 12] = [
     (0, "zero"),
     (9, "9 ns"),
