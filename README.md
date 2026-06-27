@@ -80,6 +80,16 @@ The following function is re-exported at the crate root (and defined in the [`di
 * `doom_scope()` - executes a closure, records its elapsed time in a [`DoomGram`](https://docs.rs/diagnosticism/latest/diagnosticism/struct.DoomGram.html), and returns the closure's result together with the measured elapsed time (in nanoseconds). See the example [**examples/doomgram.md**](./examples/doomgram.md);
 * `nanoseconds_to_string()` - formats a nanosecond count as a compact human-readable duration string (units `ns`, `µs`, `ms`, `s` with roughly three significant digits); behaviour matches [**Diagnosticism.Python**](https://github.com/synesissoftware/Diagnosticism.Python) 0.16.0;
 
+For example:
+
+```Rust
+use diagnosticism::nanoseconds_to_string;
+
+nanoseconds_to_string(123_456_789, "");   // "123.4ms"
+nanoseconds_to_string(      6_789, "");   // "6.789µs"
+nanoseconds_to_string(999_772_000, "+");  // "+999.7ms"
+```
+
 
 ### Macros
 
