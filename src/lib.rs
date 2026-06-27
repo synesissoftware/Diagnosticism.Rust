@@ -35,6 +35,8 @@
 //!   [`Debug`](std::fmt::Debug) fields;
 //! * [`doom_scope`] — time a closure and record the elapsed duration in a
 //!   [`DoomGram`];
+//! * [`nanoseconds_to_string`] — format a nanosecond count as a compact
+//!   human-readable duration string;
 //!
 //! ## Macros (crate root)
 //!
@@ -78,6 +80,7 @@ pub mod diagnostics;
 
 pub use diagnostics::{
     doom_scope,
+    nanoseconds_to_string,
     DebugSqueezer,
     DoomGram,
     Ellipsis,
