@@ -1,14 +1,28 @@
-//! Miscellaneous discrete and simple diagnostics facilities for Rust.
+//! Simple diagnostics utilities for Rust — part of the cross-language
+//! **Diagnosticism** family.
 //!
-//! **Diagnosticism** supplements what is available in the standard library.
-//! It is implemented in several languages; in Rust the facilities are
-//! (currently) aimed around supplementing [`Debug`](std::fmt::Debug),
-//! together with lightweight timing and source-location helpers.
+//! **Diagnosticism** offers small, focused helpers that extend the
+//! standard library for logging, profiling, and debug output. The
+//! project is implemented in several languages; each port exposes
+//! facilities that are useful and idiomatic in that environment.
+//! (See [**Diagnosticism.Python**][dp] for a wider API, including
+//! tracing and callstack capture.)
 //!
-//! For example, [`Ellipsis`] can be used in a custom
-//! [`Debug`](std::fmt::Debug) implementation to elide fields in terse
-//! (`"{:?}"`) output while still including them in alternate (`"{:#?}"`)
-//! form.
+//! In Rust, this crate focuses on three areas:
+//!
+//! * **[`Debug`](std::fmt::Debug) helpers** — control what appears in
+//!   log output ([`Ellipsis`], [`Password`], [`DebugSqueezer`]);
+//! * **Timing** — record duration distributions ([`DoomGram`]),
+//!   measure closures ([`doom_scope`]), and format nanoseconds
+//!   ([`nanoseconds_to_string`]);
+//! * **Source location** — compile-time file, line, and function
+//!   macros (`fileline!`, `filelinefunction!`, and others).
+//!
+//! For example, [`Ellipsis`] in a custom [`Debug`](std::fmt::Debug)
+//! implementation can elide fields in terse `"{:?}"` output while
+//! still including them in alternate `"{:#?}"` form.
+//!
+//! [dp]: https://github.com/synesissoftware/Diagnosticism.Python
 //!
 //! # Installation
 //!
