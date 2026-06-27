@@ -78,16 +78,16 @@ The following optional features are defined in **Cargo.toml**:
 The following function is re-exported at the crate root (and defined in the [`diagnostics`](https://docs.rs/diagnosticism/latest/diagnosticism/diagnostics/index.html) module):
 
 * `doom_scope()` - executes a closure, records its elapsed time in a [`DoomGram`](https://docs.rs/diagnosticism/latest/diagnosticism/struct.DoomGram.html), and returns the closure's result together with the measured elapsed time (in nanoseconds). See the example [**examples/doomgram.md**](./examples/doomgram.md);
-* `nanoseconds_to_string()` - formats a nanosecond count as a compact human-readable duration string (units `ns`, `µs`, `ms`, `s` with roughly three significant digits); behaviour matches [**Diagnosticism.Python**](https://github.com/synesissoftware/Diagnosticism.Python) 0.16.0;
+* `nanoseconds_to_string()` - formats a nanosecond count as a compact human-readable duration string (units `ns`, `µs`, `ms`, `s` with roughly three significant digits); returns a [`NanosecondsStr`](https://docs.rs/diagnosticism/latest/diagnosticism/struct.NanosecondsStr.html); behaviour matches [**Diagnosticism.Python**](https://github.com/synesissoftware/Diagnosticism.Python) 0.16.0;
 
 For example:
 
 ```Rust
 use diagnosticism::nanoseconds_to_string;
 
-nanoseconds_to_string(123_456_789, "");   // "123.4ms"
-nanoseconds_to_string(      6_789, "");   // "6.789µs"
-nanoseconds_to_string(999_772_000, "+");  // "+999.7ms"
+assert_eq!( "123.4ms", nanoseconds_to_string(123_456_789, ""));
+assert_eq!( "6.789µs", nanoseconds_to_string(      6_789, ""));
+assert_eq!("+999.7ms", nanoseconds_to_string(999_772_000, "+"));
 ```
 
 
@@ -109,6 +109,7 @@ The following structures are re-exported at the crate root (and defined in the [
 
 * `DebugSqueezer` - used to assist with restricting the length of `Debug` forms of fields within a given width. See the example [**examples/debug_squeezer.md**](./examples/debug_squeezer.md);
 * `DoomGram` - a **D**ecimal **O**rder-**O**f-**M**agnitude histo**G**ram structure that records efficiently duration values in the orders of magnitude 1ns+, 10ns+, 100ns+, 1µs+, ..., 10s+, 100s+ and provides a mechanism for displaying this histogram in a simple single 12-character display, which is useful for logging cumulative execution costs of components in long-running performance-sensitive applications. See the example [**examples/doomgram.md**](./examples/doomgram.md);
+* `NanosecondsStr` - compact storage for a formatted duration string; returned by `nanoseconds_to_string()`; typical outputs fit in 15 inline UTF-8 bytes without heap allocation; implements `Display`, `Deref` to `str`, and `AsRef<str>`;
 * `Ellipsis` - provides the string `"..."` to be used for fields whose `Debug` forms are not to be expressed in terse (non-`#alternate()`) output. See the example [**examples/ellipsis.md**](./examples/ellipsis.md);
 * `Password` - provides strings such as `"********"` to be used for fields that are sensitive and whose `Debug` forms are not to be expressed. See the example [**examples/password.md**](./examples/password.md);
 
