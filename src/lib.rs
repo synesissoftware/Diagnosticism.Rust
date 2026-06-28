@@ -91,6 +91,7 @@
 // lib.rs
 
 pub mod diagnostics;
+pub(crate) mod macros;
 
 pub use diagnostics::{
     doom_scope,
