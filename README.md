@@ -31,6 +31,7 @@ Other facilities (that are not directly related to `Debug`) will be added to the
 	- [Functions](#functions)
 	- [Macros](#macros)
 	- [Structures](#structures)
+		- [Redacting `Debug` output (`Ellipsis` and `Password`)](#redacting-debug-output-ellipsis-and-password)
 	- [Traits](#traits)
 - [Examples](#examples)
 	- [Example - `DoomGram`](#example---doomgram)
