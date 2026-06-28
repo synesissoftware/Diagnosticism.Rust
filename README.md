@@ -1,6 +1,6 @@
 # Diagnosticism.Rust <!-- omit in toc -->
 
-Diagnosticism, for Rust
+Simple diagnostics utilities for Rust — part of the cross-language **Diagnosticism** family.
 
 ![Language](https://img.shields.io/badge/Rust-000000?style=flat&logo=rust&logoColor=white)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
@@ -78,6 +78,7 @@ The following optional features are defined in **Cargo.toml**:
 The following function is re-exported at the crate root (and defined in the [`diagnostics`](https://docs.rs/diagnosticism/latest/diagnosticism/diagnostics/index.html) module):
 
 * `doom_scope()` - executes a closure, records its elapsed time in a [`DoomGram`](https://docs.rs/diagnosticism/latest/diagnosticism/struct.DoomGram.html), and returns the closure's result together with the measured elapsed time (in nanoseconds). See the example [**examples/doomgram.md**](./examples/doomgram.md);
+* `nanoseconds_to_string()` - formats a nanosecond count as a compact human-readable duration string (units `ns`, `µs`, `ms`, `s` with roughly three significant digits); behaviour matches [**Diagnosticism.Python**](https://github.com/synesissoftware/Diagnosticism.Python) 0.16.0;
 
 
 ### Macros
@@ -317,7 +318,10 @@ Crates upon which **Diagnosticism.Rust** has development dependencies:
 
 ### Related projects
 
+* [**Diagnosticism**](https://github.com/synesissoftware/Diagnosticism);
+* [**Diagnosticism.Go**](https://github.com/synesissoftware/Diagnosticism.Go);
 * [**Diagnosticism.Python**](https://github.com/synesissoftware/Diagnosticism.Python);
+* [**Diagnosticism.Ruby**](https://github.com/synesissoftware/Diagnosticism.Ruby);
 
 
 ### License

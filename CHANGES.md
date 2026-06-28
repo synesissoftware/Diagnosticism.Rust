@@ -1,6 +1,11 @@
 # Diagnosticism.Rust - CHANGES <!-- omit in toc -->
 
 
+## 0.3.0 - 27th June 2026
+
+* added `nanoseconds_to_string()` — compact human-readable duration formatting (behaviour matches **Diagnosticism.Python** 0.16.0);
+
+
 ## 0.2.1 - 27th June 2026
 
 * added CI tasks;
