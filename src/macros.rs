@@ -33,7 +33,8 @@ macro_rules! declare_and_publish_impl_ {
 /// * `declare_and_publish!(crate mod_name, Item)` — `pub(crate) use`;
 /// * `declare_and_publish!(super mod_name, Item)` — `pub(super) use`;
 /// * `declare_and_publish!(self mod_name, Item)` — `pub(self) use`;
-/// * `declare_and_publish!(priv mod_name, Item)` — `pub(self) use` (synonym);
+/// * `declare_and_publish!(priv mod_name, Item)` — `pub(self) use`
+///   (synonym);
 /// * `declare_and_publish!($vis mod_name, Item)` — any Rust visibility
 ///   (e.g. `pub(crate)`, `pub(in crate::api)`).
 ///
