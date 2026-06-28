@@ -1,10 +1,9 @@
 # Diagnosticism.Rust - CHANGES <!-- omit in toc -->
 
 
-## 0.3.2 - 29th June 2026
+## 0.4.0 - 29th June 2026
 
-* added `DoomGram#to_mmm()`;
-* added `DoomGram#to_nmmm()`;
+* added `DoomGram::to_mmm()` and `DoomGram::to_nmmm()` — compact min/mean/max duration summaries using `nanoseconds_to_string()`;
 
 
 ## 0.3.1 - 28th June 2026
@@ -12,7 +11,7 @@
 * internal implementation improvements;
 
 
-## 0.3.0 - 27th June 2026
+## 0.3.0 - 28th June 2026
 
 * added `nanoseconds_to_string()` — compact human-readable duration formatting (behaviour matches **Diagnosticism.Python** 0.16.0);
 

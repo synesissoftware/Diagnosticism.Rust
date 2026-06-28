@@ -109,7 +109,7 @@ The following macros are defined at the crate root (e.g. `use diagnosticism::fil
 The following structures are re-exported at the crate root (and defined in the [`diagnostics`](https://docs.rs/diagnosticism/latest/diagnosticism/diagnostics/index.html) module):
 
 * `DebugSqueezer` - used to assist with restricting the length of `Debug` forms of fields within a given width. See the example [**examples/debug_squeezer.md**](./examples/debug_squeezer.md);
-* `DoomGram` - a **D**ecimal **O**rder-**O**f-**M**agnitude histo**G**ram structure that records efficiently duration values in the orders of magnitude 1ns+, 10ns+, 100ns+, 1µs+, ..., 10s+, 100s+ and provides a mechanism for displaying this histogram in a simple single 12-character display, which is useful for logging cumulative execution costs of components in long-running performance-sensitive applications. See the example [**examples/doomgram.md**](./examples/doomgram.md);
+* `DoomGram` - a **D**ecimal **O**rder-**O**f-**M**agnitude histo**G**ram structure that records efficiently duration values in the orders of magnitude 1ns+, 10ns+, 100ns+, 1µs+, ..., 10s+, 100s+ and provides a mechanism for displaying this histogram in a simple single 12-character display (`to_strip()`), plus compact min/mean/max duration summaries (`to_mmm()` and `to_nmmm()`), which is useful for logging cumulative execution costs of components in long-running performance-sensitive applications. See the example [**examples/doomgram.md**](./examples/doomgram.md);
 * `NanosecondsStr` - compact storage for a formatted duration string; returned by `nanoseconds_to_string()`; typical outputs fit in 15 inline UTF-8 bytes without heap allocation; implements `Display`, `Deref` to `str`, and `AsRef<str>`;
 * `Ellipsis` - provides the string `"..."` to be used for fields whose `Debug` forms are not to be expressed in terse (non-`#alternate()`) output. See the example [**examples/ellipsis.md**](./examples/ellipsis.md);
 * `Password` - provides strings such as `"********"` to be used for fields that are sensitive and whose `Debug` forms are not to be expressed. See the example [**examples/password.md**](./examples/password.md);
@@ -135,16 +135,19 @@ Examples are provided in the ```examples``` directory, along with a markdown des
 
 ### Example - `DoomGram`
 
-The example program **doomgram** (in **examples** directory, built with feature `test-doomgram`), illustrates use of `DoomGram` to capture the order-of-magnitude histogram of a large number of small random delays. The program source is:
+The example program **doomgram** (in **examples** directory, built with feature `test-doomgram`), illustrates use of `DoomGram` to capture the order-of-magnitude histogram of a large number of small random delays, and to format min/mean/max duration summaries. The program source is:
 
 ```Rust
 // examples/doomgram.rs : example program illustrating use of `DoomGram`
 
-use diagnosticism::DoomGram;
+use diagnosticism::{
+    doom_scope,
+    DoomGram,
+};
 
 use rand::{
     rngs::StdRng,
-    RngCore,
+    Rng,
     SeedableRng,
 };
 
@@ -173,19 +176,15 @@ fn main() {
                 }
             }
 
-            let before = Instant::now();
+            doom_scope(&mut dg, || {
+                if 0 != i % 2000 {
+                    thread::sleep(Duration::from_nanos(v as u64));
+                } else {
+                    // no wait, so should be very low ns
 
-            if 0 != i % 2000 {
-                thread::sleep(Duration::from_nanos(v as u64));
-            } else {
-                // no wait, so should be very low ns
-
-                thread::sleep(Duration::from_secs(0));
-            }
-
-            let after = Instant::now();
-
-            dg.push_event_duration(after - before);
+                    thread::sleep(Duration::from_secs(0));
+                }
+            });
         }
 
         // output results on second run through
@@ -195,7 +194,19 @@ fn main() {
             let after = Instant::now();
 
             eprintln!("`#to_strip()` : {strip} (in {:?})", after - before);
-            eprintln!("");
+
+            let before = Instant::now();
+            let mmm = dg.to_mmm();
+            let after = Instant::now();
+
+            eprintln!("`#to_mmm()`   : {mmm} (in {:?})", after - before);
+
+            let before = Instant::now();
+            let nmmm = dg.to_nmmm();
+            let after = Instant::now();
+
+            eprintln!("`#to_nmmm()`  : {nmmm} (in {:?})", after - before);
+            eprintln!();
             eprintln!("dg={dg:#?}");
         }
 
@@ -208,6 +219,8 @@ and a typical output is:
 
 ```plaintext
 `#to_strip()` : _aabdedba___ (in 1.763µs)
+`#to_mmm()`   : 59ns-644µs-197.3ms (in 245ns)
+`#to_nmmm()`  : 20000:59ns-644µs-197.3ms (in 312ns)
 
 dg=DoomGram {
     event_count: 20000,
@@ -234,14 +247,14 @@ dg=DoomGram {
 }
 ```
 
-showing the exploded `Debug` form of the `DoomGram` instance and its timing strip that, for particular execution, obtains the value `"_aabdedba___"` that indicates that there have been:
+showing the exploded `Debug` form of the `DoomGram` instance, its timing strip, and compact min/mean/max summaries. For this execution, the strip obtains the value `"_aabdedba___"`, which indicates that there have been:
 - 0 events in the 1ns+, 1s+, 10s+, 100s+ magnitudes;
 - 1-9 events in 10ns+, 100ns+, 100ms+ magnitudes;
 - 10-99 events in 1µs+, 10ms+ magnitudes;
 - 1000-9999 events in 10µs+, 10ms+ magnitudes;
 - 10000-99999 events in the 100µs+ magnitude;
 
-Naturally, in a live system one would not be employing the exploded `Debug` view, relying only on the terse and efficient timing strip format.
+Naturally, in a live system one would not be employing the exploded `Debug` view, relying instead on the terse and efficient `to_strip()`, `to_mmm()`, and `to_nmmm()` formats.
 
 
 ### Example - `Ellipsis`
