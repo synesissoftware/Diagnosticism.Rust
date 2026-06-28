@@ -1,5 +1,7 @@
 // src/diagnostics/time_format/nanoseconds_str.rs : `NanosecondsStr`
 
+use base_traits::AsStr;
+
 use std::{
     borrow::Borrow,
     fmt as std_fmt,
@@ -94,6 +96,13 @@ impl NanosecondsStr {
 
 impl AsRef<str> for NanosecondsStr {
     fn as_ref(&self) -> &str {
+        self.as_str()
+    }
+}
+
+
+impl AsStr for NanosecondsStr {
+    fn as_str(&self) -> &str {
         self.as_str()
     }
 }

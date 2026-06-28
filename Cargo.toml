@@ -95,6 +95,8 @@ test-doomgram = [
 
 [dependencies]
 
+base-traits = { version = "0", default-features = false, features = [
+]}
 rand = { version = "0.10", optional = true }
 
 [dev-dependencies]
