@@ -3,12 +3,17 @@
 
 ## 0.3.1 - 28th June 2026
 
+* optimisation of `nanoseconds_to_string()` — uses a custom return type `NanosecondsStr` for highly efficient conversion in vast majority of cases;
+
+
+## 0.3.1 - 28th June 2026
+
 * internal implementation improvements;
 
 
 ## 0.3.0 - 27th June 2026
 
-* added `nanoseconds_to_string()` — compact human-readable duration formatting (behaviour matches **Diagnosticism.Python** 0.16.0) with a custom return type `NanosecondsStr` for highly efficient conversion in vast majority of cases;
+* added `nanoseconds_to_string()` — compact human-readable duration formatting (behaviour matches **Diagnosticism.Python** 0.16.0);
 
 
 ## 0.2.1 - 27th June 2026
