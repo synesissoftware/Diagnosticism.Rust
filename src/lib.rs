@@ -13,8 +13,8 @@
 //! * **[`Debug`](std::fmt::Debug) helpers** — control what appears in
 //!   log output ([`Ellipsis`], [`Password`], [`DebugSqueezer`]);
 //! * **Timing** — record duration distributions ([`DoomGram`]),
-//!   measure closures ([`doom_scope`]), and format nanoseconds
-//!   ([`nanoseconds_to_string`]);
+//!   measure closures ([`doom_scope`]), and format durations via
+//!   [`nanoseconds_to_string`] into [`NanosecondsStr`];
 //! * **Source location** — compile-time file, line, and function
 //!   macros (`fileline!`, `filelinefunction!`, and others).
 //!
@@ -49,8 +49,9 @@
 //!   [`Debug`](std::fmt::Debug) fields;
 //! * [`doom_scope`] — time a closure and record the elapsed duration in a
 //!   [`DoomGram`];
-//! * [`nanoseconds_to_string`] — format a nanosecond count as a compact
-//!   human-readable duration string;
+//! * [`NanosecondsStr`] — compact storage for a formatted duration string;
+//! * [`nanoseconds_to_string`] — format a nanosecond count into a
+//!   [`NanosecondsStr`];
 //!
 //! ## Macros (crate root)
 //!
@@ -99,6 +100,7 @@ pub use diagnostics::{
     DebugSqueezer,
     DoomGram,
     Ellipsis,
+    NanosecondsStr,
     Password,
 };
 

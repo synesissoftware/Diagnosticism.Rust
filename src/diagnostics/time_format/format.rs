@@ -1,7 +1,7 @@
-// src/diagnostics/time_format.rs : duration formatting
+// src/diagnostics/time_format/format.rs : `nanoseconds_to_string()`
 
-// NOTE: this work was brought in from **asynkio** via **Diagnosticism.Python**
-// 0.16.0
+use super::nanoseconds_str::NanosecondsStr;
+
 
 const SCALES : [i64; 12] = [
     1,
@@ -26,7 +26,10 @@ const SUFFIXES : [&str; 4] = [
 ];
 
 
-/// Formats a nanosecond count as a compact human-readable duration string.
+// API functions
+
+/// Formats a nanosecond count as a compact human-readable duration string,
+/// returning a [`NanosecondsStr`].
 ///
 /// The output adapts the unit (`ns`, `µs`, `ms`, `s`) and decimal precision
 /// to keep roughly three significant digits in the numeric portion.
@@ -43,27 +46,28 @@ const SUFFIXES : [&str; 4] = [
 ///
 /// # Returns
 ///
-/// The formatted duration string. Zero is always `"0s"` with no sign.
+/// A [`NanosecondsStr`] holding the formatted duration. Zero is always
+/// `"0s"` with no sign.
 ///
 /// [dp]: https://github.com/synesissoftware/Diagnosticism.Python
 pub fn nanoseconds_to_string(
     nanoseconds : i64,
     format_spec : &str,
-) -> String {
+) -> NanosecondsStr {
     let mut v = nanoseconds;
 
-    let sign = if v < 0 {
+    let sign_byte = if v < 0 {
         v = -v;
 
-        "-"
+        Some(b'-')
     } else if format_spec.contains('+') {
-        "+"
+        Some(b'+')
     } else {
-        ""
+        None
     };
 
     if v == 0 {
-        return String::from("0s");
+        return NanosecondsStr::from_buffer(b"0s");
     }
 
     let (oom, divisor) = scale_index(v);
@@ -71,7 +75,7 @@ pub fn nanoseconds_to_string(
     let suffix = SUFFIXES[oom / 3];
 
     if oom < 3 {
-        return fmt(sign, v, 0, suffix);
+        return format_parts(sign_byte, v, 0, suffix);
     }
 
     let divisor_0 = divisor / 1_000;
@@ -91,77 +95,115 @@ pub fn nanoseconds_to_string(
     let whole = v / divisor_1;
     let frac = v - (whole * divisor_1);
 
-    fmt(sign, whole, frac, suffix)
+    format_parts(sign_byte, whole, frac, suffix)
 }
 
+
+// Helper functions
 
 fn scale_index(n : i64) -> (usize, i64) {
     debug_assert!(n > 0);
 
-    if n >= 100_000_000_000 {
-        return (11, SCALES[11]);
-    }
+    let oom = if n >= 100_000_000_000 {
+        11
+    } else {
+        n.ilog10() as usize
+    };
 
-    let mut l = 0;
-    let mut h = 11;
-
-    let mut count = 0;
-
-    while l <= h {
-        count += 1;
-
-        debug_assert!(count < 5);
-
-        let m = (h + l) / 2;
-
-        let b = SCALES[m];
-
-        if n == b {
-            return (m, b);
-        }
-
-        if n < b {
-            h = m;
-
-            continue;
-        }
-
-        debug_assert!(n > b);
-
-        if n < b * 10 {
-            return (m, b);
-        }
-
-        l = m;
-    }
-
-    (11, SCALES[11])
+    (oom, SCALES[oom])
 }
 
 
-fn fmt(
-    sign : &str,
+fn format_parts(
+    sign_byte : Option<u8>,
     whole : i64,
     frac : i64,
     suffix : &str,
-) -> String {
-    if frac == 0 {
-        return format!("{sign}{whole}{suffix}");
+) -> NanosecondsStr {
+    let mut buf = [0u8; 24];
+    let mut pos = 0usize;
+
+    if let Some(b) = sign_byte {
+        buf[pos] = b;
+
+        pos += 1;
     }
 
-    if whole > 999 {
-        return format!("{sign}{whole}{suffix}");
+    pos = write_u64(&mut buf, whole as u64, pos);
+
+    if frac != 0 && whole <= 999 {
+        buf[pos] = b'.';
+
+        pos += 1;
+
+        if whole > 99 {
+            pos = write_u64(&mut buf, frac as u64, pos);
+        } else if whole > 9 {
+            pos = write_frac_min_width_2(&mut buf, pos, frac);
+        } else {
+            pos = write_u64(&mut buf, frac as u64, pos);
+        }
     }
 
-    if whole > 99 {
-        return format!("{sign}{whole}.{frac}{suffix}");
+    pos = write_bytes(&mut buf, pos, suffix.as_bytes());
+
+    NanosecondsStr::from_buffer(&buf[..pos])
+}
+
+
+fn write_u64(
+    buf : &mut [u8],
+    mut n : u64,
+    mut pos : usize,
+) -> usize {
+    if n == 0 {
+        buf[pos] = b'0';
+
+        return pos + 1;
     }
 
-    if whole > 9 {
-        return format!("{sign}{whole}.{frac:02}{suffix}");
+    let start = pos;
+
+    while n > 0 {
+        buf[pos] = (n % 10) as u8 + b'0';
+
+        n /= 10;
+
+        pos += 1;
     }
 
-    format!("{sign}{whole}.{frac}{suffix}")
+    buf[start..pos].reverse();
+
+    pos
+}
+
+
+fn write_frac_min_width_2(
+    buf : &mut [u8],
+    pos : usize,
+    frac : i64,
+) -> usize {
+    debug_assert!((0..100).contains(&frac));
+
+    if frac >= 10 {
+        write_u64(buf, frac as u64, pos)
+    } else {
+        buf[pos] = b'0';
+        buf[pos + 1] = (frac as u8) + b'0';
+
+        pos + 2
+    }
+}
+
+
+fn write_bytes(
+    buf : &mut [u8],
+    pos : usize,
+    bytes : &[u8],
+) -> usize {
+    buf[pos..pos + bytes.len()].copy_from_slice(bytes);
+
+    pos + bytes.len()
 }
 
 
@@ -185,26 +227,26 @@ mod tests {
 
 
     #[test]
-    fn TEST_zero() {
+    fn TEST_ZERO() {
         assert_ns(0, "", "0s");
         assert_ns(0, "+", "0s");
     }
 
 
     #[test]
-    fn TEST_one_second() {
+    fn TEST_ONE_SECOND() {
         assert_ns(1_000_000_000, "", "1s");
     }
 
 
     #[test]
-    fn TEST_123_milliseconds() {
+    fn TEST_123_MILLISECONDS() {
         assert_ns(123_000_000, "", "123ms");
     }
 
 
     #[test]
-    fn TEST_123_456_789_nanoseconds() {
+    fn TEST_123_456_789_NANOSECONDS() {
         assert_ns(123_456_789, "", "123.4ms");
     }
 
@@ -294,7 +336,7 @@ mod tests {
 
     #[rustfmt::skip]
     #[test]
-    fn TEST_observed_edge_cases() {
+    fn TEST_OBSERVED_EDGE_CASES() {
         assert_ns( 999_772_000, "",  "999.7ms");
         assert_ns( 999_800_000, "",  "999.8ms");
         assert_ns( 999_974_000, "",  "999.9ms");
@@ -307,7 +349,7 @@ mod tests {
 
     #[rustfmt::skip]
     #[test]
-    fn TEST_with_plus_sign() {
+    fn TEST_WITH_PLUS_SIGN() {
         assert_ns( 999_772_000, "",  "999.7ms");
         assert_ns( 999_800_000, "",  "999.8ms");
         assert_ns( 999_974_000, "",  "999.9ms");

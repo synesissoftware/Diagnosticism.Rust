@@ -23,6 +23,18 @@ alwaysApply: false
 Run `./scripts/check_doc_76.py` to verify compliance.
 
 
+## DERIVE_LAYOUT (Derive Layout & Formatting)
+
+Multi-trait `#[derive(...)]` macros must be split into separate,
+single-trait lines, ordered alphabetically by trait name. Tightly coupled
+traits may remain on one line: `#[derive(Eq, PartialEq)]`,
+`#[derive(Ord, PartialOrd)]`.
+
+`rustfmt.toml` sets `merge_derives = false` to preserve this layout.
+
+Run `./scripts/check_derives.py` to verify compliance.
+
+
 ## RUST_TEST_NAMING
 
 All test methods must use `SHOUTING_SNAKE_CASE` - e.g. `TEST_PARSING()` -
