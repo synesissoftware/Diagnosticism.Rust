@@ -1,7 +1,7 @@
 # Diagnosticism.Rust - CHANGES <!-- omit in toc -->
 
 
-## 0.3.1 - 28th June 2026
+## 0.3.2 - 28th June 2026
 
 * optimisation of `nanoseconds_to_string()` — uses a custom return type `NanosecondsStr` for highly efficient conversion in vast majority of cases;
 
