@@ -12,7 +12,7 @@ const INLINE_CAP : usize = 15;
 
 /// Compact storage for a formatted nanosecond duration string.
 ///
-/// Obtain values from [`nanoseconds_to_string`]. Most outputs fit in
+/// Obtain values from [`crate::nanoseconds_to_string`]. Most outputs fit in
 /// [`INLINE_CAP`] UTF-8 bytes and are stored inline without heap
 /// allocation. Longer results use a [`String`] variant.
 #[derive(Clone)]

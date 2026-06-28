@@ -60,5 +60,7 @@ jobs:
 
       - uses: Swatinem/rust-cache@v2
 
-      - name: cargo test
-        run: cargo test --locked
+      - name: cargo check (library)
+        # Full `cargo test` needs dev-deps (criterion → clap_lex 2024 edition),
+        # which exceeds MSRV 1.74; the stable job runs the full test suite.
+        run: cargo check --lib --locked
