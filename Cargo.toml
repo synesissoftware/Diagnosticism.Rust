@@ -26,7 +26,7 @@ name = "diagnosticism"
 readme = "README.md"
 repository = "https://github.com/synesissoftware/Diagnosticism.Rust"
 rust-version = "1.74"
-version = "0.3.0"
+version = "0.3.1"
 
 
 # ##########################################################
