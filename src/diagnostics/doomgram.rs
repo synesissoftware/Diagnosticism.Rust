@@ -314,6 +314,29 @@ impl DoomGram {
         self.num_events_ge_100s
     }
 
+    /// Returns min, mean, and max event times as a compact duration string.
+    ///
+    /// Each duration is formatted by [`crate::nanoseconds_to_string`]. When
+    /// [`Self::event_count()`] is zero, returns an empty string. When
+    /// [`Self::has_overflowed()`] is true, returns `"OVERFLOW"`. When there
+    /// is one event, or min and max are equal, returns a single formatted
+    /// duration; otherwise returns `min-mean-max` separated by `-`.
+    ///
+    /// Mean is [`Self::event_time_total_raw()`] divided by
+    /// [`Self::event_count()`].
+    pub fn to_mmm(&self) -> String {
+        self.to_mmm_impl_()
+    }
+
+    /// Like [`Self::to_mmm()`], prefixed with the event count and `:`.
+    ///
+    /// When [`Self::event_count()`] is zero, returns `"0:"`. When
+    /// [`Self::has_overflowed()`] is true, returns
+    /// `"<count>:OVERFLOW"`.
+    pub fn to_nmmm(&self) -> String {
+        self.to_nmmm_impl_()
+    }
+
     /// Returns a fixed 12-character ASCII strip for the histogram.
     ///
     /// Each position encodes the order-of-magnitude of the event count in
@@ -435,6 +458,78 @@ impl DoomGram {
                 }
             }
         }
+    }
+
+    fn to_mmm_impl_(
+        &self,
+    ) -> String {
+        use super::time_format::nanoseconds_to_string;
+
+        const OVERFLOW : &str = "OVERFLOW";
+
+        let count = self.event_count();
+
+        if 0 == count {
+                return String::new();
+        }
+
+        if self.has_overflowed() {
+                return OVERFLOW.into();
+        }
+
+        let min_ns = self.min_event_time().unwrap() as i64;
+        let max_ns = self.max_event_time().unwrap() as i64;
+
+        let body = if 1 == count || min_ns == max_ns {
+            format!("{}", nanoseconds_to_string(min_ns, ""))
+        } else {
+            let mean_ns = (self.event_time_total_raw() / count as u64) as i64;
+
+            format!(
+                "{}-{}-{}",
+                nanoseconds_to_string(min_ns, ""),
+                nanoseconds_to_string(mean_ns, ""),
+                nanoseconds_to_string(max_ns, ""),
+            )
+        };
+
+            body
+    }
+
+    fn to_nmmm_impl_(
+        &self,
+    ) -> String {
+        use super::time_format::nanoseconds_to_string;
+
+        const OVERFLOW : &str = "OVERFLOW";
+
+        let count = self.event_count();
+
+        if 0 == count {
+                return "0:".into();
+        }
+
+        if self.has_overflowed() {
+                return format!("{count}:{OVERFLOW}");
+        }
+
+        let min_ns = self.min_event_time().unwrap() as i64;
+        let max_ns = self.max_event_time().unwrap() as i64;
+
+        let body = if 1 == count || min_ns == max_ns {
+            format!("{count}:{}", nanoseconds_to_string(min_ns, ""))
+        } else {
+            let mean_ns = (self.event_time_total_raw() / count as u64) as i64;
+
+            format!(
+                "{count}:{}-{}-{}",
+                nanoseconds_to_string(min_ns, ""),
+                nanoseconds_to_string(mean_ns, ""),
+                nanoseconds_to_string(max_ns, ""),
+            )
+        };
+
+        body
     }
 
     fn try_add_ns_to_total_and_update_minmax_and_count_(
@@ -889,6 +984,82 @@ mod tests {
 
         assert_eq!("_a_aa___aa_a", dg.to_strip());
     }
+
+
+    #[test]
+    fn TEST_DoomGram_to_mmm_EMPTY() {
+        let dg = DoomGram::default();
+
+        assert_eq!("", dg.to_mmm());
+        assert_eq!("0:", dg.to_nmmm());
+    }
+
+
+    #[test]
+    fn TEST_DoomGram_to_mmm_SINGLE() {
+        let mut dg = DoomGram::default();
+
+        dg.push_event_time_ms(13);
+
+        assert_eq!("13ms", dg.to_mmm());
+        assert_eq!("1:13ms", dg.to_nmmm());
+    }
+
+
+    #[test]
+    fn TEST_DoomGram_to_mmm_UNIFORM() {
+        let mut dg = DoomGram::default();
+
+        dg.push_event_time_s(1);
+        dg.push_event_time_s(1);
+        dg.push_event_time_s(1);
+
+        assert_eq!("1s", dg.to_mmm());
+        assert_eq!("3:1s", dg.to_nmmm());
+    }
+
+
+    #[test]
+    fn TEST_DoomGram_to_mmm_MIN_MEAN_MAX() {
+        let mut dg = DoomGram::default();
+
+        dg.push_event_time_s(1);
+        dg.push_event_time_s(2);
+
+        assert_eq!("1s-1.500s-2s", dg.to_mmm());
+        assert_eq!("2:1s-1.500s-2s", dg.to_nmmm());
+    }
+
+
+    #[test]
+    fn TEST_DoomGram_to_mmm_ZERO_EVENTS_ALL_SAME() {
+        let mut dg = DoomGram::default();
+
+        dg.push_event_time_ns(0);
+        dg.push_event_time_us(0);
+
+        assert_eq!("0s", dg.to_mmm());
+        assert_eq!("2:0s", dg.to_nmmm());
+    }
+
+
+    #[test]
+    fn TEST_DoomGram_to_mmm_OVERFLOW() {
+        let mut dg = DoomGram::default();
+
+        dg.push_event_time_us(18446744073709550);
+        dg.push_event_time_us(1);
+        dg.push_event_time_us(0);
+
+        assert!(!dg.push_event_time_us(1));
+
+        assert!(dg.has_overflowed());
+        assert_eq!(3, dg.event_count());
+
+        assert_eq!("OVERFLOW", dg.to_mmm());
+        assert_eq!("3:OVERFLOW", dg.to_nmmm());
+    }
+
 
     #[test]
     fn TEST_DoomGram_OVERFLOW_BY_SECONDS() {

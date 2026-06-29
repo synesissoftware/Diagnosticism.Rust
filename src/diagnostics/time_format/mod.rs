@@ -3,11 +3,10 @@
 // NOTE: this work was brought in from **asynkio** via **Diagnosticism.Python**
 // 0.16.0
 
-mod format;
-mod nanoseconds_str;
+use crate::macros::declare_and_publish;
 
-pub use format::nanoseconds_to_string;
-pub use nanoseconds_str::NanosecondsStr;
+declare_and_publish!(format, nanoseconds_to_string);
+declare_and_publish!(nanoseconds_str, NanosecondsStr);
 
 
 // ///////////////////////////// end of file //////////////////////////// //

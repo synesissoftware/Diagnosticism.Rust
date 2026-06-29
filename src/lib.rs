@@ -42,7 +42,8 @@
 //! * [`DebugSqueezer`] — restrict the length of
 //!   [`Debug`](std::fmt::Debug) output for individual fields;
 //! * [`DoomGram`] — decimal order-of-magnitude histogram with a compact
-//!   12-character strip for logging;
+//!   12-character strip for logging, plus [`DoomGram::to_mmm`] and
+//!   [`DoomGram::to_nmmm`] min/mean/max duration summaries;
 //! * [`Ellipsis`] — emit `"..."` for redacted
 //!   [`Debug`](std::fmt::Debug) fields;
 //! * [`Password`] — emit a run of `*` characters for sensitive

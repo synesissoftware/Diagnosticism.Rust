@@ -7,7 +7,7 @@ use diagnosticism::{
 
 use rand::{
     rngs::StdRng,
-    RngCore,
+    Rng,
     SeedableRng,
 };
 
@@ -54,6 +54,18 @@ fn main() {
             let after = Instant::now();
 
             eprintln!("`#to_strip()` : {strip} (in {:?})", after - before);
+
+            let before = Instant::now();
+            let mmm = dg.to_mmm();
+            let after = Instant::now();
+
+            eprintln!("`#to_mmm()`   : {mmm} (in {:?})", after - before);
+
+            let before = Instant::now();
+            let nmmm = dg.to_nmmm();
+            let after = Instant::now();
+
+            eprintln!("`#to_nmmm()`  : {nmmm} (in {:?})", after - before);
             eprintln!();
             eprintln!("dg={dg:#?}");
         }

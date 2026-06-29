@@ -27,10 +27,16 @@ jobs:
       - uses: Swatinem/rust-cache@v2
 
       - name: cargo test
-        run: cargo test
+        run: cargo test --locked
 
       - name: cargo clippy
-        run: cargo clippy --all-targets -- -D warnings
+        run: cargo clippy --all-targets --locked -- -D warnings
+
+      - name: cargo build (test-doomgram example)
+        run: cargo build --examples --features test-doomgram --locked
+
+      - name: cargo doc
+        run: cargo doc --no-deps --locked
 
       - name: rustfmt
         run: ./scripts/fmt --check
@@ -40,6 +46,9 @@ jobs:
 
       - name: RUST_TEST_NAMING checker
         run: python3 scripts/check_test_names.py
+
+      - name: DERIVE_LAYOUT checker
+        run: python3 scripts/check_derives.py
 
   msrv:
     name: MSRV (1.74)
@@ -52,4 +61,6 @@ jobs:
       - uses: Swatinem/rust-cache@v2
 
       - name: cargo check (library)
+        # Full `cargo test` needs dev-deps (criterion → clap_lex 2024 edition),
+        # which exceeds MSRV 1.74; the stable job runs the full test suite.
         run: cargo check --lib --locked
