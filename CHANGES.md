@@ -1,6 +1,11 @@
 # Diagnosticism.Rust - CHANGES <!-- omit in toc -->
 
 
+## 0.4.1 - 7th July 2026
+
+* implement `Len` for `NanosecondsStr`;
+
+
 ## 0.4.0 - 30th June 2026
 
 * added `DoomGram::to_mmm()` and `DoomGram::to_nmmm()` — compact min/mean/max duration summaries using `nanoseconds_to_string()`;
