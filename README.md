@@ -56,6 +56,7 @@ diagnosticism = { version = "0" }
 
 ## Components
 
+
 ### Constants
 
 No public constants are defined at this time.
@@ -320,6 +321,7 @@ Terse `Debug` form of `thing2`: Thing2 { name: "i-am-a-public-thing", internals:
 
 ## Project Information
 
+
 ### Where to get help
 
 [GitHub Page](https://github.com/synesissoftware/Diagnosticism.Rust "GitHub Page")
@@ -332,7 +334,8 @@ Defect reports, feature requests, and pull requests are welcome on https://githu
 
 ### Dependencies
 
-**Diagnosticism.Rust** has no (non-development) dependencies.
+* [**base-traits**](https://github.com/synesissoftware/base-traits.rs);
+
 
 #### Dev Dependencies
 

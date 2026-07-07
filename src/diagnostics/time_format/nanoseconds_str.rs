@@ -1,6 +1,9 @@
 // src/diagnostics/time_format/nanoseconds_str.rs : `NanosecondsStr`
 
-use base_traits::AsStr;
+use base_traits::{
+    AsStr,
+    Len,
+};
 
 use std::{
     borrow::Borrow,
@@ -160,6 +163,14 @@ impl From<NanosecondsStr> for String {
     }
 }
 
+impl Len for NanosecondsStr {
+    fn len(&self) -> usize {
+        match &self.inner {
+            NanosecondsStrInner::Heap(s) => s.len(),
+            NanosecondsStrInner::Inline { len, .. } => *len as usize,
+        }
+    }
+}
 
 impl PartialEq<NanosecondsStr> for &str {
     fn eq(
@@ -358,6 +369,115 @@ mod tests {
                 s.as_str(),
             );
             assert!(s.as_str().len() <= INLINE_CAP);
+        }
+    }
+
+
+    mod TEST_AsStr {
+        #![allow(non_snake_case)]
+
+        use super::*;
+
+        use base_traits::AsStr;
+
+
+        #[allow(unused)]
+        fn as_AsStr<T : AsStr>(t : &T) -> &impl AsStr {
+            t
+        }
+
+
+        #[test]
+        fn TEST_INLINE_STORAGE() {
+            let s = nanoseconds_to_string(123_456_789, "");
+
+            assert!(!s.is_heap());
+            assert_eq!("123.4ms", AsStr::as_str(&s));
+
+            let as_trait = as_AsStr(&s);
+
+            assert_eq!("123.4ms", as_trait.as_str());
+
+            let s = &s;
+
+            assert_eq!("123.4ms", AsStr::as_str(s));
+        }
+
+        #[test]
+        fn TEST_INLINE_AT_INLINE_CAP() {
+            let expected = "a".repeat(INLINE_CAP);
+            let s = heap_from_bytes(expected.as_bytes());
+
+            assert!(!s.is_heap());
+            assert_eq!(expected.as_str(), AsStr::as_str(&s));
+        }
+
+        #[test]
+        fn TEST_HEAP_STORAGE() {
+            let expected = "x".repeat(INLINE_CAP + 4);
+            let s = heap_from_bytes(expected.as_bytes());
+
+            assert!(s.is_heap());
+            assert_eq!(expected, AsStr::as_str(&s));
+        }
+    }
+
+
+    mod TEST_Len {
+        #![allow(non_snake_case)]
+
+        use super::*;
+
+        use base_traits::Len;
+
+
+        #[allow(unused)]
+        fn as_Len<T : Len>(t : &T) -> &impl Len {
+            t
+        }
+
+
+        #[test]
+        fn TEST_INLINE_STORAGE() {
+            let s = nanoseconds_to_string(123_456_789, "");
+
+            assert!(!s.is_heap());
+            assert_eq!(s.as_str().len(), Len::len(&s));
+
+            let as_trait = as_Len(&s);
+
+            assert_eq!(s.as_str().len(), as_trait.len());
+
+            let s = &s;
+
+            assert_eq!(s.as_str().len(), Len::len(s));
+        }
+
+        #[test]
+        fn TEST_INLINE_AT_INLINE_CAP() {
+            let expected = "a".repeat(INLINE_CAP);
+            let s = heap_from_bytes(expected.as_bytes());
+
+            assert!(!s.is_heap());
+            assert_eq!(INLINE_CAP, Len::len(&s));
+        }
+
+        #[test]
+        fn TEST_HEAP_AT_INLINE_CAP_PLUS_ONE() {
+            let expected = "b".repeat(INLINE_CAP + 1);
+            let s = heap_from_bytes(expected.as_bytes());
+
+            assert!(s.is_heap());
+            assert_eq!(INLINE_CAP + 1, Len::len(&s));
+        }
+
+        #[test]
+        fn TEST_HEAP_STORAGE() {
+            let expected = "x".repeat(INLINE_CAP + 4);
+            let s = heap_from_bytes(expected.as_bytes());
+
+            assert!(s.is_heap());
+            assert_eq!(expected.len(), Len::len(&s));
         }
     }
 }
