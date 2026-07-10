@@ -6,6 +6,7 @@
 * expanded unit-tests;
 * application of underscores in number literals;
 * general tidying;
+* updated dependencies;
 
 
 ## 0.4.1 - 7th July 2026
