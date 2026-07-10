@@ -356,8 +356,13 @@ impl DoomGram {
     /// use diagnosticism::DoomGram;
     ///
     /// let mut dg = DoomGram::default();
-    /// assert!(dg.push_event_time_ms(13));
-    /// assert_eq!("_______a____", dg.to_strip());
+    /// assert!(dg.push_event_time_ns(7));
+    /// assert!(dg.push_event_time_ms(3));
+    /// assert!(dg.push_event_time_us(92));
+    /// assert!(dg.push_event_time_ns(11));
+    /// assert_eq!("7ns-773µs-3ms", dg.to_mmm());
+    /// assert_eq!("4:7ns-773µs-3ms", dg.to_nmmm());
+    /// assert_eq!("aa__a_a_____", dg.to_strip());
     /// ```
     pub fn to_strip(&self) -> String {
 
@@ -1060,7 +1065,6 @@ mod tests {
         assert_eq!("2:0s", dg.to_nmmm());
     }
 
-
     #[test]
     fn TEST_DoomGram_to_mmm_OVERFLOW() {
         let mut dg = DoomGram::default();
@@ -1078,6 +1082,19 @@ mod tests {
         assert_eq!("3:OVERFLOW", dg.to_nmmm());
     }
 
+    #[test]
+    fn TEST_DoomGram_EXAMPLE_CODE() {
+        let mut dg = DoomGram::default();
+
+        assert!(dg.push_event_time_ns(7));
+        assert!(dg.push_event_time_ms(3));
+        assert!(dg.push_event_time_us(92));
+        assert!(dg.push_event_time_ns(11));
+
+        assert_eq!("7ns-773µs-3ms", dg.to_mmm());
+        assert_eq!("4:7ns-773µs-3ms", dg.to_nmmm());
+        assert_eq!("aa__a_a_____", dg.to_strip());
+    }
 
     #[test]
     fn TEST_DoomGram_OVERFLOW_BY_SECONDS() {

@@ -1,6 +1,13 @@
 # Diagnosticism.Rust - CHANGES <!-- omit in toc -->
 
 
+## 0.4.2 - 10th July 2026
+
+* expanded unit-tests;
+* application of underscores in number literals;
+* general tidying;
+
+
 ## 0.4.1 - 7th July 2026
 
 * implement `Len` for `NanosecondsStr`;
