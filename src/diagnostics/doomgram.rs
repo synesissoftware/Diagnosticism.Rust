@@ -658,6 +658,8 @@ mod tests {
         assert_eq!(0, dg.num_events_in_10s());
         assert_eq!(0, dg.num_events_ge_100s());
 
+        assert_eq!("", dg.to_mmm());
+        assert_eq!("0:", dg.to_nmmm());
         assert_eq!("____________", dg.to_strip());
     }
 
@@ -691,6 +693,8 @@ mod tests {
         assert_eq!(0, dg.num_events_in_10s());
         assert_eq!(0, dg.num_events_ge_100s());
 
+        assert_eq!("13ms", dg.to_mmm());
+        assert_eq!("1:13ms", dg.to_nmmm());
         assert_eq!("_______a____", dg.to_strip());
     }
 
@@ -727,6 +731,8 @@ mod tests {
         assert_eq!(0, dg.num_events_in_10s());
         assert_eq!(0, dg.num_events_ge_100s());
 
+        assert_eq!("0s", dg.to_mmm());
+        assert_eq!("4:0s", dg.to_nmmm());
         assert_eq!("____________", dg.to_strip());
     }
 
@@ -771,6 +777,8 @@ mod tests {
         assert_eq!(1, dg.num_events_in_10s());
         assert_eq!(1, dg.num_events_ge_100s());
 
+        assert_eq!("9ns-65.76s-700s", dg.to_mmm());
+        assert_eq!("12:9ns-65.76s-700s", dg.to_nmmm());
         assert_eq!("aaaaaaaaaaaa", dg.to_strip());
     }
 
@@ -815,6 +823,8 @@ mod tests {
         assert_eq!(1, dg.num_events_in_10s());
         assert_eq!(1, dg.num_events_ge_100s());
 
+        assert_eq!("9ns-65.76s-700s", dg.to_mmm());
+        assert_eq!("12:9ns-65.76s-700s", dg.to_nmmm());
         assert_eq!("aaaaaaaaaaaa", dg.to_strip());
     }
 
@@ -859,6 +869,8 @@ mod tests {
         assert_eq!(1, dg.num_events_in_10s());
         assert_eq!(1, dg.num_events_ge_100s());
 
+        assert_eq!("9ns-65.76s-700s", dg.to_mmm());
+        assert_eq!("12:9ns-65.76s-700s", dg.to_nmmm());
         assert_eq!("aaaaaaaaaaaa", dg.to_strip());
     }
 
@@ -900,6 +912,8 @@ mod tests {
         assert_eq!(1, dg.num_events_in_10s());
         assert_eq!(1, dg.num_events_ge_100s());
 
+        assert_eq!("6µs-87.68s-700s", dg.to_mmm());
+        assert_eq!("9:6µs-87.68s-700s", dg.to_nmmm());
         assert_eq!("___aaaaaaaaa", dg.to_strip());
     }
 
@@ -940,6 +954,8 @@ mod tests {
         assert_eq!(0, dg.num_events_in_10s());
         assert_eq!(1, dg.num_events_ge_100s());
 
+        assert_eq!("10ns-39.28s-309s", dg.to_mmm());
+        assert_eq!("8:10ns-39.28s-309s", dg.to_nmmm());
         assert_eq!("_a_aa___aa_a", dg.to_strip());
     }
 
@@ -982,6 +998,8 @@ mod tests {
         assert_eq!(0, dg.num_events_in_10s());
         assert_eq!(1, dg.num_events_ge_100s());
 
+        assert_eq!("11ns-31.85s-309s", dg.to_mmm());
+        assert_eq!("10:11ns-31.85s-309s", dg.to_nmmm());
         assert_eq!("_a_aa___aa_a", dg.to_strip());
     }
 
