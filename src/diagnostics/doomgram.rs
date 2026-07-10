@@ -15,18 +15,18 @@ pub(crate) mod gram_utils {
 
     pub fn calc_doom(v : u64) -> u32 {
 
-        if v >= 100000000 {
+        if v >= 100_000_000 {
         //    return count_decimal_digits(v);
         } else {
-            if v >= 10000 {
-                if v >= 1000000 {
-                    if v >= 10000000 {
+            if v >= 10_000 {
+                if v >= 1_000_000 {
+                    if v >= 10_000_000 {
                         return 8;
                     } else {
                         return 7;
                     }
                 } else {
-                    if v >= 100000 {
+                    if v >= 100_000 {
                         return 6;
                     } else {
                         return 5;
@@ -34,7 +34,7 @@ pub(crate) mod gram_utils {
                 }
             } else {
                 if v >= 100 {
-                    if v >= 1000 {
+                    if v >= 1_000 {
                         return 4;
                     } else {
                         return 3;
@@ -166,7 +166,7 @@ impl DoomGram {
         &mut self,
         time_in_us : u64,
     ) -> bool {
-        let time_in_ns = 1000 * time_in_us;
+        let time_in_ns = 1_000 * time_in_us;
 
         if self.try_add_ns_to_total_and_update_minmax_and_count_(time_in_ns) {
 
@@ -185,7 +185,7 @@ impl DoomGram {
         &mut self,
         time_in_ms : u64,
     ) -> bool {
-        let time_in_ns = 1000 * 1000 * time_in_ms;
+        let time_in_ns = 1_000 * 1_000 * time_in_ms;
 
         if self.try_add_ns_to_total_and_update_minmax_and_count_(time_in_ns) {
 
@@ -204,7 +204,7 @@ impl DoomGram {
         &mut self,
         time_in_s : u64,
     ) -> bool {
-        let time_in_ns = 1000 * 1000 * 1000 * time_in_s;
+        let time_in_ns = 1_000 * 1_000 * 1_000 * time_in_s;
 
         if self.try_add_ns_to_total_and_update_minmax_and_count_(time_in_ns) {
 
@@ -409,15 +409,15 @@ impl DoomGram {
         &mut self,
         time_in_ns : u64,
     ) {
-        if time_in_ns >= 1000000 {
+        if time_in_ns >= 1_000_000 {
             // >= 1ms
 
-            if time_in_ns >= 1000000000 {
+            if time_in_ns >= 1_000_000_000 {
                 // >= 1s
 
-                if time_in_ns >= 100000000000 {
+                if time_in_ns >= 100_000_000_000 {
                     self.num_events_ge_100s += 1;
-                } else if time_in_ns >= 10000000000 {
+                } else if time_in_ns >= 10_000_000_000 {
                     self.num_events_in_10s += 1;
                 } else {
                     self.num_events_in_1s += 1;
@@ -425,9 +425,9 @@ impl DoomGram {
             } else {
                 // < 1s
 
-                if time_in_ns >= 100000000 {
+                if time_in_ns >= 100_000_000 {
                     self.num_events_in_100ms += 1;
-                } else if time_in_ns >= 10000000 {
+                } else if time_in_ns >= 10_000_000 {
                     self.num_events_in_10ms += 1;
                 } else {
                     self.num_events_in_1ms += 1;
@@ -436,12 +436,12 @@ impl DoomGram {
         } else {
             // < 1ms
 
-            if time_in_ns >= 1000 {
+            if time_in_ns >= 1_000 {
                 // >= 1µs
 
-                if time_in_ns >= 100000 {
+                if time_in_ns >= 100_000 {
                     self.num_events_in_100us += 1;
-                } else if time_in_ns >= 10000 {
+                } else if time_in_ns >= 10_000 {
                     self.num_events_in_10us += 1;
                 } else {
                     self.num_events_in_1us += 1;
