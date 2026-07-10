@@ -670,13 +670,13 @@ mod tests {
 
         assert_eq!(1, dg.event_count());
 
-        assert_eq!(Some(13000000), dg.event_time_total());
-        assert_eq!(13000000, dg.event_time_total_raw());
+        assert_eq!(Some(13_000_000), dg.event_time_total());
+        assert_eq!(13_000_000, dg.event_time_total_raw());
 
         assert!(!dg.has_overflowed());
 
-        assert_eq!(Some(13000000), dg.min_event_time());
-        assert_eq!(Some(13000000), dg.max_event_time());
+        assert_eq!(Some(13_000_000), dg.min_event_time());
+        assert_eq!(Some(13_000_000), dg.max_event_time());
 
         assert_eq!(0, dg.num_events_in_1ns());
         assert_eq!(0, dg.num_events_in_10ns());
@@ -750,13 +750,13 @@ mod tests {
 
         assert_eq!(12, dg.event_count());
 
-        assert_eq!(Some(789123456789), dg.event_time_total());
-        assert_eq!(789123456789, dg.event_time_total_raw());
+        assert_eq!(Some(789_123_456_789), dg.event_time_total());
+        assert_eq!(789_123_456_789, dg.event_time_total_raw());
 
         assert!(!dg.has_overflowed());
 
         assert_eq!(Some(9), dg.min_event_time());
-        assert_eq!(Some(700000000000), dg.max_event_time());
+        assert_eq!(Some(700_000_000_000), dg.max_event_time());
 
         assert_eq!(1, dg.num_events_in_1ns());
         assert_eq!(1, dg.num_events_in_10ns());
@@ -779,28 +779,28 @@ mod tests {
 
         let mut dg = DoomGram::default();
 
-        dg.push_event_time_ns(     9);
-        dg.push_event_time_ns(    80);
-        dg.push_event_time_ns(   700);
-        dg.push_event_time_ns(  6000);
-        dg.push_event_time_ns( 50000);
-        dg.push_event_time_ns(400000);
-        dg.push_event_time_ms(     3);
-        dg.push_event_time_ms(    20);
-        dg.push_event_time_ms(   100);
-        dg.push_event_time_ms(  9000);
-        dg.push_event_time_ms( 80000);
-        dg.push_event_time_ms(700000);
+        dg.push_event_time_ns(      9);
+        dg.push_event_time_ns(     80);
+        dg.push_event_time_ns(    700);
+        dg.push_event_time_ns(  6_000);
+        dg.push_event_time_ns( 50_000);
+        dg.push_event_time_ns(400_000);
+        dg.push_event_time_ms(      3);
+        dg.push_event_time_ms(     20);
+        dg.push_event_time_ms(    100);
+        dg.push_event_time_ms(  9_000);
+        dg.push_event_time_ms( 80_000);
+        dg.push_event_time_ms(700_000);
 
         assert_eq!(12, dg.event_count());
 
-        assert_eq!(Some(789123456789), dg.event_time_total());
-        assert_eq!(789123456789, dg.event_time_total_raw());
+        assert_eq!(Some(789_123_456_789), dg.event_time_total());
+        assert_eq!(789_123_456_789, dg.event_time_total_raw());
 
         assert!(!dg.has_overflowed());
 
         assert_eq!(Some(9), dg.min_event_time());
-        assert_eq!(Some(700000000000), dg.max_event_time());
+        assert_eq!(Some(700_000_000_000), dg.max_event_time());
 
         assert_eq!(1, dg.num_events_in_1ns());
         assert_eq!(1, dg.num_events_in_10ns());
@@ -823,28 +823,28 @@ mod tests {
 
         let mut dg = DoomGram::default();
 
-        dg.push_event_time_ns(           9);
-        dg.push_event_time_ns(          80);
-        dg.push_event_time_ns(         700);
-        dg.push_event_time_ns(        6000);
-        dg.push_event_time_ns(       50000);
-        dg.push_event_time_ns(      400000);
-        dg.push_event_time_ns(     3000000);
-        dg.push_event_time_ns(    20000000);
-        dg.push_event_time_ns(   100000000);
-        dg.push_event_time_ns(  9000000000);
-        dg.push_event_time_ns( 80000000000);
-        dg.push_event_time_ns(700000000000);
+        dg.push_event_time_ns(              9);
+        dg.push_event_time_ns(             80);
+        dg.push_event_time_ns(            700);
+        dg.push_event_time_ns(          6_000);
+        dg.push_event_time_ns(         50_000);
+        dg.push_event_time_ns(        400_000);
+        dg.push_event_time_ns(      3_000_000);
+        dg.push_event_time_ns(     20_000_000);
+        dg.push_event_time_ns(    100_000_000);
+        dg.push_event_time_ns(  9_000_000_000);
+        dg.push_event_time_ns( 80_000_000_000);
+        dg.push_event_time_ns(700_000_000_000);
 
         assert_eq!(12, dg.event_count());
 
-        assert_eq!(Some(789123456789), dg.event_time_total());
-        assert_eq!(789123456789, dg.event_time_total_raw());
+        assert_eq!(Some(789_123_456_789), dg.event_time_total());
+        assert_eq!(789_123_456_789, dg.event_time_total_raw());
 
         assert!(!dg.has_overflowed());
 
         assert_eq!(Some(9), dg.min_event_time());
-        assert_eq!(Some(700000000000), dg.max_event_time());
+        assert_eq!(Some(700_000_000_000), dg.max_event_time());
 
         assert_eq!(1, dg.num_events_in_1ns());
         assert_eq!(1, dg.num_events_in_10ns());
@@ -867,25 +867,25 @@ mod tests {
 
         let mut dg = DoomGram::default();
 
-        dg.push_event_time_us(        6);
-        dg.push_event_time_us(       50);
-        dg.push_event_time_us(      400);
-        dg.push_event_time_us(     3000);
-        dg.push_event_time_us(    20000);
-        dg.push_event_time_us(   100000);
-        dg.push_event_time_us(  9000000);
-        dg.push_event_time_us( 80000000);
-        dg.push_event_time_us(700000000);
+        dg.push_event_time_us(          6);
+        dg.push_event_time_us(         50);
+        dg.push_event_time_us(        400);
+        dg.push_event_time_us(      3_000);
+        dg.push_event_time_us(     20_000);
+        dg.push_event_time_us(    100_000);
+        dg.push_event_time_us(  9_000_000);
+        dg.push_event_time_us( 80_000_000);
+        dg.push_event_time_us(700_000_000);
 
         assert_eq!(9, dg.event_count());
 
-        assert_eq!(Some(789123456000), dg.event_time_total());
-        assert_eq!(789123456000, dg.event_time_total_raw());
+        assert_eq!(Some(789_123_456_000), dg.event_time_total());
+        assert_eq!(789_123_456_000, dg.event_time_total_raw());
 
         assert!(!dg.has_overflowed());
 
-        assert_eq!(Some(6000), dg.min_event_time());
-        assert_eq!(Some(700000000000), dg.max_event_time());
+        assert_eq!(Some(6_000), dg.min_event_time());
+        assert_eq!(Some(700_000_000_000), dg.max_event_time());
 
         assert_eq!(0, dg.num_events_in_1ns());
         assert_eq!(0, dg.num_events_in_10ns());
@@ -919,13 +919,13 @@ mod tests {
 
         assert_eq!(8, dg.event_count());
 
-        assert_eq!(Some(314248103033), dg.event_time_total());
-        assert_eq!(314248103033, dg.event_time_total_raw());
+        assert_eq!(Some(314_248_103_033), dg.event_time_total());
+        assert_eq!(314_248_103_033, dg.event_time_total_raw());
 
         assert!(!dg.has_overflowed());
 
         assert_eq!(Some(10), dg.min_event_time());
-        assert_eq!(Some(309000000000), dg.max_event_time());
+        assert_eq!(Some(309_000_000_000), dg.max_event_time());
 
         assert_eq!(0, dg.num_events_in_1ns());
         assert_eq!(2, dg.num_events_in_10ns());
@@ -955,19 +955,19 @@ mod tests {
         dg.push_event_time_us(7);
         dg.push_event_time_us(89);
         dg.push_event_time_ms(248);
-        dg.push_event_time_ms(4321);
+        dg.push_event_time_ms(4_321);
         dg.push_event_time_s(5);
         dg.push_event_time_s(309);
 
         assert_eq!(10, dg.event_count());
 
-        assert_eq!(Some(318569103049), dg.event_time_total());
-        assert_eq!(318569103049, dg.event_time_total_raw());
+        assert_eq!(Some(318_569_103_049), dg.event_time_total());
+        assert_eq!(318_569_103_049, dg.event_time_total_raw());
 
         assert!(!dg.has_overflowed());
 
         assert_eq!(Some(11), dg.min_event_time());
-        assert_eq!(Some(309000000000), dg.max_event_time());
+        assert_eq!(Some(309_000_000_000), dg.max_event_time());
 
         assert_eq!(0, dg.num_events_in_1ns());
         assert_eq!(3, dg.num_events_in_10ns());
@@ -1047,7 +1047,7 @@ mod tests {
     fn TEST_DoomGram_to_mmm_OVERFLOW() {
         let mut dg = DoomGram::default();
 
-        dg.push_event_time_us(18446744073709550);
+        dg.push_event_time_us(18_446_744_073_709_550);
         dg.push_event_time_us(1);
         dg.push_event_time_us(0);
 
@@ -1077,7 +1077,7 @@ mod tests {
 
         // add in max # seconds
         {
-            let r = dg.push_event_time_s(18446744073);
+            let r = dg.push_event_time_s(18_446_744_073);
 
             assert!(r);
         }
@@ -1113,7 +1113,7 @@ mod tests {
 
         // add in max-1 # microseconds
         {
-            let r = dg.push_event_time_us(18446744073709550);
+            let r = dg.push_event_time_us(18_446_744_073_709_550);
 
             assert!(r);
         }
