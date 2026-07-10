@@ -107,15 +107,15 @@ impl<'a> std_fmt::Debug for DebugSqueezer<'_> {
 
             if f.alternate() {
                 if f.sign_plus() {
-                    format!("{:+#?}", &self.debugee)
+                    format!("{:+#?}", self.debugee)
                 } else {
-                    format!("{:#?}", &self.debugee)
+                    format!("{:#?}", self.debugee)
                 }
             } else {
                 if f.sign_plus() {
-                    format!("{:+?}", &self.debugee)
+                    format!("{:+?}", self.debugee)
                 } else {
-                    format!("{:?}", &self.debugee)
+                    format!("{:?}", self.debugee)
                 }
             }
         };

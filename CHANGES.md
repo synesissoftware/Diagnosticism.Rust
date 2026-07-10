@@ -7,6 +7,7 @@
 * application of underscores in number literals;
 * general tidying;
 * updated dependencies;
+* clippy issues;
 
 
 ## 0.4.1 - 7th July 2026
