@@ -493,7 +493,7 @@ impl DoomGram {
             )
         };
 
-            body
+        body
     }
 
     fn to_nmmm_impl_(
