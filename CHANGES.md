@@ -1,7 +1,7 @@
 # Diagnosticism.Rust - CHANGES <!-- omit in toc -->
 
 
-## 0.4.2 - 10th July 2026
+## 0.4.2 - 14th July 2026
 
 * expanded unit-tests;
 * application of underscores in number literals;
