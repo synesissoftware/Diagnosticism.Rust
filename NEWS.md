@@ -2,6 +2,7 @@
 
 | Date             | News Item                                                                                          |
 | ---------------- | -------------------------------------------------------------------------------------------------- |
+| 31st August 2026 | [Diagnosticism.Rust 0.4.4](https://github.com/synesissoftware/Diagnosticism.Rust/releases/tag/0.4.4) released |
 | 31st August 2026 | [Diagnosticism.Rust 0.4.3](https://github.com/synesissoftware/Diagnosticism.Rust/releases/tag/0.4.3) released |
 | 10th July 2026   | [Diagnosticism.Rust 0.4.2](https://github.com/synesissoftware/Diagnosticism.Rust/releases/tag/0.4.2) released |
 | 7th July 2026    | [Diagnosticism.Rust 0.4.1](https://github.com/synesissoftware/Diagnosticism.Rust/releases/tag/0.4.1) released |

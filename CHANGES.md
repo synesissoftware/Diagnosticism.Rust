@@ -1,6 +1,11 @@
 # Diagnosticism.Rust - Changes <!-- omit in toc -->
 
 
+## 0.4.4 - 31st August 2026
+
+* updated dependencies;
+
+
 ## 0.4.3 - 31st August 2026
 
 * added docs.rs metadata for the optional `test-doomgram` feature;
