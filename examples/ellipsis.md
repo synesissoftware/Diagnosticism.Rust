@@ -1,4 +1,4 @@
-# Diagnosticism.Rust Example - **ellipsis**
+# Diagnosticism.Rust - Example - **ellipsis**
 
 ## Summary
 
@@ -7,7 +7,7 @@ An example using **Diagnosticism.Rust**'s `Ellipsis` type to shorten the `Debug`
 
 ## Source
 
-```Rust
+```rust
 // examples/ellipsis.rs : demonstrates use of `Ellipsis`
 
 #![allow(dead_code)]
@@ -192,4 +192,3 @@ Verbose `Debug` form of `thing2`: Thing2 {
 
 
 <!-- ########################### end of file ########################### -->
-

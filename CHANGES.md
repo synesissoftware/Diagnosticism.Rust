@@ -1,4 +1,14 @@
-# Diagnosticism.Rust - CHANGES <!-- omit in toc -->
+# Diagnosticism.Rust - Changes <!-- omit in toc -->
+
+
+## 0.4.3 - 31st August 2026
+
+* added docs.rs metadata for the optional `test-doomgram` feature;
+* strengthened **ci.yml** with locked stable, feature, documentation, example, formatting, checker, package, and MSRV validation;
+* pinned **scripts/fmt** to nightly-2026-08-08 for reproducible formatting;
+* corrected public rustdoc width and warning issues;
+* aligned **NEWS.md**, **README.md**, and **EXAMPLES.md** release and example documentation;
+* updated the **LICENSE** copyright range through 2026;
 
 
 ## 0.4.2 - 10th July 2026
@@ -81,4 +91,3 @@ All history before this day is moot!
 
 
 <!-- ########################### end of file ########################### -->
-

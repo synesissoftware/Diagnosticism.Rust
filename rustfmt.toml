@@ -1,15 +1,17 @@
 
 # rustfmt.toml for Diagnosticism.Rust
 #
-# Requires nightly rustfmt with unstable features enabled, e.g.:
+# Requires pinned nightly rustfmt with unstable features enabled, e.g.:
 #
 #   ./scripts/fmt
 #
 # Or:
 #
-#   RUSTFMT="$(rustup which --toolchain nightly rustfmt)" cargo fmt -- --unstable-features
+#   cargo +nightly-2026-08-08 fmt -- --unstable-features
 #
-# configured for cargo-fmt 1.96.0-nightly
+# The wrapper uses nightly-2026-08-08 by default.
+#
+# configured for cargo-fmt 1.99.0-nightly
 
 # array_width=60 # deprecated
 # attr_fn_like_width=70 # deprecated

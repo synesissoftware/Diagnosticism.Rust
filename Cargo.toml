@@ -12,6 +12,7 @@ categories = [
 	"development-tools::profiling",
 ]
 description = "Miscellaneous discrete and simple diagnostics facilities (for Rust)"
+documentation = "https://docs.rs/diagnosticism"
 edition = "2021"
 homepage = "https://github.com/synesissoftware/Diagnosticism.Rust"
 keywords = [
@@ -26,7 +27,14 @@ name = "diagnosticism"
 readme = "README.md"
 repository = "https://github.com/synesissoftware/Diagnosticism.Rust"
 rust-version = "1.74"
-version = "0.4.2"
+version = "0.4.3"
+
+# docs.rs builds the optional `rand`-backed example path.
+
+[package.metadata.docs.rs]
+features = [
+	"test-doomgram",
+]
 
 
 # ##########################################################

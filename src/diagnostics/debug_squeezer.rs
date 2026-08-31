@@ -3,18 +3,19 @@
 use std::fmt as std_fmt;
 
 
-/// Structure to assist with restricting the length of [Debug] forms of
-/// fields within a given width.
+/// Structure to assist with restricting the length of
+/// [Debug] forms of fields within a given width.
 ///
-/// When dealing with complex data structures, the [Debug] form can be
-/// somewhat overwhelming, and unhelpful to debugging/tracing efforts. In
-/// such cases, [DebugSqueezer] can be used to limit the length of the
+/// When dealing with complex data structures, the [Debug]
+/// form can be somewhat overwhelming, and unhelpful to
+/// debugging/tracing efforts. In such cases,
+/// [DebugSqueezer] can be used to limit the length of the
 /// output, as in the following example.
 ///
 /// # Examples
 ///
 /// ```
-/// // NOTE: this example way more complex than it needs because 1.88+ requires the documentation code to compile (and I don't yet know how to suppress that)
+/// // NOTE: this example is more complex than necessary because 1.88+ requires the documentation code to compile (and I don't yet know how to suppress that)
 /// use diagnosticism::DebugSqueezer;
 /// use std::collections::{ BTreeMap, HashMap };
 ///

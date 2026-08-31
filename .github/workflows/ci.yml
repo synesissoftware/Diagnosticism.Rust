@@ -4,15 +4,27 @@ on:
   push:
     branches:
       - master
+      - dev
       - boilerplate
+      - idiomatic
+      - rc1
+      - rc2
+      - rc3
   pull_request:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
   check:
-    name: Test, Clippy, Fmt, Checkers
+    name: Stable checks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,22 +33,19 @@ jobs:
         with:
           components: clippy
 
-      - name: Install nightly rustfmt
-        run: rustup toolchain install nightly --profile minimal --component rustfmt
+      - name: Install pinned nightly rustfmt
+        run: rustup toolchain install nightly-2026-08-08 --profile minimal --component rustfmt
 
       - uses: Swatinem/rust-cache@v2
 
-      - name: cargo test
-        run: cargo test --locked
+      - name: cargo test (all targets)
+        run: cargo test --all-targets --locked
 
       - name: cargo clippy
         run: cargo clippy --all-targets --locked -- -D warnings
 
-      - name: cargo build (test-doomgram example)
-        run: cargo build --examples --features test-doomgram --locked
-
       - name: cargo doc
-        run: cargo doc --no-deps --locked
+        run: RUSTDOCFLAGS="-D warnings" cargo doc --no-deps --locked
 
       - name: rustfmt
         run: ./scripts/fmt --check
@@ -50,6 +59,28 @@ jobs:
       - name: DERIVE_LAYOUT checker
         run: python3 scripts/check_derives.py
 
+      - name: cargo publish (dry run)
+        run: cargo publish --dry-run --locked
+
+  feature:
+    name: test-doomgram feature checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: cargo test (test-doomgram)
+        run: cargo test --features test-doomgram --locked
+
+      - name: cargo build (examples with test-doomgram)
+        run: cargo build --examples --features test-doomgram --locked
+
+      - name: cargo doc (test-doomgram)
+        run: RUSTDOCFLAGS="-D warnings" cargo doc --no-deps --features test-doomgram --locked
+
   msrv:
     name: MSRV (1.74)
     runs-on: ubuntu-latest
@@ -61,6 +92,6 @@ jobs:
       - uses: Swatinem/rust-cache@v2
 
       - name: cargo check (library)
-        # Full `cargo test` needs dev-deps (criterion → clap_lex 2024 edition),
-        # which exceeds MSRV 1.74; the stable job runs the full test suite.
+        # Full tests need dev-deps (criterion -> clap_lex 2024 edition);
+        # stable runs the complete test suite; MSRV only checks the library.
         run: cargo check --lib --locked

@@ -1,4 +1,4 @@
-# Diagnosticism.Rust Example - **doomgram**
+# Diagnosticism.Rust - Example - **doomgram**
 
 ## Summary
 
@@ -7,7 +7,7 @@ An example using **Diagnosticism.Rust**'s `DoomGram` type to represent the perfo
 
 ## Source
 
-```Rust
+```rust
 // examples/doomgram.rs : example program illustrating use of `DoomGram`
 
 use diagnosticism::{
@@ -135,4 +135,3 @@ The three formatted lines use complementary views of the same data:
 
 
 <!-- ########################### end of file ########################### -->
-
