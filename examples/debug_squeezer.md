@@ -7,7 +7,7 @@ An example using **Diagnosticism.Rust**'s `DebugSqueezer` type to simplify the `
 
 ## Source
 
-```Rust
+```rust
 // examples/debug_squeezer.rs : example program illustrating use of `DebugSqueezer`
 
 #![allow(dead_code)]
@@ -237,4 +237,3 @@ it gives the output:
 
 
 <!-- ########################### end of file ########################### -->
-

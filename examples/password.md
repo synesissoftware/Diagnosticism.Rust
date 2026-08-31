@@ -7,7 +7,7 @@ An example using **Diagnosticism.Rust**'s `Password` type to secure the `Debug` 
 
 ## Source
 
-```Rust
+```rust
 use diagnosticism::Password;
 
 use std::fmt as std_fmt;
@@ -62,4 +62,3 @@ credentials: Credentials {
 
 
 <!-- ########################### end of file ########################### -->
-

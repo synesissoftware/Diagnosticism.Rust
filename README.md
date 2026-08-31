@@ -50,7 +50,7 @@ Other facilities (that are not directly related to `Debug`) will be added to the
 Reference in **Cargo.toml** in the usual way:
 
 ```toml
-diagnosticism = { version = "0" }
+diagnosticism = { version = "0.4" }
 ```
 
 
@@ -84,7 +84,7 @@ The following function is re-exported at the crate root (and defined in the [`di
 
 For example:
 
-```Rust
+```rust
 use diagnosticism::nanoseconds_to_string;
 
 assert_eq!( "123.4ms", nanoseconds_to_string(123_456_789, ""));
@@ -138,7 +138,7 @@ Examples are provided in the ```examples``` directory, along with a markdown des
 
 The example program **doomgram** (in **examples** directory, built with feature `test-doomgram`), illustrates use of `DoomGram` to capture the order-of-magnitude histogram of a large number of small random delays, and to format min/mean/max duration summaries. The program source is:
 
-```Rust
+```rust
 // examples/doomgram.rs : example program illustrating use of `DoomGram`
 
 use diagnosticism::{
@@ -262,7 +262,7 @@ Naturally, in a live system one would not be employing the exploded `Debug` view
 
 In the example program **ellipsis** (in **examples** directory), the following types are defined to illustrate the benefit of using `Ellipsis` to provide concise `Debug` output in terse (i.e. non-`#alternate()`) form:
 
-```Rust
+```rust
 /// Large structure that provides the internals of `Thing`
 #[derive(Clone)]
 #[derive(Debug)]
@@ -358,4 +358,3 @@ Crates upon which **Diagnosticism.Rust** has development dependencies:
 
 
 <!-- ########################### end of file ########################### -->
-
