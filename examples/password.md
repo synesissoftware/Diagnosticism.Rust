@@ -1,4 +1,4 @@
-# Diagnosticism.Rust Example - **password**
+# Diagnosticism.Rust - Example - **password**
 
 ## Summary
 

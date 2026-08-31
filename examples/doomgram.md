@@ -1,4 +1,4 @@
-# Diagnosticism.Rust Example - **doomgram**
+# Diagnosticism.Rust - Example - **doomgram**
 
 ## Summary
 

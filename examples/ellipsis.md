@@ -1,4 +1,4 @@
-# Diagnosticism.Rust Example - **ellipsis**
+# Diagnosticism.Rust - Example - **ellipsis**
 
 ## Summary
 

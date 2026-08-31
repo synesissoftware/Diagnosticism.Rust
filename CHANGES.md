@@ -1,4 +1,4 @@
-# Diagnosticism.Rust - CHANGES <!-- omit in toc -->
+# Diagnosticism.Rust - Changes <!-- omit in toc -->
 
 
 ## 0.4.2 - 10th July 2026

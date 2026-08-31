@@ -1,4 +1,4 @@
-# Diagnosticism.Rust Example - **debug_squeezer**
+# Diagnosticism.Rust - Example - **debug_squeezer**
 
 ## Summary
 

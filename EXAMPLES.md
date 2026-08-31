@@ -1,4 +1,4 @@
-# Diagnosticism.Rust Examples
+# Diagnosticism.Rust - Examples <!-- omit in toc -->
 
 |Name|Source & Description|Summary|
 |---|---|---|
