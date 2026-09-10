@@ -84,6 +84,10 @@ path = "examples/flf.rs"
 name = "password"
 path = "examples/password.rs"
 
+[[example]]
+name = "versions"
+path = "examples/versions/main.rs"
+
 
 # ##########################################################
 # Features
