@@ -1,17 +1,19 @@
 # Diagnosticism.Rust - TODO <!-- omit in toc -->
 
+
 ## Table of Contents <!-- omit in toc -->
 
 - [Functional improvements](#functional-improvements)
 - [Performance improvements](#performance-improvements)
+- [Packaging improvements](#packaging-improvements)
 
 
 ## Functional improvements
 
-* [x] ~~~simple file/line/function macros~~~:
-  * [x] `fileline!()`;
-  * [x] `function!()`;
-  * [x] `filelinefunction!()`;
+* [x] ~~~simple file/line/function macros~~~ - ✅:
+  * [x] ~~~`fileline!()`~~~ - ✅;
+  * [x] ~~~`function!()`~~~ - ✅;
+  * [x] ~~~`filelinefunction!()`~~~ - ✅;
 * [ ] advanced file/line/function macros, using procedural macros, such that, say, `function!()` acts as a literal (and can participate in `concat!()`);
 
 
@@ -22,5 +24,9 @@
 * [ ] Determine whether use of `ilog10()` can help to reduce performance costs of `DoomGram`;
 
 
-<!-- ########################### end of file ########################### -->
+## Packaging improvements
 
+* \<none>
+
+
+<!-- ########################### end of file ########################### -->
