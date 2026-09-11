@@ -1,17 +1,16 @@
-
-# rustfmt.toml for Diagnosticism.Rust
+# rustfmt.toml
 #
-# Requires pinned nightly rustfmt with unstable features enabled, e.g.:
+# Synesis Information Systems — gold rustfmt configuration for SIS Rust
+# crates.
+#
+# Requires pinned nightly rustfmt with unstable features. Prefer:
 #
 #   ./scripts/fmt
 #
-# Or:
+# Default pin (see scripts/fmt): nightly-2026-09-10
 #
-#   cargo +nightly-2026-08-08 fmt -- --unstable-features
-#
-# The wrapper uses nightly-2026-08-08 by default.
-#
-# configured for cargo-fmt 1.99.0-nightly
+# Layout: full option inventory, lexicographic by option name; deprecated
+# or unused options remain present but commented.
 
 # array_width=60 # deprecated
 # attr_fn_like_width=70 # deprecated
@@ -31,13 +30,13 @@ empty_item_single_line=false
 enum_discrim_align_threshold=0
 error_on_line_overflow=false
 error_on_unformatted=false
-# fn_args_layout="Vertical"
+# fn_args_layout="Vertical" # deprecated alias of fn_params_layout
 # fn_call_width=60 # deprecated
 fn_params_layout="Vertical"
 fn_single_line=false
+# force_code_in_doc_comments=true
 force_explicit_abi=true
 force_multiline_blocks=true
-# force_code_in_doc_comments=true
 format_macro_bodies=true
 format_macro_matchers=true
 format_strings=false
@@ -45,7 +44,6 @@ group_imports="Preserve"
 hard_tabs=false
 # hide_parse_errors=false
 ignore=[
-
 ]
 imports_granularity="Crate"
 imports_indent="Block"
@@ -70,6 +68,7 @@ reorder_modules=true
 # report_fixme="Always"
 # report_todo="Never"
 # required_version="????"
+short_array_element_width_threshold=1
 show_parse_errors=true
 # single_line_if_else_max_width=0 # deprecated
 skip_children=false
@@ -78,9 +77,12 @@ space_before_colon=true
 spaces_around_ranges=false
 struct_field_align_threshold=20
 struct_lit_single_line=false
+# struct_lit_trailing_comma="Vertical"
 # struct_lit_width=0 # deprecated
+# struct_trailing_comma="Vertical"
 # struct_variant_width=0 # deprecated
-tab_spaces=4 # Q: do we want to move to 2??
+# style_edition="2021"
+tab_spaces=4
 trailing_comma="Vertical"
 trailing_semicolon=true
 type_punctuation_density="Wide"
@@ -91,4 +93,3 @@ use_try_shorthand=true
 # version=
 where_single_line=false
 wrap_comments=false
-

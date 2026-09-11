@@ -1,6 +1,17 @@
 # Diagnosticism.Rust - Changes <!-- omit in toc -->
 
 
+## 0.4.5 - 12th September 2026
+
+* removed the Rust-specific Cursor rule superseded by shared workspace standards;
+* strengthened CI with no-default-features, example, documentation, formatting, and MSRV validation;
+* refreshed repository metadata, editor configuration, ignore rules, and Rust formatting configuration;
+* added the **versions** example and excluded development-only files from published packages;
+* documented the MSRV and canonicalised **Cargo.toml** dependency metadata;
+* updated **base-traits**, **criterion**, and **rand** to current compatible releases;
+* improved the test-name checker and extended derive checking to the test tree;
+
+
 ## 0.4.4 - 31st August 2026
 
 * updated dependencies;
