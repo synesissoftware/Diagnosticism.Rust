@@ -36,7 +36,7 @@ name = "diagnosticism"
 readme = "README.md"
 repository = "https://github.com/synesissoftware/Diagnosticism.Rust"
 rust-version = "1.74"
-version = "0.4.4"
+version = "0.4.5"
 
 # docs.rs builds the optional `rand`-backed example path.
 

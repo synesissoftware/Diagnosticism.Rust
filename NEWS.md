@@ -3,6 +3,7 @@
 
 | Date                | News Item | Details                              |
 | ------------------- | --------- | ------------------------------------ |
+| 12th September 2026 | [Diagnosticism.Rust 0.4.5](https://github.com/synesissoftware/Diagnosticism.Rust/releases/tag/0.4.5) released | CI, packaging, and tooling updates |
 | 31st August 2026    | [Diagnosticism.Rust 0.4.4](https://github.com/synesissoftware/Diagnosticism.Rust/releases/tag/0.4.4) released | Dependency updates                   |
 | 31st August 2026    | [Diagnosticism.Rust 0.4.3](https://github.com/synesissoftware/Diagnosticism.Rust/releases/tag/0.4.3) released | CI, docs.rs, and formatting pins     |
 | 10th July 2026      | [Diagnosticism.Rust 0.4.2](https://github.com/synesissoftware/Diagnosticism.Rust/releases/tag/0.4.2) released | Expanded unit tests and tidying      |
