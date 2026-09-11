@@ -125,6 +125,7 @@ test-doomgram = [
 base-traits = { version = "0.1", default-features = false, features = [
 ]}
 rand = { version = "0.10", optional = true, default-features = false, features = [
+	"std_rng",
 ]}
 
 
