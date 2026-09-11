@@ -101,7 +101,7 @@ def main() -> int:
     root = Path(__file__).resolve().parents[1]
     errors: list[str] = []
 
-    for directory in ("src", "examples", "benches"):
+    for directory in ("src", "examples", "benches", "test"):
         base = root / directory
 
         if not base.is_dir():
