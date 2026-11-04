@@ -1,6 +1,11 @@
 # Diagnosticism.Rust - Changes <!-- omit in toc -->
 
 
+## 0.4.6 - 4th November 2026
+
+* dependency updates;
+
+
 ## 0.4.5 - 12th September 2026
 
 * removed the Rust-specific Cursor rule superseded by shared workspace standards;
