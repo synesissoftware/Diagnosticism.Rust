@@ -1,6 +1,9 @@
-// src/diagnostics/time_format/format.rs : `nanoseconds_to_string()`
+// src/diagnostics/time_format/format.rs :
+// `duration_to_string()`, `nanoseconds_to_string()`
 
 use super::nanoseconds_str::NanosecondsStr;
+
+use std::time::Duration;
 
 
 const SCALES : [i64; 12] = [
@@ -28,6 +31,51 @@ const SUFFIXES : [&str; 4] = [
 
 // API functions
 
+/// Formats a [`Duration`] as a compact human-readable string, returning a
+/// [`NanosecondsStr`].
+///
+/// Compatibility wrapper around [`nanoseconds_to_string`]: converts
+/// `duration` via [`Duration::as_nanos`] and formats with the same units
+/// (`ns`, `µs`, `ms`, `s`), precision, and `format_spec` rules.
+///
+/// Because [`Duration`] is non-negative, a leading `-` never appears;
+/// pass `"+"` in `format_spec` for an explicit leading `+` on positive
+/// values. Zero is always `"0s"` with no sign.
+///
+/// # Parameters
+///
+/// * `duration` — the duration to format;
+/// * `format_spec` — formatting options; the only recognised flag is `+`,
+///   which causes positive values to include an explicit leading sign;
+///   other characters are ignored;
+///
+/// # Returns
+///
+/// A [`NanosecondsStr`] holding the formatted duration.
+///
+/// # Examples
+///
+/// ```
+/// use diagnosticism::duration_to_string;
+/// use std::time::Duration;
+///
+/// assert_eq!(
+///     "123.4ms",
+///     duration_to_string(Duration::from_micros(123_456), ""),
+/// );
+/// assert_eq!(
+///     "+1s",
+///     duration_to_string(Duration::from_secs(1), "+"),
+/// );
+/// ```
+pub fn duration_to_string(
+    duration : Duration,
+    format_spec : &str,
+) -> NanosecondsStr {
+    nanoseconds_to_string(duration.as_nanos() as i64, format_spec)
+}
+
+
 /// Formats a nanosecond count as a compact human-readable duration string,
 /// returning a [`NanosecondsStr`].
 ///
@@ -36,6 +84,8 @@ const SUFFIXES : [&str; 4] = [
 ///
 /// Behaviour matches [`Diagnosticism.Python`][dp] 0.16.0
 /// `nanoseconds_to_string()`.
+///
+/// See also [`duration_to_string`] for a [`std::time::Duration`] wrapper.
 ///
 /// # Parameters
 ///
@@ -211,7 +261,12 @@ fn write_bytes(
 mod tests {
     #![allow(non_snake_case)]
 
-    use super::nanoseconds_to_string;
+    use super::{
+        duration_to_string,
+        nanoseconds_to_string,
+    };
+
+    use std::time::Duration;
 
 
     fn assert_ns(
@@ -222,6 +277,18 @@ mod tests {
         assert_eq!(
             expected,
             nanoseconds_to_string(nanoseconds, format_spec),
+        );
+    }
+
+
+    fn assert_duration(
+        duration : Duration,
+        format_spec : &str,
+        expected : &str,
+    ) {
+        assert_eq!(
+            expected,
+            duration_to_string(duration, format_spec),
         );
     }
 
@@ -369,6 +436,36 @@ mod tests {
         assert_ns(-999_772_000, "+", "-999.7ms");
         assert_ns(-999_800_000, "+", "-999.8ms");
         assert_ns(-999_974_000, "+", "-999.9ms");
+    }
+
+
+    #[test]
+    fn TEST_duration_to_string_ZERO() {
+        assert_duration(Duration::ZERO, "", "0s");
+        assert_duration(Duration::ZERO, "+", "0s");
+    }
+
+
+    #[test]
+    fn TEST_duration_to_string_PARITY_WITH_nanoseconds_to_string() {
+        #[rustfmt::skip]
+        let cases = [
+            (                     0u64, "",  "0s"),
+            (                     9u64, "",  "9ns"),
+            (                 6_789u64, "",  "6.789µs"),
+            (           123_456_789u64, "",  "123.4ms"),
+            (         1_000_000_000u64, "",  "1s"),
+            (           999_772_000u64, "+", "+999.7ms"),
+        ];
+
+        for (nanoseconds, format_spec, expected) in cases {
+            assert_duration(
+                Duration::from_nanos(nanoseconds),
+                format_spec,
+                expected,
+            );
+            assert_ns(nanoseconds as i64, format_spec, expected);
+        }
     }
 }
 

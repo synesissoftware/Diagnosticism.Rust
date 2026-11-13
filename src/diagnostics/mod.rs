@@ -10,6 +10,7 @@ declare_and_publish!(password, Password);
 declare_and_publish!(pub
     time_format,
     NanosecondsStr,
+    duration_to_string,
     nanoseconds_to_string,
 );
 

@@ -25,25 +25,25 @@ Other facilities (that are not directly related to `Debug`) will be added to the
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Components](#components)
-	- [Constants](#constants)
-	- [Enumerations](#enumerations)
-	- [Features](#features)
-	- [Functions](#functions)
-	- [Macros](#macros)
-	- [Structures](#structures)
-		- [Redacting `Debug` output (`Ellipsis` and `Password`)](#redacting-debug-output-ellipsis-and-password)
-	- [Traits](#traits)
+  - [Constants](#constants)
+  - [Enumerations](#enumerations)
+  - [Features](#features)
+  - [Functions](#functions)
+  - [Macros](#macros)
+  - [Structures](#structures)
+    - [Redacting `Debug` output (`Ellipsis` and `Password`)](#redacting-debug-output-ellipsis-and-password)
+  - [Traits](#traits)
 - [Examples](#examples)
-	- [Example - `DoomGram`](#example---doomgram)
-	- [Example - `Ellipsis`](#example---ellipsis)
+  - [Example - `DoomGram`](#example---doomgram)
+  - [Example - `Ellipsis`](#example---ellipsis)
 - [Project Information](#project-information)
-	- [Where to get help](#where-to-get-help)
-	- [Contribution guidelines](#contribution-guidelines)
-	- [Minimum Supported Rust Version (MSRV)](#minimum-supported-rust-version-msrv)
-	- [Dependencies](#dependencies)
-		- [Dev Dependencies](#dev-dependencies)
-	- [Related projects](#related-projects)
-	- [License](#license)
+  - [Where to get help](#where-to-get-help)
+  - [Contribution guidelines](#contribution-guidelines)
+  - [Minimum Supported Rust Version (MSRV)](#minimum-supported-rust-version-msrv)
+  - [Dependencies](#dependencies)
+    - [Dev Dependencies](#dev-dependencies)
+  - [Related projects](#related-projects)
+  - [License](#license)
 
 
 ## Installation
@@ -51,7 +51,7 @@ Other facilities (that are not directly related to `Debug`) will be added to the
 Reference in **Cargo.toml** in the usual way:
 
 ```toml
-diagnosticism = { version = "0.4" }
+diagnosticism = { version = "0.5" }
 ```
 
 
@@ -78,19 +78,25 @@ The following optional features are defined in **Cargo.toml**:
 
 ### Functions
 
-The following function is re-exported at the crate root (and defined in the [`diagnostics`](https://docs.rs/diagnosticism/latest/diagnosticism/diagnostics/index.html) module):
+The following functions are re-exported at the crate root (and defined in the [`diagnostics`](https://docs.rs/diagnosticism/latest/diagnosticism/diagnostics/index.html) module):
 
 * `doom_scope()` - executes a closure, records its elapsed time in a [`DoomGram`](https://docs.rs/diagnosticism/latest/diagnosticism/struct.DoomGram.html), and returns the closure's result together with the measured elapsed time (in nanoseconds). See the example [**examples/doomgram.md**](./examples/doomgram.md);
+* `duration_to_string()` - formats a [`std::time::Duration`](https://doc.rust-lang.org/std/time/struct.Duration.html) as a compact human-readable duration string; compatibility wrapper around `nanoseconds_to_string()`;
 * `nanoseconds_to_string()` - formats a nanosecond count as a compact human-readable duration string (units `ns`, `µs`, `ms`, `s` with roughly three significant digits); returns a [`NanosecondsStr`](https://docs.rs/diagnosticism/latest/diagnosticism/struct.NanosecondsStr.html); behaviour matches [**Diagnosticism.Python**](https://github.com/synesissoftware/Diagnosticism.Python) 0.16.0;
 
 For example:
 
 ```rust
-use diagnosticism::nanoseconds_to_string;
+use diagnosticism::{
+    duration_to_string,
+    nanoseconds_to_string,
+};
+use std::time::Duration;
 
 assert_eq!( "123.4ms", nanoseconds_to_string(123_456_789, ""));
 assert_eq!( "6.789µs", nanoseconds_to_string(      6_789, ""));
 assert_eq!("+999.7ms", nanoseconds_to_string(999_772_000, "+"));
+assert_eq!( "123.4ms", duration_to_string(Duration::from_micros(123_456), ""));
 ```
 
 
@@ -112,7 +118,7 @@ The following structures are re-exported at the crate root (and defined in the [
 
 * `DebugSqueezer` - used to assist with restricting the length of `Debug` forms of fields within a given width. See the example [**examples/debug_squeezer.md**](./examples/debug_squeezer.md);
 * `DoomGram` - a **D**ecimal **O**rder-**O**f-**M**agnitude histo**G**ram structure that records efficiently duration values in the orders of magnitude 1ns+, 10ns+, 100ns+, 1µs+, ..., 10s+, 100s+ and provides a mechanism for displaying this histogram in a simple single 12-character display (`to_strip()`), plus compact min/mean/max duration summaries (`to_mmm()` and `to_nmmm()`), which is useful for logging cumulative execution costs of components in long-running performance-sensitive applications. See the example [**examples/doomgram.md**](./examples/doomgram.md);
-* `NanosecondsStr` - compact storage for a formatted duration string; returned by `nanoseconds_to_string()`; typical outputs fit in 15 inline UTF-8 bytes without heap allocation; implements `Display`, `Deref` to `str`, and `AsRef<str>`;
+* `NanosecondsStr` - compact storage for a formatted duration string; returned by `duration_to_string()` and `nanoseconds_to_string()`; typical outputs fit in 15 inline UTF-8 bytes without heap allocation; implements `Display`, `Deref` to `str`, and `AsRef<str>`;
 * `Ellipsis` - provides the string `"..."` to be used for fields whose `Debug` forms are not to be expressed in terse (non-`#alternate()`) output. See the example [**examples/ellipsis.md**](./examples/ellipsis.md);
 * `Password` - provides strings such as `"********"` to be used for fields that are sensitive and whose `Debug` forms are not to be expressed. See the example [**examples/password.md**](./examples/password.md);
 
