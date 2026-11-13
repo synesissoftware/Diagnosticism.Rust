@@ -14,7 +14,8 @@
 //!   log output ([`Ellipsis`], [`Password`], [`DebugSqueezer`]);
 //! * **Timing** — record duration distributions ([`DoomGram`]),
 //!   measure closures ([`doom_scope`]), and format durations via
-//!   [`nanoseconds_to_string`] into [`NanosecondsStr`];
+//!   [`duration_to_string`] / [`nanoseconds_to_string`] into
+//!   [`NanosecondsStr`];
 //! * **Source location** — compile-time file, line, and function
 //!   macros (`fileline!`, `filelinefunction!`, and others).
 //!
@@ -50,6 +51,8 @@
 //!   [`Debug`](std::fmt::Debug) fields;
 //! * [`doom_scope`] — time a closure and record the elapsed duration in a
 //!   [`DoomGram`];
+//! * [`duration_to_string`] — format a [`std::time::Duration`] into a
+//!   [`NanosecondsStr`];
 //! * [`NanosecondsStr`] — compact storage for a formatted duration string;
 //! * [`nanoseconds_to_string`] — format a nanosecond count into a
 //!   [`NanosecondsStr`];
@@ -97,6 +100,7 @@ pub(crate) mod macros;
 
 pub use diagnostics::{
     doom_scope,
+    duration_to_string,
     nanoseconds_to_string,
     DebugSqueezer,
     DoomGram,

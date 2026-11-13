@@ -5,7 +5,11 @@
 
 use crate::macros::declare_and_publish;
 
-declare_and_publish!(format, nanoseconds_to_string);
+declare_and_publish!(pub
+    format,
+    duration_to_string,
+    nanoseconds_to_string,
+);
 declare_and_publish!(nanoseconds_str, NanosecondsStr);
 
 
