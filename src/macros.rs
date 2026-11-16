@@ -62,6 +62,7 @@ macro_rules! declare_and_publish_impl_ {
 /// declare_and_publish!(
 ///     time_format,
 ///     NanosecondsStr,
+///     duration_to_string,
 ///     nanoseconds_to_string,
 /// );
 /// ```

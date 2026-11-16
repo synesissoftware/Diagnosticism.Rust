@@ -1,6 +1,11 @@
 # Diagnosticism.Rust - Changes <!-- omit in toc -->
 
 
+## 0.5.0 - 13th November 2026
+
+* added `duration_to_string()` — [`std::time::Duration`] compatibility wrapper around `nanoseconds_to_string()`;
+
+
 ## 0.4.6 - 4th November 2026
 
 * dependency updates;
