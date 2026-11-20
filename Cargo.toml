@@ -128,7 +128,7 @@ test-doomgram = [
 
 base-traits = { version = "^0", default-features = false, features = [
 ]}
-chrono = { version = "*", default-features = false, features = [
+chrono = { version = "^0.4", default-features = false, features = [
 	"clock",
 	"now",
 ]}
