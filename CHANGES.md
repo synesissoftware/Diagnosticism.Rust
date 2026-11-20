@@ -1,4 +1,79 @@
-# Diagnosticism.Rust - CHANGES <!-- omit in toc -->
+# Diagnosticism.Rust - Changes <!-- omit in toc -->
+
+
+## 0.4.5 - 12th September 2026
+
+* removed the Rust-specific Cursor rule superseded by shared workspace standards;
+* strengthened CI with no-default-features, example, documentation, formatting, and MSRV validation;
+* refreshed repository metadata, editor configuration, ignore rules, and Rust formatting configuration;
+* added the **versions** example and excluded development-only files from published packages;
+* documented the MSRV and canonicalised **Cargo.toml** dependency metadata;
+* updated **base-traits**, **criterion**, and **rand** to current compatible releases;
+* improved the test-name checker and extended derive checking to the test tree;
+
+
+## 0.4.4 - 31st August 2026
+
+* updated dependencies;
+
+
+## 0.4.3 - 31st August 2026
+
+* added docs.rs metadata for the optional `test-doomgram` feature;
+* strengthened **ci.yml** with locked stable, feature, documentation, example, formatting, checker, package, and MSRV validation;
+* pinned **scripts/fmt** to nightly-2026-08-08 for reproducible formatting;
+* corrected public rustdoc width and warning issues;
+* aligned **NEWS.md**, **README.md**, and **EXAMPLES.md** release and example documentation;
+* updated the **LICENSE** copyright range through 2026;
+
+
+## 0.4.2 - 10th July 2026
+
+* expanded unit-tests;
+* application of underscores in number literals;
+* general tidying;
+* updated dependencies;
+* clippy issues;
+
+
+## 0.4.1 - 7th July 2026
+
+* implement `Len` for `NanosecondsStr`;
+
+
+## 0.4.0 - 30th June 2026
+
+* added `DoomGram::to_mmm()` and `DoomGram::to_nmmm()` — compact min/mean/max duration summaries using `nanoseconds_to_string()`;
+
+
+## 0.3.2 - 28th June 2026
+
+* optimisation of `nanoseconds_to_string()` — uses a custom return type `NanosecondsStr` for highly efficient conversion in vast majority of cases;
+
+
+## 0.3.1 - 28th June 2026
+
+* internal implementation improvements;
+
+
+## 0.3.0 - 28th June 2026
+
+* added `nanoseconds_to_string()` — compact human-readable duration formatting (behaviour matches **Diagnosticism.Python** 0.16.0);
+
+
+## 0.2.1 - 27th June 2026
+
+* added CI tasks;
+* fixing Clippy issues (all simple);
+* minor improvements to `DoomGram` public method(s);
+* cargo fmt;
+* comment consistency;
+* add documentation markup;
+* Cargo.toml crate attributes;
+* removed dead code in `DebugSqueezer` truncation branch;
+* removed README.md invalid claim to be dependent on **test_help-rs**;
+* improved documentation of `Ellipsis` and `Password`;
+* updated **README.md** with all current constructs;
 
 
 ## 0.2.0 - 24th July 2025
@@ -32,4 +107,3 @@ All history before this day is moot!
 
 
 <!-- ########################### end of file ########################### -->
-

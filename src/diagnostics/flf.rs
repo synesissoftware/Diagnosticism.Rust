@@ -19,7 +19,21 @@ macro_rules! fileline {
     };
 }
 
-/// T.B.C.
+/// Expands to the fully-qualified name of the function in which it was
+/// invoked.
+///
+/// The name is obtained via [`std::any::type_name`] of a nested helper at
+/// the call site. It evaluates to a `&'static str` at runtime and is not a
+/// compile-time string literal (unlike [`fileline!`]).
+///
+/// # Examples
+///
+/// ```
+/// fn my_function() {
+///     let name = diagnosticism::function_fully_qualified_name!();
+///     println!("inside {name}");
+/// }
+/// ```
 #[macro_export]
 macro_rules! function_fully_qualified_name {
     () => {{
@@ -31,17 +45,27 @@ macro_rules! function_fully_qualified_name {
 
         let name : &'static str = type_name_of(f);
 
-        let name = if name.ends_with("::f") {
-            &name[..name.len() - 3]
-        } else {
-            name
-        };
-
-        name
+        match name.strip_suffix("::f") {
+            Some(stripped) => stripped,
+            None => name,
+        }
     }};
 }
 
-/// T.B.C.
+/// Expands to the unqualified name of the function in which it was invoked.
+///
+/// This is the same path as [`function_fully_qualified_name!`], truncated
+/// at the last path separator (`::`). It evaluates to a `&'static str` at
+/// runtime.
+///
+/// # Examples
+///
+/// ```
+/// fn my_function() {
+///     let name = diagnosticism::function_name_only!();
+///     println!("called from {name}");
+/// }
+/// ```
 #[macro_export]
 macro_rules! function_name_only {
     () => {{
@@ -53,10 +77,9 @@ macro_rules! function_name_only {
 
         let name : &'static str = type_name_of(f);
 
-        let name = if name.ends_with("::f") {
-            &name[..name.len() - 3]
-        } else {
-            name
+        let name = match name.strip_suffix("::f") {
+            Some(stripped) => stripped,
+            None => name,
         };
 
         match &name[..name.len()].rfind(':') {
@@ -73,6 +96,10 @@ macro_rules! function_name_only {
 /// macros provide debugging information for developers about location
 /// within the source.
 ///
+/// Unlike [`fileline!`], this macro allocates a [`String`] via [`format!`]
+/// because the function name is obtained at runtime from
+/// [`function_name_only!`].
+///
 /// # Examples
 ///
 /// ```
@@ -86,7 +113,19 @@ macro_rules! filelinefunction {
     }};
 }
 
-/// T.B.C.
+/// Expands to the file name, line number, and fully-qualified function name
+/// at the call site.
+///
+/// Unlike [`fileline!`], this macro allocates a [`String`] via [`format!`]
+/// because it combines a compile-time file/line prefix with a runtime
+/// function name from [`function_fully_qualified_name!`].
+///
+/// # Examples
+///
+/// ```
+/// let loc = diagnosticism::filelinefunction_fully_qualified_name!();
+/// println!("at {loc}");
+/// ```
 #[macro_export]
 macro_rules! filelinefunction_fully_qualified_name {
     () => {{
@@ -95,7 +134,19 @@ macro_rules! filelinefunction_fully_qualified_name {
 }
 
 
-/// T.B.C.
+/// Expands to the unqualified [`std::any::type_name`] of the given type.
+///
+/// The `$type_name` argument is a type token (e.g. `String`, `Self`, or a
+/// path to a struct). Generic substitutions are not applied; the result
+/// reflects the type as written at the call site.
+///
+/// # Examples
+///
+/// ```
+/// struct Widget;
+///
+/// assert_eq!("Widget", diagnosticism::type_name_only!(Widget));
+/// ```
 #[macro_export]
 macro_rules! type_name_only {
     ($type_name:tt) => {{
@@ -107,7 +158,6 @@ macro_rules! type_name_only {
         }
     }};
 }
-
 
 
 #[cfg(test)]

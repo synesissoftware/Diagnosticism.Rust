@@ -1,8 +1,14 @@
 # Diagnosticism.Rust <!-- omit in toc -->
 
-Diagnosticism, for Rust
+Simple diagnostics utilities for Rust — part of the cross-language **Diagnosticism** family.
 
-[![Crates.io](https://img.shields.io/crates/v/diagnosticism.svg)](https://crates.io/crates/Diagnosticism.Rust)
+![Language](https://img.shields.io/badge/Rust-000000?style=flat&logo=rust&logoColor=white)
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![Crates.io](https://img.shields.io/crates/v/diagnosticism.svg)](https://crates.io/crates/diagnosticism)
+[![GitHub release](https://img.shields.io/github/v/release/synesissoftware/Diagnosticism.Rust.svg)](https://github.com/synesissoftware/Diagnosticism.Rust/releases/latest)
+![MSRV](https://img.shields.io/badge/MSRV-1.74-lightgrey)
+[![CI](https://github.com/synesissoftware/Diagnosticism.Rust/actions/workflows/ci.yml/badge.svg)](https://github.com/synesissoftware/Diagnosticism.Rust/actions/workflows/ci.yml)
+[![docs.rs](https://docs.rs/diagnosticism/badge.svg)](https://docs.rs/diagnosticism)
 
 
 ## Introduction
@@ -25,6 +31,7 @@ Other facilities (that are not directly related to `Debug`) will be added to the
 	- [Functions](#functions)
 	- [Macros](#macros)
 	- [Structures](#structures)
+		- [Redacting `Debug` output (`Ellipsis` and `Password`)](#redacting-debug-output-ellipsis-and-password)
 	- [Traits](#traits)
 - [Examples](#examples)
 	- [Example - `DoomGram`](#example---doomgram)
@@ -32,6 +39,7 @@ Other facilities (that are not directly related to `Debug`) will be added to the
 - [Project Information](#project-information)
 	- [Where to get help](#where-to-get-help)
 	- [Contribution guidelines](#contribution-guidelines)
+	- [Minimum Supported Rust Version (MSRV)](#minimum-supported-rust-version-msrv)
 	- [Dependencies](#dependencies)
 		- [Dev Dependencies](#dev-dependencies)
 	- [Related projects](#related-projects)
@@ -43,11 +51,12 @@ Other facilities (that are not directly related to `Debug`) will be added to the
 Reference in **Cargo.toml** in the usual way:
 
 ```toml
-diagnosticism = { version = "0" }
+diagnosticism = { version = "0.4" }
 ```
 
 
 ## Components
+
 
 ### Constants
 
@@ -61,27 +70,59 @@ No public enumerations are defined at this time.
 
 ### Features
 
-No public crate-specific features are defined at this time.
+The following optional features are defined in **Cargo.toml**:
+
+* `null-feature` - a feature that has no effect (and, thus, is useful for simplifying driver scripts);
+* `test-doomgram` - enables the optional `rand` dependency; required to build and run the **doomgram** example program.
 
 
 ### Functions
 
-No public functions are defined at this time.
+The following function is re-exported at the crate root (and defined in the [`diagnostics`](https://docs.rs/diagnosticism/latest/diagnosticism/diagnostics/index.html) module):
+
+* `doom_scope()` - executes a closure, records its elapsed time in a [`DoomGram`](https://docs.rs/diagnosticism/latest/diagnosticism/struct.DoomGram.html), and returns the closure's result together with the measured elapsed time (in nanoseconds). See the example [**examples/doomgram.md**](./examples/doomgram.md);
+* `nanoseconds_to_string()` - formats a nanosecond count as a compact human-readable duration string (units `ns`, `µs`, `ms`, `s` with roughly three significant digits); returns a [`NanosecondsStr`](https://docs.rs/diagnosticism/latest/diagnosticism/struct.NanosecondsStr.html); behaviour matches [**Diagnosticism.Python**](https://github.com/synesissoftware/Diagnosticism.Python) 0.16.0;
+
+For example:
+
+```rust
+use diagnosticism::nanoseconds_to_string;
+
+assert_eq!( "123.4ms", nanoseconds_to_string(123_456_789, ""));
+assert_eq!( "6.789µs", nanoseconds_to_string(      6_789, ""));
+assert_eq!("+999.7ms", nanoseconds_to_string(999_772_000, "+"));
+```
 
 
 ### Macros
 
-No public macros are defined at this time.
+The following macros are defined at the crate root (e.g. `use diagnosticism::fileline;`):
+
+* `fileline!()` - expands to the file name and line number at the call site (as a compile-time string literal);
+* `filelinefunction!()` - expands to the file name, line number, and unqualified function name at the call site;
+* `filelinefunction_fully_qualified_name!()` - expands to the file name, line number, and fully-qualified function name at the call site;
+* `function_fully_qualified_name!()` - expands to the fully-qualified name of the enclosing function;
+* `function_name_only!()` - expands to the unqualified name of the enclosing function;
+* `type_name_only!()` - expands to the unqualified name of a given type.
 
 
 ### Structures
 
-The following structures are defined:
+The following structures are re-exported at the crate root (and defined in the [`diagnostics`](https://docs.rs/diagnosticism/latest/diagnosticism/diagnostics/index.html) module):
 
 * `DebugSqueezer` - used to assist with restricting the length of `Debug` forms of fields within a given width. See the example [**examples/debug_squeezer.md**](./examples/debug_squeezer.md);
-* `DoomGram` - a **D**ecimal **O**rder-**O**f-**M**agnitude histo**G**ram structure that records efficiently duration values in the orders of magnitude 1ns+, 10ns+, 100ns+, 1µs+, ..., 10s+, 100s+ and provides a mechanism for displaying this histogram in a simple single 12-character display, which is useful for logging cumulative execution costs of components in long-running performance-sensitive applications. See the example [**examples/doomgram.md**](./examples/doomgram.md);
-* `Ellipsis` - provides strings such as `"********"` to be used for fields that are sensitive and whose `Debug` forms are not to be expressed. See the example [**examples/ellipsis.md**](./examples/ellipsis.md);
-* `Password` - Simple type that provides the string `"..."` to be used for fields whose `Debug` forms are not to be expressed. See the example [**examples/password.md**](./examples/password.md);
+* `DoomGram` - a **D**ecimal **O**rder-**O**f-**M**agnitude histo**G**ram structure that records efficiently duration values in the orders of magnitude 1ns+, 10ns+, 100ns+, 1µs+, ..., 10s+, 100s+ and provides a mechanism for displaying this histogram in a simple single 12-character display (`to_strip()`), plus compact min/mean/max duration summaries (`to_mmm()` and `to_nmmm()`), which is useful for logging cumulative execution costs of components in long-running performance-sensitive applications. See the example [**examples/doomgram.md**](./examples/doomgram.md);
+* `NanosecondsStr` - compact storage for a formatted duration string; returned by `nanoseconds_to_string()`; typical outputs fit in 15 inline UTF-8 bytes without heap allocation; implements `Display`, `Deref` to `str`, and `AsRef<str>`;
+* `Ellipsis` - provides the string `"..."` to be used for fields whose `Debug` forms are not to be expressed in terse (non-`#alternate()`) output. See the example [**examples/ellipsis.md**](./examples/ellipsis.md);
+* `Password` - provides strings such as `"********"` to be used for fields that are sensitive and whose `Debug` forms are not to be expressed. See the example [**examples/password.md**](./examples/password.md);
+
+
+#### Redacting `Debug` output (`Ellipsis` and `Password`)
+
+Both types are placeholders passed to `.field(...)` in a custom `Debug` implementation; neither inspects or transforms the real field value.
+
+* **`Ellipsis`** — prints `"..."`; use for verbose or low-value fields that should be omitted from terse `Debug` output, often together with `{:#?}` so full detail remains available in alternate form;
+* **`Password`** — prints a run of `*` characters (eight by default, configurable via `Password::new()`); use for sensitive data such as passwords, tokens, and API keys;
 
 
 ### Traits
@@ -96,16 +137,19 @@ Examples are provided in the ```examples``` directory, along with a markdown des
 
 ### Example - `DoomGram`
 
-The example program **doomgram** (in **examples** directory, built with feature `test-doomgram`), illustrates use of `DoomGram` to capture the order-of-magnitude histogram of a large number of small random delays. The program source is:
+The example program **doomgram** (in **examples** directory, built with feature `test-doomgram`), illustrates use of `DoomGram` to capture the order-of-magnitude histogram of a large number of small random delays, and to format min/mean/max duration summaries. The program source is:
 
-```Rust
+```rust
 // examples/doomgram.rs : example program illustrating use of `DoomGram`
 
-use diagnosticism::diagnostics::DoomGram;
+use diagnosticism::{
+    doom_scope,
+    DoomGram,
+};
 
 use rand::{
     rngs::StdRng,
-    RngCore,
+    Rng,
     SeedableRng,
 };
 
@@ -134,19 +178,15 @@ fn main() {
                 }
             }
 
-            let before = Instant::now();
+            doom_scope(&mut dg, || {
+                if 0 != i % 2000 {
+                    thread::sleep(Duration::from_nanos(v as u64));
+                } else {
+                    // no wait, so should be very low ns
 
-            if 0 != i % 2000 {
-                thread::sleep(Duration::from_nanos(v as u64));
-            } else {
-                // no wait, so should be very low ns
-
-                thread::sleep(Duration::from_secs(0));
-            }
-
-            let after = Instant::now();
-
-            dg.push_event_duration(after - before);
+                    thread::sleep(Duration::from_secs(0));
+                }
+            });
         }
 
         // output results on second run through
@@ -156,7 +196,19 @@ fn main() {
             let after = Instant::now();
 
             eprintln!("`#to_strip()` : {strip} (in {:?})", after - before);
-            eprintln!("");
+
+            let before = Instant::now();
+            let mmm = dg.to_mmm();
+            let after = Instant::now();
+
+            eprintln!("`#to_mmm()`   : {mmm} (in {:?})", after - before);
+
+            let before = Instant::now();
+            let nmmm = dg.to_nmmm();
+            let after = Instant::now();
+
+            eprintln!("`#to_nmmm()`  : {nmmm} (in {:?})", after - before);
+            eprintln!();
             eprintln!("dg={dg:#?}");
         }
 
@@ -169,6 +221,8 @@ and a typical output is:
 
 ```plaintext
 `#to_strip()` : _aabdedba___ (in 1.763µs)
+`#to_mmm()`   : 59ns-644µs-197.3ms (in 245ns)
+`#to_nmmm()`  : 20000:59ns-644µs-197.3ms (in 312ns)
 
 dg=DoomGram {
     event_count: 20000,
@@ -195,21 +249,21 @@ dg=DoomGram {
 }
 ```
 
-showing the exploded `Debug` form of the `DoomGram` instance and its timing strip that, for particular execution, obtains the value `"_aabdedba___"` that indicates that there have been:
+showing the exploded `Debug` form of the `DoomGram` instance, its timing strip, and compact min/mean/max summaries. For this execution, the strip obtains the value `"_aabdedba___"`, which indicates that there have been:
 - 0 events in the 1ns+, 1s+, 10s+, 100s+ magnitudes;
 - 1-9 events in 10ns+, 100ns+, 100ms+ magnitudes;
 - 10-99 events in 1µs+, 10ms+ magnitudes;
 - 1000-9999 events in 10µs+, 10ms+ magnitudes;
 - 10000-99999 events in the 100µs+ magnitude;
 
-Naturally, in a live system one would not be employing the exploded `Debug` view, relying only on the terse and efficient timing strip format.
+Naturally, in a live system one would not be employing the exploded `Debug` view, relying instead on the terse and efficient `to_strip()`, `to_mmm()`, and `to_nmmm()` formats.
 
 
 ### Example - `Ellipsis`
 
 In the example program **ellipsis** (in **examples** directory), the following types are defined to illustrate the benefit of using `Ellipsis` to provide concise `Debug` output in terse (i.e. non-`#alternate()`) form:
 
-```Rust
+```rust
 /// Large structure that provides the internals of `Thing`
 #[derive(Clone)]
 #[derive(Debug)]
@@ -268,6 +322,7 @@ Terse `Debug` form of `thing2`: Thing2 { name: "i-am-a-public-thing", internals:
 
 ## Project Information
 
+
 ### Where to get help
 
 [GitHub Page](https://github.com/synesissoftware/Diagnosticism.Rust "GitHub Page")
@@ -278,21 +333,33 @@ Terse `Debug` form of `thing2`: Thing2 { name: "i-am-a-public-thing", internals:
 Defect reports, feature requests, and pull requests are welcome on https://github.com/synesissoftware/Diagnosticism.Rust.
 
 
+### Minimum Supported Rust Version (MSRV)
+
+The declared Minimum Supported Rust Version (MSRV) for **Diagnosticism.Rust** is **1.74**.
+
+This MSRV guarantee applies to the library crate itself, its runtime dependencies (`[dependencies]`), and its build dependencies (`[build-dependencies]`). Downstream consumers compiling this crate as a dependency are guaranteed that it builds cleanly on the declared MSRV toolchain.
+
+Development dependencies (`[dev-dependencies]`, such as benchmarking frameworks like **criterion**) may require newer Rust toolchains for local development or performance testing. These dev-dependencies are never fetched or compiled by downstream consumers and do not affect the library's MSRV guarantee.
+
+
 ### Dependencies
 
-**Diagnosticism.Rust** has no (non-development) dependencies.
+* [**base-traits**](https://github.com/synesissoftware/base-traits.rs);
+
 
 #### Dev Dependencies
 
 Crates upon which **Diagnosticism.Rust** has development dependencies:
 
 * [**criterion**](https://github.com/bheisler/criterion.rs);
-* [**test_help-rs**](https://github.com/synesissoftware/test_help-rs);
 
 
 ### Related projects
 
+* [**Diagnosticism**](https://github.com/synesissoftware/Diagnosticism);
+* [**Diagnosticism.Go**](https://github.com/synesissoftware/Diagnosticism.Go);
 * [**Diagnosticism.Python**](https://github.com/synesissoftware/Diagnosticism.Python);
+* [**Diagnosticism.Ruby**](https://github.com/synesissoftware/Diagnosticism.Ruby);
 
 
 ### License
@@ -301,4 +368,3 @@ Crates upon which **Diagnosticism.Rust** has development dependencies:
 
 
 <!-- ########################### end of file ########################### -->
-

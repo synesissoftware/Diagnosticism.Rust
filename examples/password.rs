@@ -1,4 +1,4 @@
-use diagnosticism::diagnostics::Password;
+use diagnosticism::Password;
 
 use std::fmt as std_fmt;
 

@@ -31,32 +31,32 @@ fn fl_ln_fun_fqn() {
 }
 
 fn main() {
-    eprintln!("");
+    eprintln!();
     eprintln!("calling `fl()`:");
 
     fl();
 
-    eprintln!("");
+    eprintln!();
     eprintln!("calling `fun()`:");
 
     fun();
 
-    eprintln!("");
+    eprintln!();
     eprintln!("calling `fun_fqn()`:");
 
     fun_fqn();
 
-    eprintln!("");
+    eprintln!();
     eprintln!("calling `fl_ln()`:");
 
     fl_ln();
 
-    eprintln!("");
+    eprintln!();
     eprintln!("calling `fl_ln_fun()`:");
 
     fl_ln_fun();
 
-    eprintln!("");
+    eprintln!();
     eprintln!("calling `fl_ln_fun_fqn()()`:");
 
     fl_ln_fun_fqn();

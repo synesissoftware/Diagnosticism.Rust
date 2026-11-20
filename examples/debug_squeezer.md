@@ -1,4 +1,4 @@
-# Diagnosticism.Rust Example - **debug_squeezer**
+# Diagnosticism.Rust - Example - **debug_squeezer**
 
 ## Summary
 
@@ -7,14 +7,14 @@ An example using **Diagnosticism.Rust**'s `DebugSqueezer` type to simplify the `
 
 ## Source
 
-```Rust
+```rust
 // examples/debug_squeezer.rs : example program illustrating use of `DebugSqueezer`
 
 #![allow(dead_code)]
 
 // Illustrates the use of [`DebugSqueezer`].
 
-use diagnosticism::diagnostics::DebugSqueezer;
+use diagnosticism::DebugSqueezer;
 
 use std::{
     collections::{
@@ -237,4 +237,3 @@ it gives the output:
 
 
 <!-- ########################### end of file ########################### -->
-

@@ -4,7 +4,7 @@
 
 // Illustrates the use of [`DebugSqueezer`].
 
-use diagnosticism::diagnostics::DebugSqueezer;
+use diagnosticism::DebugSqueezer;
 
 use std::{
     collections::{
