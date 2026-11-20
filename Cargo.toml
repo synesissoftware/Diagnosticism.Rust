@@ -36,7 +36,7 @@ name = "diagnosticism"
 readme = "README.md"
 repository = "https://github.com/synesissoftware/Diagnosticism.Rust"
 rust-version = "1.74"
-version = "0.5.0"
+version = "0.6.0"
 
 # docs.rs builds the optional `rand`-backed example path.
 
@@ -62,7 +62,7 @@ name = "time_format"
 harness = false
 
 [[example]]
-name = "debug-squeezer"
+name = "debug_squeezer"
 path = "examples/debug_squeezer.rs"
 
 [[example]]
@@ -79,6 +79,10 @@ path = "examples/ellipsis.rs"
 [[example]]
 name = "flf"
 path = "examples/flf.rs"
+
+[[example]]
+name = "now"
+path = "examples/now.rs"
 
 [[example]]
 name = "password"
@@ -123,6 +127,10 @@ test-doomgram = [
 [dependencies]
 
 base-traits = { version = "^0", default-features = false, features = [
+]}
+chrono = { version = "*", default-features = false, features = [
+	"clock",
+	"now",
 ]}
 rand = { version = "0.10", optional = true, default-features = false, features = [
 	"std_rng",

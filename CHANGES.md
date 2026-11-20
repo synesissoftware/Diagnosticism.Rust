@@ -1,6 +1,14 @@
 # Diagnosticism.Rust - Changes <!-- omit in toc -->
 
 
+## 0.6.0 - 20th November 2026
+
+* added `diagnostics::now()` — UTC timestamp string for log lines, using **chrono**;
+* added the **now** example (**examples/now.rs**, **examples/now.md**);
+* renamed the **debug_squeezer** Cargo example target from `debug-squeezer` to `debug_squeezer`;
+* updated **base-traits** to 0.3 and **rand** to 0.10.4;
+
+
 ## 0.5.0 - 13th November 2026
 
 * added `duration_to_string()` — [`std::time::Duration`] compatibility wrapper around `nanoseconds_to_string()`;

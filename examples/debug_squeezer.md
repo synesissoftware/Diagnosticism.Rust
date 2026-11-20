@@ -216,7 +216,7 @@ fn main() {
 When executed, as in:
 
 ```bash
-$ cargo run --example debug-squeezer
+$ cargo run --example debug_squeezer
 ```
 
 it gives the output:
