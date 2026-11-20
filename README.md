@@ -78,11 +78,12 @@ The following optional features are defined in **Cargo.toml**:
 
 ### Functions
 
-The following functions are re-exported at the crate root (and defined in the [`diagnostics`](https://docs.rs/diagnosticism/latest/diagnosticism/diagnostics/index.html) module):
+The following functions are defined in the [`diagnostics`](https://docs.rs/diagnosticism/latest/diagnosticism/diagnostics/index.html) module. All except `diagnostics::now()` are also re-exported at the crate root:
 
 * `doom_scope()` - executes a closure, records its elapsed time in a [`DoomGram`](https://docs.rs/diagnosticism/latest/diagnosticism/struct.DoomGram.html), and returns the closure's result together with the measured elapsed time (in nanoseconds). See the example [**examples/doomgram.md**](./examples/doomgram.md);
 * `duration_to_string()` - formats a [`std::time::Duration`](https://doc.rust-lang.org/std/time/struct.Duration.html) as a compact human-readable duration string; compatibility wrapper around `nanoseconds_to_string()`;
 * `nanoseconds_to_string()` - formats a nanosecond count as a compact human-readable duration string (units `ns`, `µs`, `ms`, `s` with roughly three significant digits); returns a [`NanosecondsStr`](https://docs.rs/diagnosticism/latest/diagnosticism/struct.NanosecondsStr.html); behaviour matches [**Diagnosticism.Python**](https://github.com/synesissoftware/Diagnosticism.Python) 0.16.0;
+* `diagnostics::now()` - returns the current UTC time as a string, formatted with **chrono**; available from the [`diagnostics`](https://docs.rs/diagnosticism/latest/diagnosticism/diagnostics/index.html) module. See the example [**examples/now.md**](./examples/now.md);
 
 For example:
 
@@ -351,6 +352,7 @@ Development dependencies (`[dev-dependencies]`, such as benchmarking frameworks 
 ### Dependencies
 
 * [**base-traits**](https://github.com/synesissoftware/base-traits.rs);
+* [**chrono**](https://github.com/chronotope/chrono);
 
 
 #### Dev Dependencies
