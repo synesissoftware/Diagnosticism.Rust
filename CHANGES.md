@@ -1,6 +1,16 @@
 # Diagnosticism.Rust - Changes <!-- omit in toc -->
 
 
+## 0.5.0 - 13th November 2026
+
+* added `duration_to_string()` — [`std::time::Duration`] compatibility wrapper around `nanoseconds_to_string()`;
+
+
+## 0.4.6 - 4th November 2026
+
+* dependency updates;
+
+
 ## 0.4.5 - 12th September 2026
 
 * removed the Rust-specific Cursor rule superseded by shared workspace standards;
